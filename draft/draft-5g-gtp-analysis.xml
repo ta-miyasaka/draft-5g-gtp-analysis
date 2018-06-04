@@ -195,20 +195,45 @@
       </t>
     </section>
 
-    <section title="5GS Requirements for U-Plane">
-      <section title="General Requirements">
-        <t>
-        hogehoge
-        </t>
-      </section>
-      
-      <section title="User Plane Requirements">
-        <t>
-        5G Requirements for U-Plane section
-        </t>
-      </section>
+    <section title="5G Architectural Requriements on User Plane">
+       <section title="General">
+         <t>
+         The 5G system provides date connectivity and services. The functionalities on user plane assumed in 
+         are listed below:
+           <list style="numbers">
+             <t>Connection of IPv4, IPv6, Ethernet and Unstructured PDU</t>	  <!-- 3.1 -->
+             <t>UE mobility</t>	                      											  <!-- 5.3.4 -->
+             <t>Multi-homing for anchor UPFs</t>						            		  <!-- 5.6.4, 5.6.9.2.1~3 -->
+             <t>Flexible UPF selection for PDU Sessions</t>	        				  <!-- 6.3.3 -->
+             <t>QoS control</t>												                        <!-- 5.7 -->
+             <t>Policy and charging control</t>								                <!-- 5.2.6 -->
+             <t>Lawful Inspection</t>										                      <!-- 5.2.7 -->
+             <t>Identifablity</t>											                        <!-- 5.9 -->
+           </list>
+         </t>
+           
+         <t>
+         5GS is potentially defined as a service-based architecture, and PDU sessions are available to 
+         be controlled from other authorized network functions via control plane functions.
+         </t>
+           
+         <t>
+         In addition, 5GS supports network slicing concept. A network slice is a logical network structured 
+         of some of network function instances and required resources, and provides special network capabilities 
+         and network characteristics. PDU sessions are allocated to the appropriate network slice by AMF 
+         depending on their own subscription information. In each network slice, the some of functionality of 
+         5GS user plane are also provided.
+         </t>
+       </section>
+         
+       <section title="Requirements for Functionalities on User Plane">
+         <t>
+         TBD
+         </t>
+       </section>
     </section>
-
+      
+      
     <section title="Criteria">
       <t>
       TBD
