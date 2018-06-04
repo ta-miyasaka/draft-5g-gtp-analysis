@@ -79,7 +79,7 @@
 
   <front>
     <title abbrev="draft-xxx-dmm-5g-gtp-analysis-00">
-    Optimized Mobile User Plane Solutions for 5G
+    Analysis on 5G System Requirements and GTP-U Specifications
     </title>
 
     <author fullname="Satoru Matsushima" initials="S." surname="Matsushima">
@@ -149,21 +149,64 @@
   <middle>
     <section title="Introduction">
       <t>
-      Introdiction
+      This document analyzes GTP-U specifications and 5GS architectural requirements and shows the 
+      result.  GTP-U is a user plane protocol standardized in 3GPP and it is used widly in the 
+      current mobile networks defined by 3GPP. 5GS is the next generation mobile network system 
+      and it is under standardizing in 3GPP. 
+      </t>
+
+      <t>
+      The resulds would be helpful for clarifying potencial issues on GTP-U in 5G system and it 
+      would lead to improve and expand mobile user plane capability.
+      </t>
+
+      <t>
+      In addition, it is proceeded to propose several IETF technologies 
+      (<xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/>), and this document 
+      provides criteria from the analysis for evaluating GTP-U and such protocols.
       </t>
     </section>
       
+    <section title="Terms">
+      <t>
+      This document refers 3GPP 5G system and the details of terminologies of functions 
+      and interfaces described in this document are defined in <xref traget="23.501-3GPP"/> and 
+      <xref target="TS23.502-3GPP"/>.
+      </t>
 
+      <t>
+      This document mainly focuses on user plane, and this section describes the relevant 
+      functions and interfaces.
+      <list style="hanging">
+      <t hangText="hoge:">
+      hogehoge
+      </t>
+<!-- The definitions of UPF, AMF, SMF, N9, N2, and N4 should be described here. -->
+      </list>
+      </t>
+    </section>
+
+       
+     
+<!-- SH: Maybe GTP specs and 5GS req should be reorderd. -->
     <section title="GTP Specification">
       <t>
       GTP Specification section
       </t>
     </section>
 
-    <section title="5G Requirements for U-Plane">
-      <t>
-      5G Requirements for U-Plane section
-      </t>
+    <section title="5GS Requirements for U-Plane">
+      <section title="General Requirements">
+        <t>
+        hogehoge
+        </t>
+      </section>
+      
+      <section title="User Plane Requirements">
+        <t>
+        5G Requirements for U-Plane section
+        </t>
+      </section>
     </section>
 
     <section title="Criteria">
