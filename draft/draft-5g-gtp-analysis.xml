@@ -60,7 +60,8 @@
 <!-- control references --> 
 <?rfc symrefs="yes"?> 
 <!-- use symbolic references tags, i.e, [RFC2119] instead of [1] --> 
-<?rfc sortrefs="yes" ?> 
+<?rfc sortrefs="yes" ?>
+
 <!-- sort the reference entries alphabetically --> 
 <!-- control vertical white space  
      (using these PIs as follows is recommended by the RFC Editor) --> 
@@ -79,7 +80,7 @@
 
   <front>
     <title abbrev="draft-xxx-dmm-5g-gtp-analysis-00">
-    Optimized Mobile User Plane Solutions for 5G
+    TBD
     </title>
 
     <author fullname="Satoru Matsushima" initials="S." surname="Matsushima">
@@ -154,10 +155,184 @@
     </section>
       
 
-    <section title="GTP Specification">
-      <t>
-      GTP Specification section
-      </t>
+    <section title="GTPv1-U">
+      <section title="Current Selected User Plane in 5G">
+        <t>
+          3GPP RAN and CT4 decided to use GTPv1-U as the 5G user plane encapsulation protocol over N3 and N9 respectively <xref target="TS.38.300-3GPP" /> <xref target="TR.29.891-3GPP" />.
+          GTP is abbreviation of GPRS Tunneling Protocol and GTPv1-U is a user-plane specific protocol which is defined in <xref target="TS.29.281-3GPP" />. In this document unless there is no specific annotation we refer to GTPv1-U as GTP-U.
+          <xref target="fig_3GPP-5g-arch"/> shows 5G architecture which is defined by 3GPP SA2. N3 is a interface between RAN and UPF and N9 is a interface between different UPFs <xref target="TS.23.501-3GPP" />.
+        </t>
+        <figure anchor="fig_3GPP-5g-arch" title="5G System Architecture in Reference Point Representation">
+          <artwork align="center"><![CDATA[
+
+
+       +------+ +------+     +------+
+       | NSSF | | AUSF +-N13-+ UDM  |
+       +------+ +------+     +------+
+             \      |      /      \
+              N22  N12   N8        N10
+               \    |    /          \
+               +----+----+       +-------+      +------+      +------+
+   +-----------+   AMF   +- N11 -+  SMF  +- N7 -+  PCF +- N5 -+  AF  |
+   |           +++-----+++       +---+---+      +--+---+      +------+
+   |            ||     ||            |             |
+   |            ||     |+------------|----- N15 ---+
+   N1         N2|+-N14-+            N4
+   |            |                    |
++--+--+        ++-------+        +---+---+        +------+
+|  UE +-- NR --+   RAN  +-- N3 --+  UPF  +-- N6 --+  DN  |
++-----+        +--------+        ++-----++        +------+
+                                  |     |
+                                  +--N9-+
+           ]]></artwork>
+        </figure>
+        <t>
+          This section describes specifications of GTP-U and summarize the characteristic of GTP-U to see if GTP-U meets the requirements of 5G architecture in later section.
+        </t>
+      </section>
+      <section title="GTP-U Specification">
+        <section title="GTP-U Overview">
+          <t>
+            GTP-U is a tunneling protocol between GTP-U peers and encapsulate T-PDU from UE with UDP+IP. <xref target="fig_Protocol-Stack"/> shows protocol stack by GTP-U on 5G. RAN node encapsulates T-PDU with GTP-U header, IPv4 or IPv6, and UDP.
+          </t>
+          <figure anchor="fig_Protocol-Stack" title="Protocol Stack by GTPv1-U">
+            <artwork align="center"><![CDATA[
+
++-----+                     |                       |          |
+| App +---------------------|-----------------------|----------|
++-----+                     |                       | +------+ |
+| PDU +---------------------|-----------------------|-+ PDU  | |
++-----+  +---------------+  |  +-----------------+  | +------+ |
+|     |  |\             /|  |  |\               /|  | |      | |
+|     |  |  \  Relay  /  |  |  |  \    Relay  /  |  | |      | |
+|     |  |    \     /    |  |  |    \       /    |  | |GTP-U | |
+| AN  |  |     --+--     |  |  |     ---+---     |  | |      | |
+| Pro |  |AN Pro | GTP-U +--|--+ GTP-U  |  GTP-U +--|-+      | |
+| Lyrs|  | Lyrs  +-------+  |  +--------+--------+  | +------+ |
+|     +--+       |UDP/IP +--|--+ UDP/IP | UDP/IP +--|-+UDP/IP| |
+|     |  |       +-------+  |  +--------+--------+  | +------+ |
+|     |  |       |  L2   +--|--+  L2    |   L2   +--|-+  L2  | |
+|     |  |       +-------+  |  +--------+--------+  | +------+ |
+|     |  |       |  L1   +--|--+  L1    |   L1   +--|-+  L1  | |
++-----+  +-------+-------+  |  +--------+--------+  | +------+ |
+  UE            RAN          N3        UPF          N9         N6
+                                                         UPF
+                                                 (PDU Session Anchor)
+ ]]></artwork>
+          </figure>
+          <t>
+            <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U header.
+            The Tunnel Endpoint ID (TEID) which is present in the GTP-U header shall indicate which tunnel a particular T-PDU belongs to. The TEID values are exchanged between tunnel endpoints using control plane message like PFCP.
+            The extension GTP-U header is a variable and extendable header and contains 3GPP specific information which is listed in <xref target="fig_GTP-U_Ext_Hdr_List" />
+
+            <figure anchor="fig_GTP-U_header" title="GTP-U Header">
+            <artwork align="center"><![CDATA[
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Ver |P|R|E|S|N| Message Type|             Length              |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                Tunnel Endpoint Identifier                     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |      Sequence Number        |   N-PDU Number  |  Next-Ext-Hdr |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ o Ver: Version field (Set to '1')
+ o P: Protocol Type (Set to '1')
+ o R: Reserved bit (Set to '0')
+ o E: Extension Header Flag (Set to '1' if extension header exists)
+ o S: Sequence Number Flag (Set to '1' if sequence number exists)
+ o N: N-PDU Number Flag (Set to '1' if N-PDU number exists)
+ o Message Type: Indicates the type of GTP-U message
+ o Length: Indicates the length in octets of the payload
+ o Tunnel Endpoint Identifier (TEID)
+ o Sequence Number: Indicates increasing sequence number for T-PDUs is transmitted via GTP-U tunnels
+ o N-PDU Number: It is used only for inter SGSN, 2G-3G handover case, etc.
+ o Next-Ext-Hdr: Indicates following extension header type
+
+]]></artwork>
+          </figure>
+
+            <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
+            <artwork align="center"><![CDATA[
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | Ext-Hdr Length|                                               |
+ +-+-+-+-+-+-+-+-+                                               |
+ |                  Extension Header Content                     |
+ .                                                               .
+ .                                               +-+-+-+-+-+-+-+-+
+ |                                               |  Next-Ext-Hdr |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ o Ext-Hdr Length: The length of the Extension header shall be defined in a variable length of 4 octets
+ o Extension Header Content: Contains 3GPP related information
+ o Next-Ext-Hdr: Indicates following extension header type
+
+]]></artwork>
+          </figure>
+
+            <figure anchor="fig_GTP-U_Ext_Hdr_List" title="Definition of Extension Header Type">
+            <artwork align="center"><![CDATA[
+
+ +-----------------------------------+--------------------------------+
+ | Next Extension Header Field Value | Type of Extension Header       |
+ +-----------------------------------+--------------------------------+
+ |           0000 0000               | No more extension headers      |
+ +-----------------------------------+--------------------------------+
+ |           0000 0001               | Reserved - Control Plane only  |
+ +-----------------------------------+--------------------------------+
+ |           0000 0010               | Reserved - Control Plane only  |
+ +-----------------------------------+--------------------------------+
+ |           0010 0000               | Service Class Indicator        |
+ +-----------------------------------+--------------------------------+
+ |           0100 0000               | UDP Port                       |
+ +-----------------------------------+--------------------------------+
+ |           1000 0001               | RAN Container                  |
+ +-----------------------------------+--------------------------------+
+ |           1000 0010               | Long PDCP PDU Number           |
+ +-----------------------------------+--------------------------------+
+ |           1000 0011               | Xw RAN Container               |
+ +-----------------------------------+--------------------------------+
+ |           1000 0100               | NR RAN Container               |
+ +-----------------------------------+--------------------------------+
+ |           1000 0101               | PDU Session Container          |
+ +-----------------------------------+--------------------------------+
+ |           1100 0000               | PDCP PDU Number                |
+ +-----------------------------------+--------------------------------+
+ |           1100 0001               | Reserved - Control Plane only  |
+ +-----------------------------------+--------------------------------+
+ |           1100 0010               | Reserved - Control Plane only  |
+ +-----------------------------------+--------------------------------+
+
+]]></artwork>
+          </figure>
+          </t>
+        </section>
+      <section title="Observations on GTP-U Specification">
+        <t>
+          GTP-U-1 : GTP-U is a Point-to-Point tunneling protocol
+        </t>
+        <t>
+          GTP-U-2 : GTP-U supports Point-to-Multipoint tunneling
+        </t>
+        <t>
+          GTP-U-3 : GTP-U does not support UDP zero checksum in IPv6 transport case
+        </t>
+        <t>
+          GTP-U-4 : GTP-U endpoint does not support to response ICMP PTB for PMTUD
+        </t>
+        <t>
+          GTP-U-5 : GTP-U supports load balancing by using dynamic UDP port allocation
+        </t>
+        <t>
+          GTP-U-6 : GTP-U has an active OAM mechanism to support connectivity check per UDP source port basis
+        </t>
+        <t>
+          GTP-U-7 : GTP-U has no indication of next-header type
+        </t>
+      </section>
+    </section>
     </section>
 
     <section title="5G Requirements for U-Plane">
