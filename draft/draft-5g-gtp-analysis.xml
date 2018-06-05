@@ -213,7 +213,7 @@
          </t>
            
          <t>
-         5GS is potentially defined as a service-based architecture, and PDU sessions are available to 
+         5G system is potentially defined as a service-based architecture, and PDU sessions are available to 
          be controlled from other authorized network functions via control plane functions.
          </t>
            
@@ -234,7 +234,11 @@
            </t>
            
            <t hangText=UE mobility:">
-           5G system supports mobility restriction and mobility pattern.
+           5G system must support mobility management of UEs. For optimizing a data path to/from a UE, 
+           some forwarding logic depending on the location of a UE might be required. In the current 
+           mobile network, a P-GW which is an anchor point terminates GTP-U tunnels from UEs and passes 
+           packets from a UE to GTP-U tunnel of another UE. It's possible to cause latency and inefficiencies on 
+           traffic forwarding.
            </t>
            
            <t hangText="Multi-homing for anchor UPFs:">
@@ -251,11 +255,11 @@
          
            <t hangText="QoS control:">
            5G system enables UPF to handle multiprex QoS flows in one single PDU session. For QoS control on transport network, 
-           QoS class information  should be contented in outer IP or Ethernet header(e.g., DSCP and CoS value).
+           QoS class information should be contented in outer IP or Ethernet header(e.g., DSCP and CoS value).
            </t>
          
            <t hangText="Policy and charging control">
-           5G manages policies of PDU sessions depending on their subscription or charging information. In case that 
+           5G system manages policies of PDU sessions depending on their subscription or charging information. In case that 
            multiple andhor UPFs enforce processes to a PDU session, its policy should be shared with such UPFs.
            </t>
          
