@@ -225,7 +225,7 @@
          5GS user plane are also provided.
          </t>
        </section>
-         
+ <!--        
        <section title="Requirements for Functionalities on User Plane">
          <t>
          <list style="hanging">
@@ -278,7 +278,143 @@
          </t>
        </section>
     </section>
+ -->
+
+    <section title="5G System Requirements>
+  
+      <section title="Overview">
+<!-- 
+・5GSは3GPPで標準化が進められている次世代モバイルネットワーク。
+・多様化するサービスへの対応が可能なよう設計されている。
+・本章では、5GSが持つUPPへの要求条件を以下3つの観点から分析する。
+  - サービス観点
+  - アーキテクチャ観点
+  - UPFが具備する機能
+-->
+
+        <t>
+        The 5G System is the next generation mobile network, and it's architecture and 
+        specifications are under standardization in 3GPP. The 5G System is designed for 
+        applying to diverse devices and services.
+        </t>
+    
+        <t>
+        This section analyzes requirements for user plane protocols on 5G system from 
+        the following aspects:
+          <list style="symbols">
+          <t>Service Aspects</t>
+          <t>Architectural Aspects</t>
+          <t>Functionalities of UPF</t>
+          </list>
+        </t>
+    
+        <t>
+        <xref target="TS23.501-3GPP"/> and <xref target="TS22.261-3GPP"/> describe 
+        a whole of service requriemnts for 5G system and the architectural specifications.
+        </t>
+      </section>
+
+      <section title="Service Aspects">
+
+<!--
+・異なるサービス、トラフィック負荷、エンドユーザコミュニティを最適にサポート
+→以下を同時にサポートする
+  - reliability
+  - latency
+  - throughput
+  - positioning
+  - availability
+・5GSはIoTやエンタープライズ管理のネットワークなど、新規のサービスも提供可能とする
+  Flexibilityを有する。
+・Flexibilityを提供するCapabilityは、以下を含む。
+  - network slicing
+  - network capability exposure
+  - scalability
+  - diverse mobility
+・また、潜在的な要求として、マイグレーションをサポートする必要がある。
+-->
+
+
+        <section title="Capability Requirements">
+  
+<!--
+・5G Systemが想定するサービス提供のためのCapabilityに関し、UPPに関連する事項を抽出し、
+  以下に記載する。
+・Migration to 5G
+→TBD（UPPに対する要件がない場合は削除）
+・Network slicing
+  - The 5G system shall allow the operator to create, modify and delet a network slice.
+    →NF間のLinkの張り直しが容易
+  - UEのスライスへのattach、chane、deattach
+    →？？
+  - Isolation
+    →QoS、Priority control
+  - Scailing 
+    →スループット、セッション数等
+・Diverse mobility managemnt
+  - 以下の各種モビリティをサポート
+    ・Statinary during their entire usable life
+    ・Statinary during active period, but nomadic between adtivations
+    ・mobile within a constrained and well-defined space
+    ・full mobility
+  →従来のTenporalyなモビリティ管理に加え、Statinaryな管理が求められる
+・Multiple access technologies
+  →各種アクセスネットワークへの接続が容易
+・Resource efficiency
+  - control/user planesの
+  - Efficient bulk operations and management for IoT
+  →単一トンネルへの複数端末の収容
+・Efficient user plane
+  - 以下をパフォーマンスを満たす
+    ・High throughput
+    ・Low latency
+    ・massive connection
+  - 以下のトラフィックモデルをサポート
+    ・IP data traffic
+    ・non-IP data traffic
+    ・short data bursts
+    ・high throughput data transmission
+  - 要求QoS、QoEの提供
+  ＃ここで言われているのは、いわゆるのQoS制御ではなく、
+  ＃UE-APLサーバ間の通信（特に通信中の移動）における通信品質について
+・Efficient content delivery
+  ＃いわゆるCache配信
+・Priority, QoS, and policy control
+  - 地域/国ごとの正規サービス（MPS/Multimedia priority service, Emergency，
+    Public Safety）のための優先制御
+・Dynamic Policy control
+  - 通信中でのポリシー変更が可能
+  →宛先変更や優先制御のクラス変更等が通信中に動的に行える必要がある
+  ＃UPPへの要求とは言えないかも。
+・Connectibity model
+  - 様々な接続モデルを提供
+    ・UEが直接接続
+    ・UEが別のUEを介して接続
+    ・等
+  ＃特にUPPへの要求はなさそう？
+・Network capability exposure
+  - APIによる外部からの操作性
+・Context aware network
+  - ネットワークコンディション（負荷、輻輳等）に基づく効率化
+・Self backhaul
+  →特になさそう？
+
+＃以降のCapabilityも直接UPPへの要求を持つものはなさそう。
+-->
+      </section>
       
+      <section title="Architectural aspect">
+        <t> 
+        TBD #シートから抜粋                                  
+        </t>
+      </section>
+                                           
+      <section title="Functionalites on UP">
+        <t>
+        TBD #シートから抜粋
+        </t>
+      </section>
+　　</section>
       
     <section title="Criteria">
       <t>
