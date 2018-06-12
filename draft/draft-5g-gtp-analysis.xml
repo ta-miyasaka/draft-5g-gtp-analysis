@@ -6,8 +6,8 @@
      There has to be one entity for each item to be referenced.  
      An alternate method (rfc include) is described in the references.
 -->
+<!--
 <!ENTITY RFC1027 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.1027.xml">
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2234.xml">
 <!ENTITY RFC3513 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3513.xml">
 <!ENTITY RFC4861 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4861.xml">
@@ -42,6 +42,9 @@
 <!ENTITY I-D.draft-herbert-ila-ilamp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-herbert-ila-ilamp-00.xml">
 <!ENTITY I-D.draft-lapukhov-bgp-ila-afi SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-lapukhov-bgp-ila-afi-02.xml">
 <!ENTITY I-D.draft-homma-dmm-5gs-id-loc-coexistence SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-homma-dmm-5gs-id-loc-coexistence-01.xml">
+-->
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -80,7 +83,7 @@
 
   <front>
     <title abbrev="draft-xxx-dmm-5g-gtp-analysis-00">
-    TBD
+    Analysis on 5G System Requirements and GTP-U Specifications
     </title>
 
     <author fullname="Satoru Matsushima" initials="S." surname="Matsushima">
@@ -142,7 +145,8 @@
 
     <abstract>
       <t>
-      Abstract
+      This document analyze GTP-U specifications and the architectural requirements of the 5G system, 
+      and provides criteria for protocol study of user plane on 5G system.
       </t>
     </abstract>
   </front>
@@ -150,10 +154,61 @@
   <middle>
     <section title="Introduction">
       <t>
-      Introdiction
+      This document analyzes GTP-U specifications and 5GS architectural requirements and shows the 
+      result.  GTP-U is a user plane protocol standardized in 3GPP and it is used widly in the 
+      current mobile networks defined by 3GPP. 5GS is the next generation mobile network system 
+      and it is under standardizing in 3GPP. 
+      </t>
+
+      <t>
+      The resulds would be helpful for clarifying potencial issues on GTP-U in 5G system and it 
+      would lead to improve and expand mobile user plane capability.
+      </t>
+
+      <t>
+      In addition, it is proceeded to propose several IETF technologies 
+      (<xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/>), and this document 
+      provides criteria from the analysis for evaluating GTP-U and such protocols.
       </t>
     </section>
       
+    <section title="Terms">
+      <t>
+      This document refers the terminologies of functions and interfaces defined in 
+      <xref target="TS.23.501-3GPP"/> and <xref target="TS.23.502-3GPP"/>.
+      </t>
+
+      <t>
+      This document mainly focuses on UPP, and this section describes terminologies of functions and 
+      interfaces relevant to UPP.
+      <list style="hanging">
+        <t hangText="PDU session:">
+        Association between the UE and a Data Network that provides a PDU connectivity service.
+        </t>
+
+        <t hangText="User Plane Fuction (UPF):">
+        An UPF handles the PDU sessions. An UPF is connected to SMF with N4 interface. The 5G system allows 
+        to deploy two types of UPF; central UPF and local UPF. More detailed information is described in 
+        <xref target="TS.23.501-3GPP"/>. 
+        </t>
+
+        <t hangText="Radio Access Network (RAN):">
+        A RAN is an access network where radio bearer sent by UEs traverse. A RAN encapsulate users' packets 
+        with any encapsulation such as GTP-U.
+        </t>
+
+        <t hangText="Session Management Fuction (SMF):">
+        An SMF is a function which provides control plane functionalities for handling PDU sessions.
+        </t>
+
+<!-- You can add terminologies which are important in this document -->
+
+      </list>
+      </t>
+    </section>
+
+       
+     
 
     <section title="GTPv1-U">
       <section title="Current Selected User Plane in 5G">
@@ -335,12 +390,146 @@
     </section>
     </section>
 
-    <section title="5G Requirements for U-Plane">
-      <t>
-      5G Requirements for U-Plane section
-      </t>
-    </section>
 
+    <section title="5GS Architectural Requriements for User Plane Protocols">
+
+      <section title="Overview of 5G System Architecture">
+      <t>
+      The 5G system is designed for applying to diverse devices and services such, and the UPP is 
+      required to have capabilities for saticefying their requirements. For example, a 5G system is expected to 
+      provide the feasibility includes network slicing, network capability exposure, etc. (Ref. 
+      <xref target="TS.22.261-3GPP"/>)
+      </t>
+    
+      <t>
+      The 5G system is defined as a service-based architecture, and PDU sessions are available to be controlled 
+      from other authorized network functions via control plane functions. The architecture overview is shown in 
+      <xref target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in <xref target="TS.23.501-3GPP"/>.
+      </t>
+
+<figure anchor="fig_3GPP-5GS-ARCH"
+        title="5GS Architecture and Service-based Interfaces">
+  <artwork><![CDATA[
+
+
+   +-----+  +-----+  +-----+     +-----+  +-----+  +-----+
+   |NSSF |  | NEF |  | NRF |     | PCF |  | UDM |  | AF  |
+   +--+--+  +--+--+  +--+--+     +--+--+  +--+--+  +--+--+
+ Nnssf|    Nnef|    Nnrf|       Npcf|    Nudm|        |Naf
+   ---+--------+--+-----+--+--------+--+-----+--------+-
+             Nausf|    Namf|       Nsmf|
+               +--+--+  +--+--+     +--+--+
+               |AUSR |  | AMF |     | SMF |
+               +-----+  +--+--+     +-----+
+                          /|           |
+Control Plane          N1/ |N2         |N4
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+User Plane            /    |           |
+                  N1 /     |N2         |N4
+                    /      |           |
+                 +-+-+  +--+--+ N3  +--+--+ N6  +----+
+                 |UE +--+(R)AN+-----+ UPF +-----+ DN |
+                 +---+  +-----+     ++--+-+     +----+
+                                     |  |
+                                     +--+
+                                      N9
+
+
+ ]]></artwork>
+</figure>
+
+<!-- Should we add a figure of protocol stacks? -->
+
+
+      <t>
+      This document mainly focuses on requirements for N9 interface as relevant to UPP of 5G system.
+      </t>
+      </section>
+
+
+      <section title="Architectural Requirements for User Plane Protocols">
+      <t>
+      This section lists the requirements for the UPP on the 5G system. The requirements are picked 
+      up from <xref target="TS.23.501-3GPP"/>. In addition, some of service requirements described in 
+      <xref target="TS.22.261-3GPP"/> are referred to clarify the originations of architectural requirements.
+      </t>
+    
+      <t>
+      According to <xref target="TS.23.501-3GPP"/>, the specifications potentially have assumptions that the user 
+      plane protocol is a tunnel representing a single TEID between a pair of UPFs and it is corresponding to a 
+      single PDU session. In short, the UPP is a tunnel and it is assumed to be managed under per 
+      PDU session handling. Also, it should be a stateful tunnel in the UPFs along with the PDU session.
+      </t>
+    
+      <t>
+      The requirements for UPPs are described below:
+      </t>
+        
+      <t>
+      <list style="hanging">
+        <t hangText="ARCH-Req-1:">
+        IPv4, IPv6, Ethernet and Unstructured Packet Data Unit (PDU) are supported in the 5G system. 
+        In short, UPP must support all of these PDU session types. This is refered in the section 3.1 of 
+        <xref target="TS.23.501-3GPP"/>.
+        </t>
+    
+        <t hangText="ARCH-Req-2:">
+        The 5G system allows to deploy multiple UPFs as anchors for a single PDU session, and a single PDU session 
+        supports multi-homing for such anchor UPFs. Thus, UPP should be a multipoint-to-point tunnel in UL/DL to 
+        support the case of multihoming with a single PDU session. As examples of use cases that use multi-homing for 
+        a single PDU session, SSC Mode 1 and 2 described in the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
+        Corresponding to specifications of SSC Mode 1 and 2, multi-homing for Ethernet type PDU session.
+        </t>
+    
+        <t hangText="ARCH-Req-3:">
+        The 5G system potentially supports flexible UPF selection for PDU compared to persistent S/P-GW in 4G. The 
+        appropriate UPFs are selected for a PDU session based on parameters and information such as UPF's dynamic 
+        load or UE location information. Examples of parameters and information are described in the section 6.3.3 
+        of <xref target="TS.23.501-3GPP"/>.
+        </t>
+    
+        <t hangText="ARCH-Req-4:">
+        There's no limitation for number of UPFs in a data plane path. This specification is described in the section 
+        8.3.1 of <xref target="TS.23.501-3GPP"/>. Putting multiple UPFs in a data path enables 
+        to deploy functions as Application Function required through the path. In addition, putting multiple UPFs 
+        as anchors closed to UEs' site may enable to make data path more efficient. This usage is refered in the 6.5 of 
+        <xref target="TS.22.261-3GPP"/>. It is exptected that multiple UPFs with per session tunnel handling for a PDU 
+        session becomes complicated task more and more for a SMF by increasing number of UPFs, and UPP shall support to 
+        aggregate several PDU sessions into a tunnel or shall be a session-less tunnel.
+        </t>
+    
+        <t hangText="ARCH-Req-5:">
+        A PDU session is able to aggregate multiple QoS Flow indicated with QFI. Against to the previous generation, 
+        5G enables UPF to multiprex QoS Flows, equivarent with IP-CAN bearers in  the previous generation, into one 
+        single PDU session. That means that a single tunnel includes multiple QFIs contrast to just one QoS Flow 
+        (a bearer) to one tunnel before 5G. This specification is described in 5.7.1 of <xref target="TS.23.501-3GPP"/>.
+        </t>
+    
+        <t hangText="ARCH-Req-6:">
+        A unique identifier in a 5G network is allocated to each UE, and its PDU sessions are handled based on the 
+        identifiable information such as subscription information. There are cases where a PDU session traverses 
+        multiple UPFs and enforced some processes at each UPF. This means that each UPF is required to identify the 
+        same PDU session and looks up the poilcy rules. For avoiding this redandant identifications, UPP might be 
+        required to convey identifiers represeinting several types of information. The specification regarding to 
+        identifiers is described in the section 5.9 of <xref target="TS.23.501-3GPP"/>.
+        </t>
+    
+        <t hangText="ARCH-Req-7:">
+        UPF supports several functionalities for handling PDU sessions, and some of them potentially have requiremts 
+        for UPP. For example, UPF supports packet routing and forwarding includes support of multi-homed PDU session. 
+        Also, UPF support QoS handling for user plane, e.g., UL/DL rate enforcement or QoS marking in DL, and UPP 
+        should be able to present QoS class with DSCP or CoS in the outer most header. The functionalities of UPF is 
+        described in the section 6.2.3 of <xref target="TS.23.501-3GPP"/>.
+        </t>
+ <!-- Any more requirements? -->
+                                                                        
+      </list>
+      </t>
+      </section>
+    </section>
+                                          
+      
     <section title="Criteria">
       <t>
       TBD
@@ -371,12 +560,10 @@
     <references title="Normative References">
     
     &RFC2119;
-    &I-D.draft-herbert-intarea-ila;
-    &I-D.draft-herbert-ila-ilamp;
     </references>
     
     <references title="Informative References">
-    
+<!--    
     &RFC1027;
     &RFC2234;
     &RFC3513;
@@ -420,7 +607,8 @@
         <date/>
         </front>
       </reference>
-
+-->
+    &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
 
       <reference anchor='TR.29.891-3GPP'>
         <front>
@@ -529,7 +717,18 @@
         <date month="December" year="2017"/>
         </front>
       </reference>
-
+      
+      <reference anchor='TS.22.261-3GPP'>
+        <front>
+        <title>Service requirements for 5G system stage 1, 3GPP TS 22.261 v15.4.0</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="March" year="2018"/>
+        </front>
+      </reference>
     </references>
 
 
