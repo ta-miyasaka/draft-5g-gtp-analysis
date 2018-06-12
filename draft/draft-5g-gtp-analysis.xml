@@ -75,31 +75,17 @@
 <!-- end of list of popular I-D processing instructions --> 
 
 
-<rfc category="info" docName="draft-xxx-dmm-5g-gtp-analysis-00">
+<rfc category="info" docName="draft-hmm-dmm-5g-uplane-analysis">
   <!-- ***** FRONT MATTER ***** --> 
 
 
 
 
   <front>
-    <title abbrev="draft-xxx-dmm-5g-gtp-analysis-00">
-    Analysis on 5G System Requirements and GTP-U Specifications
+    <title abbrev="draft-hmm-dmm-5g-uplane-analysis-00">
+    User Plane Protocol and Architectural Analysis on 3GPP 5G System
     </title>
 
-    <author fullname="Satoru Matsushima" initials="S." surname="Matsushima">
-      <organization>Softbank</organization>
-
-      <address>
-        <postal>
-          <street/>
-          <city/>
-          <region/>
-          <code/>
-          <country/>
-        </postal>
-        <email>satoru.matsushima@g.softbank.co.jp</email>
-      </address>
-    </author>
 
 
     <author fullname="Shunsuke Homma" initials="S." surname="Homma">
@@ -133,9 +119,23 @@
       </address>
     </author>
     
+    <author fullname="Satoru Matsushima" initials="S." surname="Matsushima">
+      <organization>SoftBank</organization>
+
+      <address>
+        <postal>
+          <street/>
+          <city/>
+          <region/>
+          <code/>
+          <country/>
+        </postal>
+        <email>satoru.matsushima@g.softbank.co.jp</email>
+      </address>
+    </author>
 
     
-    <date day="31" month="May" year="2018"/>
+    <date year="2018"/>
 
     <area>Internet Area</area>
 
@@ -144,10 +144,14 @@
     <keyword>I-D</keyword>
 
     <abstract>
-      <t>
-      This document analyze GTP-U specifications and the architectural requirements of the 5G system, 
-      and provides criteria for protocol study of user plane on 5G system.
-      </t>
+        <t>
+            This document analyzes the mobile user plane protocol and the
+            architecture specified in 3GPP 5G documents. The analysis work is to
+            clarify those specifications and to extract protocol and
+            architectural requirements in terms of user plane from IETF side
+            that is corresponding to the User Plane Protocol Study work on 3GPP
+            side.
+        </t>
     </abstract>
   </front>
 
