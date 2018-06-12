@@ -8,7 +8,6 @@
 -->
 <!--
 <!ENTITY RFC1027 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.1027.xml">
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC2234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2234.xml">
 <!ENTITY RFC3513 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3513.xml">
 <!ENTITY RFC4861 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4861.xml">
@@ -44,6 +43,7 @@
 <!ENTITY I-D.draft-lapukhov-bgp-ila-afi SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-lapukhov-bgp-ila-afi-02.xml">
 <!ENTITY I-D.draft-homma-dmm-5gs-id-loc-coexistence SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-homma-dmm-5gs-id-loc-coexistence-01.xml">
 -->
+<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
 
 ]> 
@@ -174,7 +174,7 @@
     <section title="Terms">
       <t>
       This document refers the terminologies of functions and interfaces defined in 
-      <xref traget="TS.23.501-3GPP"/> and <xref target="TS.23.502-3GPP"/>.
+      <xref target="TS.23.501-3GPP"/> and <xref target="TS.23.502-3GPP"/>.
       </t>
 
       <t>
@@ -230,7 +230,7 @@
       The 5G system is defined as a service-based architecture, and PDU sessions are available to be controlled 
       from other authorized network functions via control plane functions. The architecture overview is shown in 
       <xref target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in <xref target="TS.23.501-3GPP"/>.
-      <t>
+      </t>
 
 <figure anchor="fig_3GPP-5GS-ARCH"
         title="5GS Architecture and Service-based Interfaces">
@@ -277,7 +277,7 @@ User Plane            /    |           |
       <t>
       This section lists the requirements for the UPP on the 5G system. The requirements are picked 
       up from <xref target="TS.23.501-3GPP"/>. In addition, some of service requirements described in 
-      <xref target="TS22.261-3GPP"/> are referred to clarify the originations of architectural requirements.
+      <xref target="TS.22.261-3GPP"/> are referred to clarify the originations of architectural requirements.
       </t>
     
       <t>
@@ -385,8 +385,6 @@ User Plane            /    |           |
     <references title="Normative References">
     
     &RFC2119;
-    &I-D.draft-herbert-intarea-ila;
-    &I-D.draft-herbert-ila-ilamp;
     </references>
     
     <references title="Informative References">
