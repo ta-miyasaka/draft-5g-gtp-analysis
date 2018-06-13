@@ -158,21 +158,52 @@
   <middle>
     <section title="Introduction">
       <t>
-      This document analyzes GTP-U specifications and 5GS architectural requirements and shows the 
-      result.  GTP-U is a user plane protocol standardized in 3GPP and it is used widly in the 
-      current mobile networks defined by 3GPP. 5GS is the next generation mobile network system 
-      and it is under standardizing in 3GPP. 
+        This document analyzes the mobile user plane protocol and the
+        architecture specified by 3GPP 5G documents. The background of the work
+        is that 3GPP requests through a liaison statement that the IETF to
+        provide any information for the User Plane Protocol Study work in 3GPP
+        <xref target="CP-180116-3GPP"/>. Justification and the objectives of the
+        study can be found from <xref target="CP-173160-3GPP"/>.
+      </t>
+      
+      <t>
+        To provide adequate information for 3GPP, we need to clearly understand
+        what the current user plane protocol in 5G is, and architectural
+        requirements for the user plane.  As the liaison statement indicates 3GPP
+        specifications related to user plane, those documents set should be a
+        good start point to clarify their specifications and to extract protocol
+        and architectural requirements from them.
+      </t>
+    
+      <t>
+        First, we analyze <xref target="TS.29.281-3GPP">GTP-U</xref> for
+        clarifying it as the current user plane protocol in the 5G system. <xref
+        target="TR.29.891-3GPP"/> describes how GTP-U is selected as the user
+        plane protocol for 5G in 3GPP. GTP-U has been developed by 3GPP from
+        previous generations, and it is widely deployed in existing mobile
+        service networks.  Clarified characteristics of the protocol are
+        described in <xref target="gtp-u"/>. 
+      </t>
+      
+      <t>
+        Then, to clarify what are required to the user plane protocol in
+        architecture level, we analyze <xref target="TS.23.501-3GPP"/> as the
+        5G system architecture specification. <xref target="TS.23.502-3GPP"/> is
+        the specification of system procesures that helps us to understand how
+        the system works in the architecture. <xref target="TS.23.503-3GPP"/> is
+        also helpful to find the role of user plane in the architecture that
+        influences user plane protocol. Extracted architectural requirements are
+        described in <xref target="arch"/>.
       </t>
 
       <t>
-      The resulds would be helpful for clarifying potencial issues on GTP-U in 5G system and it 
-      would lead to improve and expand mobile user plane capability.
-      </t>
-
-      <t>
-      In addition, it is proceeded to propose several IETF technologies 
-      (<xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/>), and this document 
-      provides criteria from the analysis for evaluating GTP-U and such protocols.
+        Based on the results of above, we finally figure out an idea of
+        evaluation criteria for user plane protocols in <xref
+        target="criteria"/>. That's we intend to be as a part of the reply to
+        3GPP. CT4 WG in 3GPP can utilize it as an input to evaluate the
+        candidate protocols for user plane to the 5G system including current
+        protocol. <xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/>
+        will provide the candidate protocols on IETF side to the 3GPP study.
       </t>
     </section>
       
@@ -214,7 +245,7 @@
        
      
 
-    <section title="GTPv1-U">
+    <section anchor="gtp-u" title="GTPv1-U">
       <section title="Current Selected User Plane in 5G">
         <t>
           3GPP RAN and CT4 decided to use GTPv1-U as the 5G user plane encapsulation protocol over N3 and N9 respectively <xref target="TS.38.300-3GPP" /> <xref target="TR.29.891-3GPP" />.
@@ -395,7 +426,7 @@
     </section>
 
 
-    <section title="5GS Architectural Requriements for User Plane Protocols">
+    <section anchor="arch" title="5GS Architectural Requriements for User Plane Protocols">
 
       <section title="Overview of 5G System Architecture">
       <t>
@@ -534,7 +565,7 @@ User Plane            /    |           |
     </section>
                                           
       
-    <section title="Criteria">
+    <section anchor="criteria" title="Criteria">
       <t>
       TBD
       </t>
@@ -733,6 +764,31 @@ User Plane            /    |           |
         <date month="March" year="2018"/>
         </front>
       </reference>
+
+      <reference anchor='CP-180116-3GPP'>
+        <front>
+        <title>LS on user plane protocol study</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="March" year="2018"/>
+        </front>
+      </reference>
+
+      <reference anchor='CP-173160-3GPP'>
+        <front>
+        <title>New Study Item on User Plane Protocol in 5GC</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="December" year="2017"/>
+        </front>
+      </reference>
+
     </references>
 
 
