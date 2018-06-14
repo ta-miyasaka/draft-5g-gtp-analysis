@@ -79,7 +79,7 @@
 
 
   <front>
-    <title abbrev="draft-xxx-dmm-5g-gtp-analysis-00">
+    <title abbrev="draft-hmm-dmm-5g-gtp-analysis-00">
     TBD
     </title>
 
@@ -156,75 +156,62 @@
       
 
     <section title="GTPv1-U">
-      <section title="Current Selected User Plane in 5G">
+      <section title="Current Status of Mobile User Plane for 5G">
         <t>
-          3GPP RAN and CT4 decided to use GTPv1-U as the 5G user plane encapsulation protocol over N3 and N9 respectively <xref target="TS.38.300-3GPP" /> <xref target="TR.29.891-3GPP" />.
-          GTP is abbreviation of GPRS Tunneling Protocol and GTPv1-U is a user-plane specific protocol which is defined in <xref target="TS.29.281-3GPP" />. In this document unless there is no specific annotation we refer to GTPv1-U as GTP-U.
-          <xref target="fig_3GPP-5g-arch"/> shows 5G architecture which is defined by 3GPP SA2. N3 is a interface between RAN and UPF and N9 is a interface between different UPFs <xref target="TS.23.501-3GPP" />.
+          GTP is abbreviation of GPRS Tunneling Protocol and GTPv1-U is a user-plane specific protocol which is defined in <xref target="TS.29.281-3GPP" />.
+          Unless there is no specific annotation, we refer to GTPv1-U as GTP-U in this document.
         </t>
-        <figure anchor="fig_3GPP-5g-arch" title="5G System Architecture in Reference Point Representation">
-          <artwork align="center"><![CDATA[
-
-
-       +------+ +------+     +------+
-       | NSSF | | AUSF +-N13-+ UDM  |
-       +------+ +------+     +------+
-             \      |      /      \
-              N22  N12   N8        N10
-               \    |    /          \
-               +----+----+       +-------+      +------+      +------+
-   +-----------+   AMF   +- N11 -+  SMF  +- N7 -+  PCF +- N5 -+  AF  |
-   |           +++-----+++       +---+---+      +--+---+      +------+
-   |            ||     ||            |             |
-   |            ||     |+------------|----- N15 ---+
-   N1         N2|+-N14-+            N4
-   |            |                    |
-+--+--+        ++-------+        +---+---+        +------+
-|  UE +-- NR --+   RAN  +-- N3 --+  UPF  +-- N6 --+  DN  |
-+-----+        +--------+        ++-----++        +------+
-                                  |     |
-                                  +--N9-+
-           ]]></artwork>
-        </figure>
         <t>
-          This section describes specifications of GTP-U and summarize the characteristic of GTP-U to see if GTP-U meets the requirements of 5G architecture in later section.
+          3GPP RAN and CT4 decided to use GTP-U as the 5G user plane encapsulation protocol over N3 and N9
+          respectively <xref target="TS.38.300-3GPP" /> <xref target="TR.29.891-3GPP" />.N3 is a interface between RAN and UPF and N9 is a interface between different UPFs <xref target="TS.23.501-3GPP" />.
+          This section describes specifications of GTP-U and summarize the characteristic of GTP-U to see if GTP-U meets the requirements of 5G architecture for user plane in later section.
         </t>
       </section>
       <section title="GTP-U Specification">
-        <section title="GTP-U Overview">
+        <section title="GTP-U Tunnel">
           <t>
-            GTP-U is a tunneling protocol between GTP-U peers and encapsulate T-PDU from UE with UDP+IP. <xref target="fig_Protocol-Stack"/> shows protocol stack by GTP-U on 5G. RAN node encapsulates T-PDU with GTP-U header, IPv4 or IPv6, and UDP.
+            GTP-U is a tunneling protocol between GTP-U peers and encapsulate T-PDU from UE with UDP+IP. <xref target="fig_Protocol-Stack"/> shows an example for protocol stack of GTP-U.
+            RAN node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP. In this example there are two GTP-U tunnel : (1) GTP-U Tunnel between RAN and UPF1 (Signalled TEID=1)
+            and (2) GTP-U Tunnel between UPF1 and UPF2 (Signalled TEID=2).
           </t>
           <figure anchor="fig_Protocol-Stack" title="Protocol Stack by GTPv1-U">
             <artwork align="center"><![CDATA[
 
-+-----+                     |                       |          |
-| App +---------------------|-----------------------|----------|
-+-----+                     |                       | +------+ |
-| PDU +---------------------|-----------------------|-+ PDU  | |
-+-----+  +---------------+  |  +-----------------+  | +------+ |
-|     |  |\             /|  |  |\               /|  | |      | |
-|     |  |  \  Relay  /  |  |  |  \    Relay  /  |  | |      | |
-|     |  |    \     /    |  |  |    \       /    |  | |GTP-U | |
-| AN  |  |     --+--     |  |  |     ---+---     |  | |      | |
-| Pro |  |AN Pro | GTP-U +--|--+ GTP-U  |  GTP-U +--|-+      | |
-| Lyrs|  | Lyrs  +-------+  |  +--------+--------+  | +------+ |
-|     +--+       |UDP/IP +--|--+ UDP/IP | UDP/IP +--|-+UDP/IP| |
-|     |  |       +-------+  |  +--------+--------+  | +------+ |
-|     |  |       |  L2   +--|--+  L2    |   L2   +--|-+  L2  | |
-|     |  |       +-------+  |  +--------+--------+  | +------+ |
-|     |  |       |  L1   +--|--+  L1    |   L1   +--|-+  L1  | |
-+-----+  +-------+-------+  |  +--------+--------+  | +------+ |
-  UE            RAN          N3        UPF          N9         N6
-                                                         UPF
-                                                 (PDU Session Anchor)
+               N3                   N9
+          GTP-U Tunnel         GTP-U Tunnel
+           (TEID=1)              (TEID=2)
+       <---------------->   <---------------->
+ +-----------+      +-----------+      +-----------+
+ |    RAN    |------|    UPF1   |------|    UPF2   |
+ +-----------+      +-----------+      +-----------+
+
+ +-----------+      +-----------+
+ |    L1     |      |    L1     |
+ +-----------+      +-----------+
+ |    L2     |      |    L2     |
+ +-----------+      +-----------+
+ | IPv4/IPv6 |      | IPv4/IPv6 |
+ +-----------+      +-----------+
+ |    UDP    |      |    UDP    |      +-----------+
+ +-----------+      +-----------+      |     L1    |
+ | GTP-U Hdr |      | GTP-U Hdr |      +-----------+
+ | (TEID=1)  |      | (TEID=2)  |      |     L2    |
+ +-----------+      +-----------+      +-----------+
+ | IPv4/IPv6 |      | IPv4/IPv6 |      | IPv4/IPv6 |
+ +-----------+      +-----------+      +-----------+
+ |    App    | ---> |    App    | ---> |    App    | --->
+ +-----------+      +-----------+      +-----------+
+
  ]]></artwork>
           </figure>
+        </section>
+        <section title="GTP-U Header Format">
           <t>
             <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U header.
-            The Tunnel Endpoint ID (TEID) which is present in the GTP-U header shall indicate which tunnel a particular T-PDU belongs to. The TEID values are exchanged between tunnel endpoints using control plane message like PFCP.
-            The extension GTP-U header is a variable and extendable header and contains 3GPP specific information which is listed in <xref target="fig_GTP-U_Ext_Hdr_List" />
-
+            The Tunnel Endpoint ID (TEID) which is present in the GTP-U header shall indicate which tunnel a particular T-PDU belongs to.
+            TEID is signalled to GTP-U tunnel endpoint nodes from control plane function by using control plane protocol.
+            In current 5G architecture, the control plane function is SMF and PFCP (Packet Forwarding Control Plane) is selected as the control plane protocol for N4 interface <xref target="TR.29.891-3GPP" />.
+          </t>
             <figure anchor="fig_GTP-U_header" title="GTP-U Header">
             <artwork align="center"><![CDATA[
   0                   1                   2                   3
@@ -252,9 +239,11 @@
 
 ]]></artwork>
           </figure>
+          <t>
+            The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information which is listed in <xref target="fig_GTP-U_Ext_Hdr_List" />.
 
-            <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
-            <artwork align="center"><![CDATA[
+          <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
+          <artwork align="center"><![CDATA[
   0                   1                   2                   3
   0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -272,8 +261,8 @@
 ]]></artwork>
           </figure>
 
-            <figure anchor="fig_GTP-U_Ext_Hdr_List" title="Definition of Extension Header Type">
-            <artwork align="center"><![CDATA[
+          <figure anchor="fig_GTP-U_Ext_Hdr_List" title="Definition of Extension Header Type">
+          <artwork align="center"><![CDATA[
 
  +-----------------------------------+--------------------------------+
  | Next Extension Header Field Value | Type of Extension Header       |
@@ -306,33 +295,99 @@
  +-----------------------------------+--------------------------------+
 
 ]]></artwork>
-          </figure>
+        </figure>
+        </t>
+        </section>
+        <section title="Control Plane for GTP-U">
+          <t>
+            TBD
+          </t>
+        </section>
+        <section title="GTP-U OAM Message">
+          <t>
+            TBD
           </t>
         </section>
       <section title="Observations on GTP-U Specification">
         <t>
-          GTP-U-1 : GTP-U is a Point-to-Point tunneling protocol
-        </t>
-        <t>
-          GTP-U-2 : GTP-U supports Point-to-Multipoint tunneling
-        </t>
-        <t>
-          GTP-U-3 : GTP-U does not support UDP zero checksum in IPv6 transport case
-        </t>
-        <t>
-          GTP-U-4 : GTP-U endpoint does not support to response ICMP PTB for PMTUD
-        </t>
-        <t>
-          GTP-U-5 : GTP-U supports load balancing by using dynamic UDP port allocation
-        </t>
-        <t>
-          GTP-U-6 : GTP-U has an active OAM mechanism to support connectivity check per UDP source port basis
-        </t>
-        <t>
-          GTP-U-7 : GTP-U has no indication of next-header type
-        </t>
+          This section lists and summarizes the characteristics of GTP-U.
+          <list style="hanging">
+            <t hangText="GTP-U-1:">
+              GTP-U is a Point-to-Point tunneling protocol. This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
+              GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
+            </t>
+
+            <t hangText="GTP-U-2:">
+              GTP-U supports Point-to-Multipoint tunneling. This characteristic is described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
+              Multicast GTP-U tunnel is established from one sender node to multiple receiver nodes. This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service).
+            </t>
+
+            <t hangText="GTP-U-3:">
+              GTP-U has no indication of next-header type.
+              Receiving tunnel endpoint node can't identify which type of protocol exists under GTP-U encapsulation, this is because Next Header Tyoe information isn't encoded in GTP-U header.
+              Therefore, control plane protocol must need to inform the PDU session type to GTP-U tunnel endpoint nodes.
+              GTP-U header format is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
+            </t>
+
+            <t hangText="GTP-U-4:">
+              GTP-U has sequence number option and sequence number flag nu in the header, but it is not recommended to be used by almost GTP-U entities.
+              However, sequence number flag should be set to "0" in normal case, this means receiving tunnel endpoint node doesn't examine sequence number and reorder GTP-U packets based on the sequence number.
+              The sequence number flag is set to "1" only for RAT HO procedure.
+              This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
+            </t>
+
+            <t hangText="GTP-U-5:">
+              "GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+              PDU Session Container extension header carries QFI for NGRAN of 5G. This PDU Session Container is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
+              In this manner, GTP-U can carry 3GPP specific information by using extension header.
+            </t>
+
+            <t hangText="GTP-U-6:">
+              GTP-U supports active OAM as a path management message "Echo Request/Response".
+              GTP-U has Echo Request message and Echo Response message to find out if a GTP-U tunnel is alive.
+              Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
+              Echo Request sending interval is recommended to be less than 60 seconds on each path.
+            </t>
+
+            <t hangText="GTP-U-7:">
+              GTP-U supports tunnel management messages "End Marker".
+              GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
+              End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
+            </t>
+
+            <t hangText="GTP-U-8:">
+              GTP-U supports tunnel management messages "Error Indication".
+              GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
+              Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
+            </t>
+
+            <t hangText="GTP-U-9">
+              GTP-U supports DSCP marking based on the QCI.
+              DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QCI.
+              This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
+              However 5G QoS model is different from QCI and utilize QFI (QoS Flow ID), so <xref target="TS.29.281-3GPP" /> may have to be revised to support DSCP marking based on "QFI" for 5G.
+            </t>
+
+            <t hangText="GTP-U-10:">
+              GTP-U does not support UDP zero checksum in IPv6 transport case.
+              Outer IPv6 protocol in GTP-U is based on RFC2460. This specification is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
+              However RFC 2460 is obsoleted by RFC8200. Thus GTP-U doesn't support new feature which is introduced in RFC8200 like UDP zero checksum.
+            </t>
+
+            <t hangText="GTP-U-11:">
+              GTP-U endpoint does not support to response ICMP PTB for PMTUD.
+            </t>
+
+            <t hangText="GTP-U-12:">
+              GTP-U supports load balancing by using dynamic UDP port allocation.
+            </t>
+
+
+            </list>
+          </t>
+
+        </section>
       </section>
-    </section>
     </section>
 
     <section title="5G Requirements for U-Plane">
