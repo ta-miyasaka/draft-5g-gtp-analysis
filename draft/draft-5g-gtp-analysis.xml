@@ -246,6 +246,10 @@
         </t>
         
         <t hangText="User Plane (UP):">
+          Encapsulating user PDU.
+        </t>
+        
+        <t>
           In fact, we can't find exact text that defines UP in the
           architecture specification. However when we see the figure 8.3.1-1 in
           <xref target="TS.23.501-3GPP"/>, the layer right under PDU that
