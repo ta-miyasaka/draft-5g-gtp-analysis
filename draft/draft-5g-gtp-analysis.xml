@@ -608,7 +608,40 @@ User Plane            /    |           |
         should be able to present QoS class with DSCP or CoS in the outer most header. The functionalities of UPF is 
         described in the section 6.2.3 of <xref target="TS.23.501-3GPP"/>.
         </t>
- <!-- Any more requirements? -->
+
+        <t hangText="ARCH-Req-8:">
+        UPF shall detect user plane depending on information indecated by SMF. User data traffic is detected with 
+        combination of the following information:
+          <list style="symbols">
+          <t>For IPv4 or IPv6 PDU Session type
+            <list style="symbols">
+            <t>PDU Session</t>
+            <t>QFI</t>
+            <t>Application Identifier: The Application ID is an index to a set of application detection rules configured in UPF</t>
+            </list>
+          </t>
+          <t>For Ethernet PDU Session type
+            <list style="symbols">
+            <t>PUD Session</t>
+            <t>QFI</t>
+            <t>Ethernet Packet Filter Set:
+              <list style="symbols">
+                <t>Source/destination MAC address</t>
+                <t>Ethertype as defined in IEEE 802.3</t>
+                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) VID fields as defined in IEEE 802.1Q</t>
+                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) PCP/DEI fields as defined in IEEE 802.1Q</t>
+                <t>IP Packet Filter Set, in case Ethertype indicates IPv4/IPv6 payload</t>
+                <t>Packet filter direction</t>
+              </list>
+            </t>
+            </list>
+          </t>
+          </list>
+        Such information for traffic detection (Traffic Detection Information) is described in the section 5.8.2.4 of 
+        <xref target="TS.23.501-3GPP"/>.
+        </t>
+           
+<!-- Any more requirements? -->
                                                                         
       </list>
       </t>
