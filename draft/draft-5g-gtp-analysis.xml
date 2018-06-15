@@ -207,33 +207,68 @@
       </t>
     </section>
       
-    <section title="Terms">
+    <section title="Terms and Abbreviations">
+
       <t>
-      This document refers the terminologies of functions and interfaces defined in 
-      <xref target="TS.23.501-3GPP"/> and <xref target="TS.23.502-3GPP"/>.
+        This section describes terms of functions and interfaces relevant to
+        user plane protocol which we extract from the 3GPP specifications since
+        this document focuses on user plane.
       </t>
 
       <t>
-      This document mainly focuses on UPP, and this section describes terminologies of functions and 
-      interfaces relevant to UPP.
-      <list style="hanging">
-        <t hangText="PDU session:">
-        Association between the UE and a Data Network that provides a PDU connectivity service.
+        In those specifications, there are so many unique terms and
+        abbreviations in the 3GPP context which IETF community seems not
+        familiar with. We will try to bring those terms with brief explanations
+        to make sure common understanding for them.
+      </t>
+
+      
+      <t>
+        <list style="hanging">
+        <t hangText="PDU:">
+          Protocol Data Unit of end-to-end user protocol packet.
+        </t>
+      
+        <t>
+          Noted that the PDU in 3GPP includes IP header in case that PDU session
+          type is IPv4 or IPv6. In contrast, in IETF it is supposed that PDU is
+          the payload of IP packet so that it doesn't include  IP/TCP/UDP header
+          in end-to-end.
         </t>
 
+        <t hangText="PDU session:">
+          Association between the UE and a Data Network that provides a PDU
+          connectivity service.
+        </t>
+        
+        <t hangText="Data Network (DN):">
+          The network of operator services, Internet access or 3rd party services.
+        </t>
+        
+        <t hangText="User Plane (UP):">
+          In fact, we can't find exact text that defines UP in the
+          architecture specification. However when we see the figure 8.3.1-1 in
+          <xref target="TS.23.501-3GPP"/>, the layer right under PDU that
+          directly encapsulates PDU. Underneath layers of UP are UP transport,
+          such as IP/UDP, L2 and L1.
+        </t>
+        
+          
         <t hangText="User Plane Fuction (UPF):">
-        An UPF handles the PDU sessions. An UPF is connected to SMF with N4 interface. The 5G system allows 
-        to deploy two types of UPF; central UPF and local UPF. More detailed information is described in 
-        <xref target="TS.23.501-3GPP"/>. 
+          An UPF handles the PDU sessions. An UPF is connected to SMF with N4
+          interface. The 5G system allows to deploy two types of UPF; central
+          UPF and local UPF. More detailed information is described in Section
+          6.2.3 of <xref target="TS.23.501-3GPP"/>. 
         </t>
 
         <t hangText="Radio Access Network (RAN):">
-        A RAN is an access network where radio bearer sent by UEs traverse. A RAN encapsulate users' packets 
-        with any encapsulation such as GTP-U.
+          A RAN is an access network where radio bearer sent by UEs traverse. A
+          RAN encapsulate users' packets with any encapsulation such as GTP-U.
         </t>
 
         <t hangText="Session Management Fuction (SMF):">
-        An SMF is a function which provides control plane functionalities for handling PDU sessions.
+          An SMF is a function which provides control plane functionalities for
+          handling UP for PDU sessions.
         </t>
 
 <!-- You can add terminologies which are important in this document -->
