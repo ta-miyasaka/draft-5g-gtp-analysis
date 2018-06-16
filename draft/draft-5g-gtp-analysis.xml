@@ -439,80 +439,131 @@
       <section title="Observations on GTP-U Specification">
         <t>
           This section lists observations on GTP-U specification.
-          <list style="hanging">
-            <t hangText="GTP-U-1:">
-              GTP-U is a Point-to-Point tunneling protocol. This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
-              GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
+              GTP-U is a Point-to-Point tunneling protocol. 
             </t>
-
-            <t hangText="GTP-U-2:">
-              GTP-U supports Point-to-Multipoint tunneling. This characteristic is described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
-              Multicast GTP-U tunnel is established from one sender node to multiple receiver nodes. This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service).
+          </list>
+        </t>
+        <t>
+          This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
+          GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
+              GTP-U supports Point-to-Multipoint tunneling.
             </t>
-
-            <t hangText="GTP-U-3:">
+          </list>
+        </t>
+        <t>
+          This characteristic is described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
+          Multicast GTP-U tunnel is established from one sender node to multiple receiver nodes. This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service).
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U has no indication of next-header type.
-              Receiving tunnel endpoint node can't identify which type of protocol exists under GTP-U encapsulation, this is because Next Header Tyoe information isn't encoded in GTP-U header.
-              Therefore, control plane protocol must need to inform the PDU session type to GTP-U tunnel endpoint nodes.
-              GTP-U header format is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
             </t>
-
-            <t hangText="GTP-U-4:">
+          </list>
+        </t>
+        <t>
+          Receiving tunnel endpoint node can't identify which type of protocol exists under GTP-U encapsulation, this is because Next Header Tyoe information isn't encoded in GTP-U header.
+          Therefore, control plane protocol must need to inform the PDU session type to GTP-U tunnel endpoint nodes.
+          GTP-U header format is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U has sequence number option and sequence number flag nu in the header, but it is not recommended to be used by almost GTP-U entities.
-              However, sequence number flag should be set to "0" in normal case, this means receiving tunnel endpoint node doesn't examine sequence number and reorder GTP-U packets based on the sequence number.
-              The sequence number flag is set to "1" only for RAT HO procedure.
-              This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
             </t>
-
-            <t hangText="GTP-U-5:">
+          </list>
+        </t>
+        <t>
+          However, sequence number flag should be set to "0" in normal case, this means receiving tunnel endpoint node doesn't examine sequence number and reorder GTP-U packets based on the sequence number.
+          The sequence number flag is set to "1" only for RAT HO procedure.
+          This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               "GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
-              PDU Session Container extension header carries QFI for NGRAN of 5G. This PDU Session Container is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
-              In this manner, GTP-U can carry 3GPP specific information by using extension header.
             </t>
-
-            <t hangText="GTP-U-6:">
+          </list>
+        </t>
+        <t>
+          PDU Session Container extension header carries QFI for NGRAN of 5G. This PDU Session Container is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
+          In this manner, GTP-U can carry 3GPP specific information by using extension header.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U supports active OAM as a path management message "Echo Request/Response".
-              GTP-U has Echo Request message and Echo Response message to find out if a GTP-U tunnel is alive.
-              Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
-              Echo Request sending interval is recommended to be less than 60 seconds on each path.
             </t>
-
-            <t hangText="GTP-U-7:">
+          </list>
+        </t>
+        <t>
+          GTP-U has Echo Request message and Echo Response message to find out if a GTP-U tunnel is alive.
+          Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
+          Echo Request sending interval is recommended to be less than 60 seconds on each path.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U supports tunnel management messages "End Marker".
-              GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
-              End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
             </t>
-
-            <t hangText="GTP-U-8:">
+          </list>
+        </t>
+        <t>
+          GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
+          End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U supports tunnel management messages "Error Indication".
-              GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
-              Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
             </t>
-
-            <t hangText="GTP-U-9">
+          </list>
+        </t>
+        <t>
+          GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
+          Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U supports DSCP marking based on the QCI.
-              DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QCI.
-              This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
-              However 5G QoS model is different from QCI and utilize QFI (QoS Flow ID), so <xref target="TS.29.281-3GPP" /> may have to be revised to support DSCP marking based on "QFI" for 5G.
             </t>
-
-            <t hangText="GTP-U-10:">
+          </list>
+        </t>
+        <t>
+          DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QCI.
+          This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
+          However 5G QoS model is different from QCI and utilize QFI (QoS Flow ID), so <xref target="TS.29.281-3GPP" /> may have to be revised to support DSCP marking based on "QFI" for 5G.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U does not support UDP zero checksum in IPv6 transport case.
-              Outer IPv6 protocol in GTP-U is based on RFC2460. This specification is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
-              However RFC 2460 is obsoleted by RFC8200. Thus GTP-U doesn't support new feature which is introduced in RFC8200 like UDP zero checksum.
             </t>
-
-            <t hangText="GTP-U-11:">
+          </list>
+        </t>
+        <t>
+          Outer IPv6 protocol in GTP-U is based on RFC2460. This specification is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
+          However RFC 2460 is obsoleted by RFC8200. Thus GTP-U doesn't support new feature which is introduced in RFC8200 like UDP zero checksum.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
               GTP-U endpoint does not support to response ICMP PTB for PMTUD.
             </t>
 
-            <t hangText="GTP-U-12:">
+            <t>
               GTP-U supports load balancing by using dynamic UDP port allocation.
             </t>
-
-            </list>
-          </t>
-        </section>
+          </list>
+        </t>
+      </section>
     </section>
 
 
