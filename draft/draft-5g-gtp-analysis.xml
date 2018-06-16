@@ -643,98 +643,163 @@ User Plane            /    |           |
       </t>
         
       <t>
-      <list style="hanging">
-        <t hangText="ARCH-Req-1:">
-        IPv4, IPv6, Ethernet and Unstructured Packet Data Unit (PDU) are supported in the 5G system. 
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            IPv4, IPv6, Ethernet and Unstructured Packet Data Unit (PDU) are
+            supported in the 5G system.
+          </t>
+        </list>
+      </t>
+      <t> 
         In short, UPP must support all of these PDU session types. This is refered in the section 3.1 of 
         <xref target="TS.23.501-3GPP"/>.
-        </t>
-    
-        <t hangText="ARCH-Req-2:">
-        The 5G system allows to deploy multiple UPFs as anchors for a single PDU session, and a single PDU session 
-        supports multi-homing for such anchor UPFs. Thus, UPP should be a multipoint-to-point tunnel in UL/DL to 
-        support the case of multihoming with a single PDU session. As examples of use cases that use multi-homing for 
-        a single PDU session, SSC Mode 1 and 2 described in the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
-        Corresponding to specifications of SSC Mode 1 and 2, multi-homing for Ethernet type PDU session.
-        </t>
-    
-        <t hangText="ARCH-Req-3:">
-        The 5G system potentially supports flexible UPF selection for PDU compared to persistent S/P-GW in 4G. The 
-        appropriate UPFs are selected for a PDU session based on parameters and information such as UPF's dynamic 
-        load or UE location information. Examples of parameters and information are described in the section 6.3.3 
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            The 5G system allows to deploy multiple UPFs as anchors for a single
+            PDU session, and a single PDU session supports multi-homing for such
+            anchor UPFs. 
+          </t>
+        </list>
+      </t>
+      <t>
+        Thus, UPP should be a multipoint-to-point tunnel in UL/DL to support the
+        case of multihoming with a single PDU session. As examples of use cases
+        that use multi-homing for a single PDU session, SSC Mode 1 and 2
+        described in the section 5.6.4 and 5.6.9 of <xref
+        target="TS.23.501-3GPP"/>. Corresponding to specifications of SSC Mode 1
+        and 2, multi-homing for Ethernet type PDU session.
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            The 5G system potentially supports flexible UPF selection for PDU
+            compared to persistent S/P-GW in 4G.
+          </t>
+        </list>
+      </t>
+      <t>
+        The appropriate UPFs are selected for a PDU session based on parameters
+        and information such as UPF's dynamic load or UE location information.
+        Examples of parameters and information are described in the section
+        6.3.3 of <xref target="TS.23.501-3GPP"/>.
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            There's no limitation for number of UPFs in a data plane path.
+          </t>
+        </list>
+      </t>
+      <t>
+        This specification is described in the section 8.3.1 of <xref
+        target="TS.23.501-3GPP"/>. Putting multiple UPFs in a data path enables
+        to deploy functions as Application Function required through the path.
+        In addition, putting multiple UPFs as anchors closed to UEs' site may
+        enable to make data path more efficient. This usage is refered in the
+        6.5 of <xref target="TS.22.261-3GPP"/>. It is exptected that multiple
+        UPFs with per session tunnel handling for a PDU session becomes
+        complicated task more and more for a SMF by increasing number of UPFs,
+        and UPP shall support to aggregate several PDU sessions into a tunnel or
+        shall be a session-less tunnel.
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            A PDU session is able to aggregate multiple QoS Flow indicated with
+            QFI.
+          </t>
+        </list>
+      </t>
+      <t>
+        Against to the previous generation, 5G enables UPF to multiprex QoS
+        Flows, equivarent with IP-CAN bearers in  the previous generation, into
+        one single PDU session. That means that a single tunnel includes
+        multiple QFIs contrast to just one QoS Flow (a bearer) to one tunnel
+        before 5G. This specification is described in 5.7.1 of <xref
+        target="TS.23.501-3GPP"/>.
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            A unique identifier in a 5G network is allocated to each UE, and its
+            PDU sessions are handled based on the identifiable information such
+            as subscription information.
+          </t>
+        </list>
+      </t>
+      <t>
+        There are cases where a PDU session traverses multiple UPFs and enforced
+        some processes at each UPF. This means that each UPF is required to
+        identify the same PDU session and looks up the poilcy rules. For
+        avoiding this redandant identifications, UPP might be required to convey
+        identifiers represeinting several types of information. The
+        specification regarding to identifiers is described in the section 5.9
         of <xref target="TS.23.501-3GPP"/>.
-        </t>
-    
-        <t hangText="ARCH-Req-4:">
-        There's no limitation for number of UPFs in a data plane path. This specification is described in the section 
-        8.3.1 of <xref target="TS.23.501-3GPP"/>. Putting multiple UPFs in a data path enables 
-        to deploy functions as Application Function required through the path. In addition, putting multiple UPFs 
-        as anchors closed to UEs' site may enable to make data path more efficient. This usage is refered in the 6.5 of 
-        <xref target="TS.22.261-3GPP"/>. It is exptected that multiple UPFs with per session tunnel handling for a PDU 
-        session becomes complicated task more and more for a SMF by increasing number of UPFs, and UPP shall support to 
-        aggregate several PDU sessions into a tunnel or shall be a session-less tunnel.
-        </t>
-    
-        <t hangText="ARCH-Req-5:">
-        A PDU session is able to aggregate multiple QoS Flow indicated with QFI. Against to the previous generation, 
-        5G enables UPF to multiprex QoS Flows, equivarent with IP-CAN bearers in  the previous generation, into one 
-        single PDU session. That means that a single tunnel includes multiple QFIs contrast to just one QoS Flow 
-        (a bearer) to one tunnel before 5G. This specification is described in 5.7.1 of <xref target="TS.23.501-3GPP"/>.
-        </t>
-    
-        <t hangText="ARCH-Req-6:">
-        A unique identifier in a 5G network is allocated to each UE, and its PDU sessions are handled based on the 
-        identifiable information such as subscription information. There are cases where a PDU session traverses 
-        multiple UPFs and enforced some processes at each UPF. This means that each UPF is required to identify the 
-        same PDU session and looks up the poilcy rules. For avoiding this redandant identifications, UPP might be 
-        required to convey identifiers represeinting several types of information. The specification regarding to 
-        identifiers is described in the section 5.9 of <xref target="TS.23.501-3GPP"/>.
-        </t>
-    
-        <t hangText="ARCH-Req-7:">
-        UPF supports several functionalities for handling PDU sessions, and some of them potentially have requiremts 
-        for UPP. For example, UPF supports packet routing and forwarding includes support of multi-homed PDU session. 
-        Also, UPF support QoS handling for user plane, e.g., UL/DL rate enforcement or QoS marking in DL, and UPP 
-        should be able to present QoS class with DSCP or CoS in the outer most header. The functionalities of UPF is 
-        described in the section 6.2.3 of <xref target="TS.23.501-3GPP"/>.
-        </t>
-
-        <t hangText="ARCH-Req-8:">
-        UPF shall detect user plane depending on information indecated by SMF. User data traffic is detected with 
-        combination of the following information:
-          <list style="symbols">
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            UPF supports several functionalities for handling PDU sessions, and
+            some of them potentially have requiremts for UPP.
+          </t>
+        </list>
+      </t>
+      <t>
+        For example, UPF supports packet routing and forwarding includes support
+        of multi-homed PDU session. Also, UPF support QoS handling for user
+        plane, e.g., UL/DL rate enforcement or QoS marking in DL, and UPP should
+        be able to present QoS class with DSCP or CoS in the outer most header.
+        The functionalities of UPF is described in the section 6.2.3 of <xref
+        target="TS.23.501-3GPP"/>.
+      </t>
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            UPF shall detect user plane depending on information indecated by
+            SMF.
+          </t>
+        </list>
+      </t>
+      <t>
+        User data traffic is detected with combination of the following
+        information:
+      </t>
+      <t>
+        <list style="symbols">
           <t>For IPv4 or IPv6 PDU Session type
             <list style="symbols">
-            <t>PDU Session</t>
-            <t>QFI</t>
-            <t>Application Identifier: The Application ID is an index to a set of application detection rules configured in UPF</t>
+              <t>PDU Session</t>
+              <t>QFI</t>
+              <t>Application Identifier: The Application ID is an index to a set of application detection rules configured in UPF</t>
             </list>
           </t>
           <t>For Ethernet PDU Session type
             <list style="symbols">
-            <t>PUD Session</t>
-            <t>QFI</t>
-            <t>Ethernet Packet Filter Set:
-              <list style="symbols">
-                <t>Source/destination MAC address</t>
-                <t>Ethertype as defined in IEEE 802.3</t>
-                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) VID fields as defined in IEEE 802.1Q</t>
-                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) PCP/DEI fields as defined in IEEE 802.1Q</t>
-                <t>IP Packet Filter Set, in case Ethertype indicates IPv4/IPv6 payload</t>
-                <t>Packet filter direction</t>
-              </list>
-            </t>
+              <t>PUD Session</t>
+              <t>QFI</t>
+              <t>Ethernet Packet Filter Set:
+                <list style="symbols">
+                  <t>Source/destination MAC address</t>
+                  <t>Ethertype as defined in IEEE 802.3</t>
+                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) VID fields as defined in IEEE 802.1Q</t>
+                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) PCP/DEI fields as defined in IEEE 802.1Q</t>
+                  <t>IP Packet Filter Set, in case Ethertype indicates IPv4/IPv6 payload</t>
+                  <t>Packet filter direction</t>
+                </list>
+              </t>
             </list>
           </t>
-          </list>
-        Such information for traffic detection (Traffic Detection Information) is described in the section 5.8.2.4 of 
-        <xref target="TS.23.501-3GPP"/>.
-        </t>
+        </list>
+      </t>
+      <t>
+        Such information for traffic detection (Traffic Detection Information)
+        is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
+      </t>
            
 <!-- Any more requirements? -->
                                                                         
-      </list>
-      </t>
       </section>
     </section>
                                           
