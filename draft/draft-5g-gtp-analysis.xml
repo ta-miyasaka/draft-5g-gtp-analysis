@@ -350,24 +350,30 @@
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
  |      Sequence Number        |   N-PDU Number  |  Next-Ext-Hdr |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
- o Ver: Version field (Set to '1')
- o P: Protocol Type (Set to '1')
- o R: Reserved bit (Set to '0')
- o E: Extension Header Flag (Set to '1' if extension header exists)
- o S: Sequence Number Flag (Set to '1' if sequence number exists)
- o N: N-PDU Number Flag (Set to '1' if N-PDU number exists)
- o Message Type: Indicates the type of GTP-U message
- o Length: Indicates the length in octets of the payload
- o Tunnel Endpoint Identifier (TEID)
- o Sequence Number: Indicates increasing sequence number for T-PDUs is transmitted via GTP-U tunnels
- o N-PDU Number: It is used only for inter SGSN, 2G-3G handover case, etc.
- o Next-Ext-Hdr: Indicates following extension header type
-
 ]]></artwork>
           </figure>
           <t>
-            The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information which is listed in <xref target="fig_GTP-U_Ext_Hdr_List" />.
+            <list style="symbols">
+              <t>Ver: Version field (Set to '1')</t>
+              <t>P: Protocol Type (Set to '1')</t>
+              <t>R: Reserved bit (Set to '0')</t>
+              <t>E: Extension Header Flag (Set to '1' if extension header exists)</t>
+              <t>S: Sequence Number Flag (Set to '1' if sequence number exists)</t>
+              <t>N: N-PDU Number Flag (Set to '1' if N-PDU number exists)</t>
+              <t>Message Type: Indicates the type of GTP-U message</t>
+              <t>Length: Indicates the length in octets of the payload</t>
+              <t>Tunnel Endpoint Identifier (TEID)</t>
+              <t>Sequence Number: Indicates increasing sequence number for T-PDUs is
+                 transmitted via GTP-U tunnels</t>
+              <t>N-PDU Number: It is used only for inter SGSN, 2G-3G handover case, etc.</t>
+              <t>Next-Ext-Hdr: Indicates following extension header type</t>
+            </list>
+          </t>
+          <t>
+            The extension GTP-U header is a variable-length and extendable
+            header and contains 3GPP specific information which is listed in
+            <xref target="fig_GTP-U_Ext_Hdr_List" />.
+          </t>
 
           <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
           <artwork align="center"><![CDATA[
@@ -381,13 +387,18 @@
  .                                               +-+-+-+-+-+-+-+-+
  |                                               |  Next-Ext-Hdr |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- o Ext-Hdr Length: The length of the Extension header shall be defined in a variable length of 4 octets
- o Extension Header Content: Contains 3GPP related information
- o Next-Ext-Hdr: Indicates following extension header type
-
 ]]></artwork>
           </figure>
-
+          <t>
+            <list style="symbols">
+              <t>Ext-Hdr Length: The length of the Extension header shall be
+                 defined in a variable length of 4 octets</t>
+              <t>Extension Header Content: Contains 3GPP related information</t>
+              <t>Next-Ext-Hdr: Indicates following extension header type</t>
+            </list>
+          </t>
+          
+          <t>
           <figure anchor="fig_GTP-U_Ext_Hdr_List" title="Definition of Extension Header Type">
           <artwork align="center"><![CDATA[
 
