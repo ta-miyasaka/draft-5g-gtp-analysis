@@ -469,10 +469,53 @@
             PFCP is a control plane protocol for mobile user plane and running on UDP and IPv4/IPv6 <xref target="TS.29.244-3GPP" />.
           </t>
         </section>
-        <section title="GTP-U OAM Message">
+        <section title="GTP-U signalling message">
           <t>
-            TBD
+            GTP-U supports several signalling message for OAM and purpose. This section summarizes GTP-U signalling messages which are defined in <xref target="TR.29.891-3GPP" />.
           </t>
+          <section title="Path Management Message">
+            <t>
+              For path management purpose, GTP-U supports following signalling messages.
+              <list style="symbols">
+                <t>
+                  Echo Request
+                </t>
+                <t>
+                  Echo Response
+                </t>
+                <t>
+                  Supported Extension Headers Notification
+                </t>
+              </list>
+            </t>
+            <t>
+              A GTP-U tunnel endpoint node sends a Echo Request message to another nodes for keep-alive and received node sends a Echo Response message to sender node as acknowledgment.
+              <xref target="TR.29.891-3GPP" /> recommends not to send Echo Request message more often than 60s on each path.
+            </t>
+            <t>
+              Supported Extension Headers Notification message indicates a list of supported that tunnel endpoint node can support.
+              This message is sent only in case a tunnel endpoint node receives GTP-U packet with unsupported extension header.
+            </t>
+          </section>
+          <section title="Tunnel Management Message">
+            <t>
+              For tunnel management purpose, GTP-U supports following signalling messages.
+              <list style="symbols">
+                <t>
+                  Error Indication
+                </t>
+                <t>
+                  End Marker
+                </t>
+              </list>
+            </t>
+            <t>
+              If a tunnel endpoint node receive a GTP-U packet that TEID is not registered to the node, the node sends Error Indication message to sender tunnel endpoint node.
+            </t>
+            <t>
+              End Marker message indicates the end of the payload stream that needs to be sent on a GTP-U tunnel.
+            </t>
+          </section>
         </section>
       </section>
       <section title="Observations on GTP-U Specification">
