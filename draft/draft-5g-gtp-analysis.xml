@@ -450,6 +450,12 @@
               </t>
             </list>
           </t>
+
+          <t>
+            If Next-Ext-Hdr is set to '0000 0000' it indicates that no more extension headers follows.
+            However, GTP-U doesn't have a Next-Protocol-Header field which indicates the type of protocol of following T-PDU like IPv4.
+            Therefore a control plane protocol needs to signal the type of protocol of T-PDU for each GTP-U tunnel.
+          </t>
         </section>
 
         <section title="Control Plane Protocol for GTP-U">
@@ -465,7 +471,7 @@
         </section>
         <section title="GTP-U OAM Message">
           <t>
-            GTP-U supports following OAM message for
+            TBD
           </t>
         </section>
       </section>
