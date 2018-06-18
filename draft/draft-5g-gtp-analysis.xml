@@ -6,43 +6,7 @@
      There has to be one entity for each item to be referenced.  
      An alternate method (rfc include) is described in the references.
 -->
-<!--
-<!ENTITY RFC1027 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.1027.xml">
-<!ENTITY RFC2234 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2234.xml">
-<!ENTITY RFC3513 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.3513.xml">
-<!ENTITY RFC4861 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4861.xml">
-<!ENTITY RFC4941 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4941.xml">
-<!ENTITY RFC6830 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6830.xml">
-<!ENTITY RFC6831 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6831.xml">
-<!ENTITY RFC6832 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6832.xml">
-<!ENTITY RFC6833 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6833.xml">
-<!ENTITY RFC6835 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6835.xml">
-<!ENTITY RFC6836 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6836.xml">
-<!ENTITY RFC7215 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.7215.xml">
-<!ENTITY RFC8060 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8060.xml">
-<!ENTITY RFC8061 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8061.xml">
-<!ENTITY RFC8111 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8111.xml">
-<!ENTITY RFC8112 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8112.xml">
-<!ENTITY I-D.draft-ietf-spring-segment-routing SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-spring-segment-routing-15.xml">
-<!ENTITY I-D.draft-ietf-6man-segment-routing-header SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-6man-segment-routing-header-08.xml">
-<!ENTITY I-D.draft-ietf-dmm-srv6-mobile-uplane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-dmm-srv6-mobile-uplane-01.xml">
-<!ENTITY I-D.draft-filsfils-spring-srv6-network-programming SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-filsfils-spring-srv6-network-programming-04.xml">
-<!ENTITY I-D.draft-xuclad-spring-sr-service-chaining SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-xuclad-spring-sr-service-chaining-01.xml">
-<!ENTITY I-D.draft-farinacci-lisp-mobile-network SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-farinacci-lisp-mobile-network-02.xml">
-<!ENTITY I-D.draft-ietf-lisp-eid-mobility SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-lisp-eid-mobility-00.xml">
-<!ENTITY I-D.draft-ietf-lisp-pubsub SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-lisp-pubsub-00.xml">
-<!ENTITY I-D.draft-rodrigueznatal-ila-lisp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-rodrigueznatal-ila-lisp-01.xml">
-<!ENTITY I-D.draft-kouvelas-lisp-map-server-reliable-transport SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-kouvelas-lisp-map-server-reliable-transport-04.xml">
-<!ENTITY I-D.draft-gundavelli-dmm-mfa SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-gundavelli-dmm-mfa-00.xml">
-<!ENTITY I-D.draft-ietf-lisp-rfc6830bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-lisp-rfc6830bis-12.xml">
-<!ENTITY I-D.draft-ietf-lisp-rfc6833bis SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-lisp-rfc6833bis-10.xml">
-<!ENTITY I-D.draft-ietf-lisp-mn SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-lisp-mn-02.xml">
-<!ENTITY I-D.draft-ietf-lisp-introduction SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-ietf-lisp-introduction-13.xml">
-<!ENTITY I-D.draft-herbert-intarea-ila SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-herbert-intarea-ila-00.xml">
-<!ENTITY I-D.draft-herbert-ila-ilamp SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-herbert-ila-ilamp-00.xml">
-<!ENTITY I-D.draft-lapukhov-bgp-ila-afi SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-lapukhov-bgp-ila-afi-02.xml">
-<!ENTITY I-D.draft-homma-dmm-5gs-id-loc-coexistence SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-homma-dmm-5gs-id-loc-coexistence-01.xml">
--->
+
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
 
@@ -842,62 +806,21 @@ User Plane            /    |           |
   <!-- ***** BACK MATTER ***** -->
 
   <back>
-    <references title="Normative References">
-    
-    &RFC2119;
-    </references>
-    
-    <references title="Informative References">
-<!--    
-    &RFC1027;
-    &RFC2234;
-    &RFC3513;
-    &RFC4861;
-    &RFC4941;
-    &RFC6830;
-    &RFC6831;
-    &RFC6832;
-    &RFC6833;
-    &RFC6835;
-    &RFC6836;
-    &RFC7215;
-    &RFC8060;
-    &RFC8061;
-    &RFC8111;
-    &RFC8112;
-    &I-D.draft-ietf-spring-segment-routing;
-    &I-D.draft-ietf-6man-segment-routing-header;
-    &I-D.draft-ietf-dmm-srv6-mobile-uplane;
-    &I-D.draft-filsfils-spring-srv6-network-programming;
-    &I-D.draft-xuclad-spring-sr-service-chaining;
-    &I-D.draft-ietf-lisp-rfc6830bis;
-    &I-D.draft-ietf-lisp-rfc6833bis;
-    &I-D.draft-farinacci-lisp-mobile-network;
-    &I-D.draft-ietf-lisp-eid-mobility;
-    &I-D.draft-ietf-lisp-pubsub;
-    &I-D.draft-ietf-lisp-mn;
-    &I-D.draft-ietf-lisp-introduction;
-    &I-D.draft-rodrigueznatal-ila-lisp;
-    &I-D.draft-kouvelas-lisp-map-server-reliable-transport;
-    &I-D.draft-gundavelli-dmm-mfa;
-    &I-D.draft-lapukhov-bgp-ila-afi;
-    &I-D.draft-homma-dmm-5gs-id-loc-coexistence;
 
-      <reference anchor='ILAGRPS'>
-        <front>
-        <title>Identifier Group in ILA (To be published)</title>
-        <author initials="T." surname="Herbert" fullname="Tom Herbert">
-        <organization/>
-        </author>
-        <date/>
-        </front>
-      </reference>
--->
+<!--
+    <references title="Normative References">
+
+    &RFC2119;
+
+    </references>
+-->    
+    <references title="Informative References">
+
     &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
 
-      <reference anchor='TR.29.891-3GPP'>
+      <reference anchor='TR.29.891-3GPP' target="http://www.3gpp.org/FTP/Specs/2017-12/Rel-15/29_series/29891-f00.zip">
         <front>
-        <title>5G System ? Phase 1, CT WG4 Aspects, 3GPP TR 29.891 v15.0.0</title>
+        <title>5G System Phase 1, CT WG4 Aspects, 3GPP TR 29.891 (V15.0.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
@@ -907,30 +830,31 @@ User Plane            /    |           |
         </front>
       </reference>
 
-      <reference anchor='TS.29.244-3GPP'>
+      <reference anchor='TS.29.244-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/29_series/29244-f10.zip">
         <front>
-        <title>Interface between the Control Plane and the User Plane Nodes; Stage 3, 3GPP TS 29.244 v15.0.0</title>
+        <title>Interface between the Control Plane and the User Plane Nodes; Stage 3, 3GPP TS 29.244 (V15.1.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2017"/>
+        <date month="March" year="2018"/>
         </front>
       </reference>
 
-      <reference anchor='TS.29.281-3GPP'>
+      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/29_series/29281-f20.zip">
         <front>
-        <title>GPRS Tunneling Protocol User Plane (GTPv1-U), 3GPP TS 29.281 v15.1.0</title>
+        <title>GPRS Tunneling Protocol User Plane (GTPv1-U), 3GPP TS 29.281 (V15.2.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2017"/>
+        <date month="March" year="2018"/>
         </front>
       </reference>
 
+<!--
       <reference anchor='TS.23.203-3GPP'>
         <front>
         <title>Policy and Charging Control Architecture, 3GPP TS 23.203 v2.0.1</title>
@@ -942,44 +866,45 @@ User Plane            /    |           |
         <date month="December" year="2017"/>
         </front>
       </reference>
+-->
 
-      <reference anchor='TS.23.501-3GPP'>
+      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23501-f10.zip">
         <front>
-        <title>System Architecture for 5G System; Stage 2, 3GPP TS 23.501 v2.0.1</title>
+        <title>System Architecture for 5G System; Stage 2, 3GPP TS 23.501 (V15.1.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2017"/>
+        <date month="March" year="2018"/>
         </front>
       </reference>
 
-      <reference anchor='TS.23.502-3GPP'>
+      <reference anchor='TS.23.502-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23502-f10.zip">
         <front>
-        <title>Procedures for 5G System; Stage 2, 3GPP TS 23.502, v2.0.0</title>
+        <title>Procedures for 5G System; Stage 2, 3GPP TS 23.502 (V15.1.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2017"/>
+        <date month="March" year="2018"/>
         </front>
       </reference>
 
-      <reference anchor='TS.23.503-3GPP'>
+      <reference anchor='TS.23.503-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23503-f10.zip">
         <front>
-        <title>Policy and Charging Control System for 5G Framework; Stage 2, 3GPP TS 23.503 v1.0.0</title>
+        <title>Policy and Charging Control System for 5G Framework; Stage 2, 3GPP TS 23.503 (V15.1.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2017"/>
+        <date month="March" year="2018"/>
         </front>
       </reference>
 
-      <reference anchor='TS.38.300-3GPP'>
+      <reference anchor='TS.38.300-3GPP'  target="">
         <front>
         <title>NR and NG-RAN Overall Description: Stage 2, 3GPP TS 38.300 v2.0.0</title>
         <author>
@@ -991,7 +916,7 @@ User Plane            /    |           |
         </front>
       </reference>
 
-      <reference anchor='TS.38.401-3GPP'>
+      <reference anchor='TS.38.401-3GPP'  target="">
         <front>
         <title>NG-RAN: Architecture Description, 3GPP TS 38.401 v1.0.0</title>
         <author>
@@ -1003,9 +928,9 @@ User Plane            /    |           |
         </front>
       </reference>
       
-      <reference anchor='TS.22.261-3GPP'>
+      <reference anchor='TS.22.261-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/22_series/22261-f40.zip">
         <front>
-        <title>Service requirements for 5G system stage 1, 3GPP TS 22.261 v15.4.0</title>
+        <title>Service requirements for 5G system stage 1, 3GPP TS 22.261 (V15.4.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
@@ -1015,7 +940,7 @@ User Plane            /    |           |
         </front>
       </reference>
 
-      <reference anchor='CP-180116-3GPP'>
+      <reference anchor='CP-180116-3GPP'  target="http://www.3gpp.org/ftp/tsg_ct/TSG_CT/TSGC_79_Chennai/Docs/CP-180116.zip">
         <front>
         <title>LS on user plane protocol study</title>
         <author>
@@ -1027,7 +952,7 @@ User Plane            /    |           |
         </front>
       </reference>
 
-      <reference anchor='CP-173160-3GPP'>
+      <reference anchor='CP-173160-3GPP'  target="http://www.3gpp.org/ftp/tsg_ct/TSG_CT/TSGC_78_Lisbon/Docs/CP-173160.zip">
         <front>
         <title>New Study Item on User Plane Protocol in 5GC</title>
         <author>
