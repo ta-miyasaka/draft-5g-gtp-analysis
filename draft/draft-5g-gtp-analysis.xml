@@ -297,17 +297,32 @@
       <section title="GTP-U Specification">
         <section title="GTP-U Tunnel">
           <t>
-            GTP-U is a tunneling protocol between GTP-U peers and encapsulate T-PDU from UE with UDP+IP. <xref target="fig_Protocol-Stack"/> shows an example for protocol stack of GTP-U.
-            RAN node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP. In this example there are two GTP-U tunnel : (1) GTP-U Tunnel between RAN and UPF1 (Signalled TEID=1)
-            and (2) GTP-U Tunnel between UPF1 and UPF2 (Signalled TEID=2).
+            GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
+            <xref target="fig_Protocol-Stack-ul"/> and <xref target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack for uplink and downlink traffic respectively.
+            Sender tunnel endpoint node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP.
+            GTP-U tunnel is a uni-directional tunnel and in these two examples there are following four GTP-U tunnels:
+            <list style="numbers">
+              <t>
+                GTP-U Tunnel from RAN to UPF1 in uplink traffic flow (TEID=1)
+              </t>
+              <t>
+                GTP-U Tunnel from UPF1 to UPF2 in uplink traffic flow (TEID=2)
+              </t>
+              <t>
+                GTP-U Tunnel from UPF2 to UPF1 in downlink traffic flow (TEID=3)
+              </t>
+              <t>
+                GTP-U Tunnel from UPF1 to RAN in downlink traffic flow (TEID=4)
+              </t>
+            </list>
           </t>
-          <figure anchor="fig_Protocol-Stack" title="Protocol Stack by GTPv1-U">
+          <figure anchor="fig_Protocol-Stack-ul" title="Protocol Stack by GTPv1-U for Uplink Traffic Flow">
             <artwork align="center"><![CDATA[
 
                N3                   N9
           GTP-U Tunnel         GTP-U Tunnel
            (TEID=1)              (TEID=2)
-       <---------------->   <---------------->
+        ---------------->    ---------------->
   +-----+             +------+             +------+
   | RAN |-------------| UPF1 |-------------| UPF2 |
   +-----+             +------+             +------+
@@ -326,11 +341,43 @@
          +-----------+        +-----------+         +-----------+
          | IPv4/IPv6 |        | IPv4/IPv6 |         | IPv4/IPv6 |
          +-----------+        +-----------+         +-----------+
-         |    App    | -----> |    App    | ------> |    App    | ------>
+         |    PDU    | -----> |    PDU    | ------> |    PDU    | ------>
          +-----------+        +-----------+         +-----------+
 
  ]]></artwork>
           </figure>
+
+                    <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
+            <artwork align="center"><![CDATA[
+
+               N3                   N9
+          GTP-U Tunnel         GTP-U Tunnel
+           (TEID=4)              (TEID=3)
+       <----------------    <----------------
+  +-----+             +------+             +------+
+  | RAN |-------------| UPF1 |-------------| UPF2 |
+  +-----+             +------+             +------+
+
+         +-----------+        +-----------+
+         |    L1     |        |    L1     |
+         +-----------+        +-----------+
+         |    L2     |        |    L2     |
+         +-----------+        +-----------+
+         | IPv4/IPv6 |        | IPv4/IPv6 |
+         +-----------+        +-----------+
+         |    UDP    |        |    UDP    |         +-----------+
+         +-----------+        +-----------+         |     L1    |
+         | GTP-U Hdr |        | GTP-U Hdr |         +-----------+
+         | (TEID=4)  |        | (TEID=3)  |         |     L2    |
+         +-----------+        +-----------+         +-----------+
+         | IPv4/IPv6 |        | IPv4/IPv6 |         | IPv4/IPv6 |
+         +-----------+        +-----------+         +-----------+
+ <------ |    PDU    | <----- |    PDU    | <------ |    PDU    |
+         +-----------+        +-----------+         +-----------+
+
+ ]]></artwork>
+          </figure>
+
         </section>
         <section title="GTP-U Header Format">
           <t>
@@ -369,11 +416,6 @@
               <t>Next-Ext-Hdr: Indicates following extension header type</t>
             </list>
           </t>
-          <t>
-            The extension GTP-U header is a variable-length and extendable
-            header and contains 3GPP specific information which is listed in
-            <xref target="fig_GTP-U_Ext_Hdr_List" />.
-          </t>
 
           <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
           <artwork align="center"><![CDATA[
@@ -397,53 +439,68 @@
               <t>Next-Ext-Hdr: Indicates following extension header type</t>
             </list>
           </t>
-          
+
           <t>
-          <figure anchor="fig_GTP-U_Ext_Hdr_List" title="Definition of Extension Header Type">
-          <artwork align="center"><![CDATA[
-
- +-----------------------------------+--------------------------------+
- | Next Extension Header Field Value | Type of Extension Header       |
- +-----------------------------------+--------------------------------+
- |           0000 0000               | No more extension headers      |
- +-----------------------------------+--------------------------------+
- |           0000 0001               | Reserved - Control Plane only  |
- +-----------------------------------+--------------------------------+
- |           0000 0010               | Reserved - Control Plane only  |
- +-----------------------------------+--------------------------------+
- |           0010 0000               | Service Class Indicator        |
- +-----------------------------------+--------------------------------+
- |           0100 0000               | UDP Port                       |
- +-----------------------------------+--------------------------------+
- |           1000 0001               | RAN Container                  |
- +-----------------------------------+--------------------------------+
- |           1000 0010               | Long PDCP PDU Number           |
- +-----------------------------------+--------------------------------+
- |           1000 0011               | Xw RAN Container               |
- +-----------------------------------+--------------------------------+
- |           1000 0100               | NR RAN Container               |
- +-----------------------------------+--------------------------------+
- |           1000 0101               | PDU Session Container          |
- +-----------------------------------+--------------------------------+
- |           1100 0000               | PDCP PDU Number                |
- +-----------------------------------+--------------------------------+
- |           1100 0001               | Reserved - Control Plane only  |
- +-----------------------------------+--------------------------------+
- |           1100 0010               | Reserved - Control Plane only  |
- +-----------------------------------+--------------------------------+
-
-]]></artwork>
-        </figure>
-        </t>
+            The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information.
+            Following list summarizes every extension header which is defined in <xref target="TS.29.281-3GPP" />.
+            <list style="symbols">
+              <t>
+                No more extension headers (Next-Ext-Hdr = 0000 0000)
+              </t>
+              <t>
+                Reserved - Control Plane only (Next-Ext-Hdr = 0000 0001)
+              </t>
+              <t>
+                Reserved - Control Plane only (Next-Ext-Hdr = 0000 0010)
+              </t>
+              <t>
+                Service Class Indicator (Next-Ext-Hdr = 0010 0000)
+              </t>
+              <t>
+                UDP Port (Next-Ext-Hdr = 0100 0000)
+              </t>
+              <t>
+                RAN Container (Next-Ext-Hdr = 1000 0001)
+              </t>
+              <t>
+                Long PDCP PDU Number (Next-Ext-Hdr = 1000 0010)
+              </t>
+              <t>
+                Xw RAN Container (Next-Ext-Hdr = 1000 0011)
+              </t>
+              <t>
+                NR RAN Container (Next-Ext-Hdr = 1000 0100)
+              </t>
+              <t>
+                PDU Session Container (Next-Ext-Hdr = 1000 0101)
+              </t>
+              <t>
+                PDCP PDU Number (Next-Ext-Hdr = 1100 0000)
+              </t>
+              <t>
+                Reserved - Control Plane only (Next-Ext-Hdr = 1100 0001)
+              </t>
+              <t>
+                Reserved - Control Plane only (Next-Ext-Hdr = 1100 0010)
+              </t>
+            </list>
+          </t>
         </section>
-        <section title="Control Plane for GTP-U">
+
+        <section title="Control Plane Protocol for GTP-U">
           <t>
-            TBD
+            Control plane protocol for GTP-U signals TEID to tunnel endpoint nodes and
+            sender tunnel endpoint node encapsulates T-PDU with the signalled TEID.
+            Once UE attachment is requested, control plane protocol signals TEID which is assigned to the PDU session to each tunnel end point node.
+          </t>
+          <t>
+            3GPP CT4 proposed to use extended PFCP (Packet Forwarding Control Protocol) for N4 interface <xref target="TR.29.891-3GPP" />.
+            PFCP is a control plane protocol for mobile user plane and running on UDP and IPv4/IPv6 <xref target="TS.29.244-3GPP" />.
           </t>
         </section>
         <section title="GTP-U OAM Message">
           <t>
-            TBD
+            GTP-U supports following OAM message for
           </t>
         </section>
       </section>
@@ -566,14 +623,42 @@
         <t>
           <list style="format GTP-U-%d:" counter="gtp-u">
             <t>
-              GTP-U endpoint does not support to response ICMP PTB for PMTUD.
+              GTP-U endpoint does not support to response ICMP PTB for Path MTU Discovery.
             </t>
-
+          </list>
+        </t>
+        <t>
+          There's no reference and specification of Path MTU Discovery for IPv6 transport in 3GPP <xref target="TS.29.281-3GPP" />.
+          If encapsulated IPv6 packet is too big on a network link between tunnel endpoint nodes,
+          UE may not receive ICMPv6 Packet Too Big message and causes Path MTU Discovery black hole.
+          "Unnecessary fragmentation should be avoided" is only recommended by 3GPP and to avoid the fragmentation operator should configure MTU size at UE.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
             <t>
               GTP-U supports load balancing by using dynamic UDP port allocation.
             </t>
           </list>
         </t>
+        <t>
+          Sender tunnel endpoint node supports dynamic allocation of UDP source port for load balancing.
+          This specification is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />.
+          However specific procedure and requirement (e.g. 5-tuple hashing) are not described in this document and depends on the implementation of GTP-U tunnel endpoint node.
+        </t>
+        <t>
+          <list style="format GTP-U-%d:" counter="gtp-u">
+            <t>
+              GTP-U doesn't specify the rule for the extension header order.
+            </t>
+          </list>
+        </t>
+        <t>
+          Section 5.2 of <xref target="TS.29.281-3GPP" /> specifies the extension header of GTP-U, however the rule for the extension header order is not specified in this document.
+          There are many extension headers for GTP-U and a sender endpoint node can attach multiple extension header in one GTP-U header.
+          This observation may cause a impact on hardware performance on receiving tunnel end point node
+          because receiving end point node can't predict exact bit position of target extension header like PDU Container which contains QFI information and need to examine every extension header.
+        </t>
+
       </section>
     </section>
 
