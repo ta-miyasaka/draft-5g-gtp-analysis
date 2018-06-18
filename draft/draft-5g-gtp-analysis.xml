@@ -7,7 +7,8 @@
      An alternate method (rfc include) is described in the references.
 -->
 
-<!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC8200 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
 
 ]> 
@@ -524,8 +525,14 @@
           </list>
         </t>
         <t>
-          Outer IPv6 protocol in GTP-U is based on RFC2460. This specification is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
-          However RFC 2460 is obsoleted by RFC8200. Thus GTP-U doesn't support new feature which is introduced in RFC8200 like UDP zero checksum.
+          Outer IPv6 encapsulation as a GTP-U transport case refers <xref
+          target="RFC2460"/> described in section 4.2.3 of <xref
+          target="TS.29.281-3GPP" />. As <xref target="RFC2460"/> does not
+          allow the tunnel protocols on top of UDP to set the UDP checksum value
+          to zero, the GTP-U specification inherits it while the IPv4 transport
+          for GTP-U case allows UDP zero checksum. It is noted that the IPv6
+          specification in IETF has been updated to <xref target="RFC8200"/>
+          which allows UDP zero checksum for the tunnel. 
         </t>
         <t>
           <list style="format GTP-U-%d:" counter="gtp-u">
@@ -816,6 +823,8 @@ User Plane            /    |           |
 -->    
     <references title="Informative References">
 
+    &RFC2460;
+    &RFC8200;
     &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
 
       <reference anchor='TR.29.891-3GPP' target="http://www.3gpp.org/FTP/Specs/2017-12/Rel-15/29_series/29891-f00.zip">
