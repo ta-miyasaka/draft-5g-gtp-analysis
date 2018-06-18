@@ -788,7 +788,7 @@ User Plane            /    |           |
           </t>
           <t>For Ethernet PDU Session type
             <list style="symbols">
-              <t>PUD Session</t>
+              <t>PDU Session</t>
               <t>QFI</t>
               <t>Ethernet Packet Filter Set:
                 <list style="symbols">
