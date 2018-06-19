@@ -768,6 +768,19 @@ User Plane           /     |           |         \
         In short, UPP must support all of these PDU session types. This is refered in the section 3.1 of 
         <xref target="TS.23.501-3GPP"/>.
       </t>
+      
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            The 5G system provides IP connectivity over N3, N6, and N9 interfaces. On N6 interface, point-to-point 
+            tunneling based on UDP/IPv6 may be used to deliver unstructured PDU type data. Then, the content information
+            of the PDU may be mapped into UDP port number, and the UDP port numbers is pre-configured in the UPF and DN.
+            This is described in the section 9.2 of <xref target="TS.29.561-3GPP"/>.
+          </t>
+        </list>
+      </t>
+           
+           
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -920,7 +933,65 @@ User Plane           /     |           |         \
       
     <section anchor="eval_aspects" title="Evaluation Aspects">
       <t>
-      TBD
+      This section lists evaluation aspects for protocol comparison from the architectural requirements of 5G system 
+      (<xref target="arch"/>).
+      </t>
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Support of all of PDU session types including IPv4, IPv6, Ethernet, and unstructured (Ref. ARCH-Req-1)
+          </t>
+        </list>
+      </t>
+      
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Capable of multi-homing forwarding (Ref. ARCH-Req-3)
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Easiness of tunnel establishment, re-establishment, and delet (Ref. ARCH-Req-4 and 5)
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Capable to convey multiple QoS flows as a single tunnel (Ref. ARCH-Req-6)
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Capable to convey optional information such as subscription information (Ref. ARCH-Req-7)
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Easiness of mapping QFI to a field representing QoS class in the outer header (Ref. ARCH-Req-8)
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
+          <t>
+            Easiness of obtaining Traffic Detection Information such as PDU session type (Ref. ARCH-Req-9)
+          </t>
+        </list>
       </t>
     </section>
 
@@ -1053,7 +1124,7 @@ User Plane           /     |           |         \
 
       <reference anchor='TS.38.300-3GPP'  target="">
         <front>
-        <title>NR and NG-RAN Overall Description: Stage 2, 3GPP TS 38.300 v2.0.0</title>
+        <title>NR and NG-RAN Overall Description: Stage 2, 3GPP TS 38.300 (v2.0.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
@@ -1065,7 +1136,7 @@ User Plane           /     |           |         \
 
       <reference anchor='TS.38.401-3GPP'  target="">
         <front>
-        <title>NG-RAN: Architecture Description, 3GPP TS 38.401 v1.0.0</title>
+        <title>NG-RAN: Architecture Description, 3GPP TS 38.401 (v1.0.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
@@ -1087,6 +1158,18 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
+       <reference anchor='TS.29.561-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/22_series/22261-f40.zip">
+        <front>
+        <title>5G System; Interworking between 5G Network and external Data Networks; Stage 3, 3GPP TS 29.561 (V1.4.0)</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+         
       <reference anchor='CP-180116-3GPP'  target="http://www.3gpp.org/ftp/tsg_ct/TSG_CT/TSGC_79_Chennai/Docs/CP-180116.zip">
         <front>
         <title>LS on user plane protocol study</title>
