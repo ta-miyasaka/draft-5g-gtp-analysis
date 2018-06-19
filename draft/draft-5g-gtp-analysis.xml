@@ -164,7 +164,7 @@
       <t>
         Based on the results of above, we finally figure out an idea of
         evaluation criteria for user plane protocols in <xref
-        target="criteria"/>. That's we intend to be as a part of the reply to
+        target="eval_aspects"/>. That's we intend to be as a part of the reply to
         3GPP. CT4 WG in 3GPP can utilize it as an input to evaluate the
         candidate protocols for user plane to the 5G system including current
         protocol. <xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/>
