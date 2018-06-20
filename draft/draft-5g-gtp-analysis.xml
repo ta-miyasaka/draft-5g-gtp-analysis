@@ -836,6 +836,16 @@ User Plane           /     |           |         \
         and UPP shall support to aggregate several PDU sessions into a tunnel or
         shall be a session-less tunnel.
       </t>
+      
+      <t>
+        Moreover, in cases that a PDU session traverses multiple UPFs and is enforced
+        some processes at each UPF, each UPF is required to
+        identify the same PDU session and looks up the poilcy rules. For
+        avoiding this redandant identifications, UPP might be required to convey
+        identifiers represeinting subscription or allocated policy information. 
+      </t>
+           
+      
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -852,24 +862,7 @@ User Plane           /     |           |         \
         before 5G. This specification is described in 5.7.1 of <xref
         target="TS.23.501-3GPP"/>.
       </t>
-      <t>
-        <list style="format ARCH-Req-%d:" counter="arch-req">
-          <t>
-            A unique identifier in a 5G network is allocated to each UE, and its
-            PDU sessions are handled based on the identifiable information such
-            as subscription information.
-          </t>
-        </list>
-      </t>
-      <t>
-        There are cases where a PDU session traverses multiple UPFs and enforced
-        some processes at each UPF. This means that each UPF is required to
-        identify the same PDU session and looks up the poilcy rules. For
-        avoiding this redandant identifications, UPP might be required to convey
-        identifiers represeinting several types of information. The
-        specification regarding to identifiers is described in the section 5.9
-        of <xref target="TS.23.501-3GPP"/>.
-      </t>
+
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -938,68 +931,124 @@ User Plane           /     |           |         \
       
     <section anchor="eval_aspects" title="Evaluation Aspects">
       <t>
-      This section lists evaluation aspects for protocol comparison from the architectural requirements of 5G system 
-      (<xref target="arch"/>).
+      This section provides evaluation aspects for protocol comparison. The evaluation aspects are 
+      led from requirements which operators generally have (<xref target="Gen-Aspects"/>) and the 
+      5G system specifically has (<xref target="FiveG-Aspects"/>). 5GS Aspects refers <xref target="arch"/>.
       </t>
       
       <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Support of all of PDU session types including IPv4, IPv6, Ethernet, and unstructured (Ref. ARCH-Req-1)
-          </t>
-        </list>
+      Note that ordering of priorities for the aspects are out of scope in this document.
       </t>
       
+      <section anchor="Gen-Aspects" title="General Aspects">
+        
+        <t>
+          <list style="format Gen-Aspect-%d:" counter="gen-aspect">
+            <t>Scalability
+              <list style="symbols">
+                <t>Overhead of extra headers</t>
+                <t>The number of manageable PDU sessions</t>
+              </list>
+            </t>
+          </list>
+        </t>
+        
+        <t>
+          <list style="format Gen-Aspect-%d:" counter="gen-aspect">
+            <t>Availability
+              <list style="symbols">
+                <t>Implementation of OAM functions for fault detection</t>
+                <t>Actual achievement in commercial networks</t>
+              </list>
+            </t>
+          </list>
+        </t>
+        
+        <t>
+          <list style="format Gen-Aspect-%d:" counter="gen-aspect">
+            <t>Interoperability
+              <list style="symbols">
+                <t>Enough standard documents and strict specifications</t>
+                <t>Compatibility with legacy network functions</t>
+              </list>
+            </t>
+          </list>
+        </t>
+        
+      </section>
       
-      <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Capable of multi-homing forwarding (Ref. ARCH-Req-3)
-          </t>
-        </list>
-      </t>
+      <section anchor="FiveG-Aspects" title="5GS Aspects">
       
-      <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Easiness of tunnel establishment, re-establishment, and delet (Ref. ARCH-Req-4 and 5)
-          </t>
-        </list>
-      </t>
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+            Capability of conveying of the following types of PDU sessions (Ref. ARCH-Req-1)
+              <list style="symbols">
+                <t>IPv4</t>
+                <t>IPv6</t>
+                <t>Ethernet</t>
+                <t>Unstructured</t>
+              </list>
+            </t>
+          </list>
+        </t>
+        
+        
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+            Capability of multi-homing forwarding for load balancing of UPFs (Ref. ARCH-Req-3)
+            </t>
+          </list>
+        </t>
       
-      <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Capable to convey multiple QoS flows as a single tunnel (Ref. ARCH-Req-6)
-          </t>
-        </list>
-      </t>
-      
-      <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Capable to convey optional information such as subscription information (Ref. ARCH-Req-7)
-          </t>
-        </list>
-      </t>
-      
-      <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Easiness of mapping QFI to a field representing QoS class in the outer header (Ref. ARCH-Req-8)
-          </t>
-        </list>
-      </t>
-      
-      <t>
-        <list style="format Eval-Aspect-%d:" counter="eval-aspect">
-          <t>
-            Easiness of obtaining Traffic Detection Information such as PDU session type (Ref. ARCH-Req-9)
-          </t>
-        </list>
-      </t>
-    </section>
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+            Manageability of tunnels/data paths on the following operations (Ref. ARCH-Req-4 and 5)
+              <list style="symbols">
+                <t>establishment,</t>
+                <t>change/re-establishment, and</t>
+                <t>delet</t>
+              </list>
+            </t>
+          </list>
+        </t>
 
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+              Capability of conveying of optional information such as subscription information (Ref. ARCH-Req-5)
+            </t>
+          </list>
+        </t>           
+           
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+              Capability of aggregation of multiple QoS flows as a single tunnel/data path (Ref. ARCH-Req-6)
+            </t>
+          </list>
+        </t>
+      
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+              Capability of mapping QFI to a field representing QoS class in the outer header (Ref. ARCH-Req-7)
+            </t>
+          </list>
+        </t>
+      
+        <t>
+          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
+            <t>
+              Capability of conveying of Traffic Detection Information such as PDU session type (Ref. ARCH-Req-8)
+            </t>
+          </list>
+        </t>
+      </section>
+      
+    </section>
     <section anchor="conclusion" title="Conclusion">
       <t>
         We analyse the 3GPP specifications of 5G architecture in terms of user
