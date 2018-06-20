@@ -928,127 +928,119 @@ User Plane           /     |           |         \
       </section>
     </section>
                                           
-      
     <section anchor="eval_aspects" title="Evaluation Aspects">
       <t>
-      This section provides evaluation aspects for protocol comparison. The evaluation aspects are 
-      led from requirements which operators generally have (<xref target="Gen-Aspects"/>) and the 
-      5G system specifically has (<xref target="FiveG-Aspects"/>). 5GS Aspects refers <xref target="arch"/>.
+      This section provides examples of evaluation aspects for protocol comparison. The evaluation aspects are 
+      led from architectural requirements of 5G system (<xref target="arch"/>) and some assumed service scenarios. 
       </t>
       
       <t>
-      Note that ordering of priorities for the aspects are out of scope in this document.
+      In addition, this section shows gap between GTP-U specifications and 5G architectural requirements.
       </t>
       
-      <section anchor="Gen-Aspects" title="General Aspects">
+      <t>
+      Note that the aspects on implementation and interoperavility to current networks are out 
+      of scope in this document. Moreover, this document does not define priority level of each aspect.
+      </t>
         
-        <t>
-          <list style="format Gen-Aspect-%d:" counter="gen-aspect">
-            <t>Scalability
-              <list style="symbols">
-                <t>Overhead of extra headers</t>
-                <t>The number of manageable PDU sessions</t>
-              </list>
-            </t>
-          </list>
-        </t>
+        <section title="Limitation for UEs">
+          <t>
+          UPP would be required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstractured. 
+          If some types are not supported, UEs which use only such types of PDU session connect to the 5G network. 
+          Or alternative means would be required to convey such PDU sessions.
+          </t>
+        </section>
         
-        <t>
-          <list style="format Gen-Aspect-%d:" counter="gen-aspect">
-            <t>Availability
-              <list style="symbols">
-                <t>Implementation of OAM functions for fault detection</t>
-                <t>Actual achievement in commercial networks</t>
-              </list>
-            </t>
-          </list>
-        </t>
+        <section title="Forwarding Functionalities">
+          <t>
+          In the 5G system, multi-homing (multipoint-to-multipoint forwarding) is required for traffic 
+          balancing or SSC modes. UPP would be required to support multi-homing.
+          </t>
+          
+          <t>
+          Meanwhile, GTP-U is point-to-point or multipoint-to-point tunnel protocol, and it may not satisfy 
+          this requirement. 
+          </t>
+          
+        </section>
         
-        <t>
-          <list style="format Gen-Aspect-%d:" counter="gen-aspect">
-            <t>Interoperability
-              <list style="symbols">
-                <t>Enough standard documents and strict specifications</t>
-                <t>Compatibility with legacy network functions</t>
-              </list>
-            </t>
-          </list>
-        </t>
+        <section title="Supporting Various Traffic Patterns">
+          <t>
+          The 5G system is supportive for various types service scenarios, and traffic pattern would be 
+          variable. For video streaming will require large packets for providing high throughput. 
+          Also, in M2M communication, the rate of short packets will increase.
+          </t>
+          
+          <t>
+          For providing wide coverage, IPv6 should be used for transport and UPP should be IPv6-based. 
+          In addition, for appliying to such various service scenarios, UPP would be required to support 
+          dynamic discovery and adjustment of MTU size.
+          </t>
+        </section>
         
-      </section>
-      
-      <section anchor="FiveG-Aspects" title="5GS Aspects">
-      
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-            Capability of conveying of the following types of PDU sessions (Ref. ARCH-Req-1)
-              <list style="symbols">
-                <t>IPv4</t>
-                <t>IPv6</t>
-                <t>Ethernet</t>
-                <t>Unstructured</t>
-              </list>
-            </t>
-          </list>
-        </t>
+        <section title="Data Paths Management">
+          <t>
+          In the 5G network, UPFs may be deployed distributedly and UPFs which a data path traverses may vary 
+          for UPF's load balancing or depending on service scenarios. In other words, UPF may be required to 
+          connect a tunnel to another UPF dinamically, and the number of tunnels among UPFs would be large.
+          </t>
+          
+          <t>
+          From these reasons, UPP should be session-less or allow several PDU sessions to use the same tunnels 
+          for reducing the number of tunnels.
+          </t>
+        </section>
         
         
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-            Capability of multi-homing forwarding for load balancing of UPFs (Ref. ARCH-Req-3)
-            </t>
-          </list>
-        </t>
-      
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-            Manageability of tunnels/data paths on the following operations (Ref. ARCH-Req-4 and 5)
-              <list style="symbols">
-                <t>establishment,</t>
-                <t>change/re-establishment, and</t>
-                <t>delet</t>
-              </list>
-            </t>
-          </list>
-        </t>
-
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-              Capability of conveying of optional information such as subscription information (Ref. ARCH-Req-5)
-            </t>
-          </list>
-        </t>           
-           
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-              Capability of aggregation of multiple QoS flows as a single tunnel/data path (Ref. ARCH-Req-6)
-            </t>
-          </list>
-        </t>
-      
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-              Capability of mapping QFI to a field representing QoS class in the outer header (Ref. ARCH-Req-7)
-            </t>
-          </list>
-        </t>
-      
-        <t>
-          <list style="format 5GS-Aspect-%d:" counter="5gs-aspect">
-            <t>
-              Capability of conveying of Traffic Detection Information such as PDU session type (Ref. ARCH-Req-8)
-            </t>
-          </list>
-        </t>
-      </section>
-      
+        <section title="QoS Control on Mobile Network">
+          <t>
+          The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
+          an assumption that QFI is carried in an encapsulation header on N3 and N9. Moreover, UPFs optionally 
+          support QoS marking on transport headers (e.g., DSCP of IP header or CoS of Ethernet header) depending 
+          on QFI.
+          </t>
+          
+          <t>
+          UPP would be required to convey QFI as parameter of encapsulation header. Moreover, in terms of 
+          performance on hardware processes, the order of QFI should be fixed.
+          </t>
+          
+          <t>
+          In GTP-U specifications, the order of QFI is not defined, and it may cause deterioration of
+          forwarding throughput and interoperability.
+          </t>
+        </section>
+        
+        <section title="Traffic Flow Handling">
+          <t>
+          In the 5G network, there are cases that a PDU session traverses multiple UPFs. A UPF detects PDU session 
+          based on Traffic Detect Information, and enforce some processes to the PDU based on the pre-configured 
+          policy rule.
+          </t>
+          
+          <t>
+          The load of traffic detection is large. For avoiding such redundant traffic detection, it may be better 
+          that UPP enables to convey optional information such as policy rules and share with some UPFs.
+          </t>
+        </section>
+        
+        <section title="Supporting Network Slicing">
+          <t>
+          Network slicing is a fundamental concept of the 5G system. A network slice is composed of some of network 
+          functions and resources depending on service requirements, and some network slices may be established 
+          on the same physical network. 
+          </t>
+          
+          <t>
+          For monitoring traffic state of each network slice, UPP should be capable to visualize its allocated network 
+          slice. For example, UPP may be required to convey identifier of its allocated network slice as optional 
+          information.
+          </t>
+        </section>
+          
     </section>
+
+
     <section anchor="conclusion" title="Conclusion">
       <t>
         We analyse the 3GPP specifications of 5G architecture in terms of user
