@@ -630,9 +630,7 @@
 
  GTP-U Extension Header (PDU Session Container)
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  ExtHdrLen=2  |Type=0 | Spare   |0|    QFI    |   Padding     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
- |                     Padding                   |NextExtHdr=0x0 |
+ |  ExtHdrLen=1  |Type=0 | Spare   |0|    QFI    |NextExtHdr=0x0 |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
  Inner IPv6 Header and PDU
