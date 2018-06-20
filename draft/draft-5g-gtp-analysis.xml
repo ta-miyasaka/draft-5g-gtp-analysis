@@ -1210,9 +1210,9 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-       <reference anchor='TS.29.561-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/22_series/22261-f40.zip">
+       <reference anchor='TS.29.561-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-06/Rel-15/29_series/29561-f00.zip">
         <front>
-        <title>5G System; Interworking between 5G Network and external Data Networks; Stage 3, 3GPP TS 29.561 (V1.4.0)</title>
+        <title>5G System; Interworking between 5G Network and external Data Networks; Stage 3, 3GPP TS 29.561 (V15.0.0)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
