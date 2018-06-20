@@ -557,6 +557,116 @@
             </t>
           </section>
         </section>
+        <section title="Protocol Stack Example">
+          <t>
+            <xref target="fig_GTP_stack_example" /> shows an example of GTP-U protocol stack.
+            There are following assumptions for this example.
+            <list style="symbols">
+              <t>
+                Traffic flow direction is from the Internet to UE, which equals to downlink traffic flow of <xref target="fig_Protocol-Stack-dl" />
+              </t>
+              <t>
+                GTP-U sender tunnel endpoint node's IPv6 address is 2001:db8:1:1::1 and receiver tunnel endpoint node's IPv6 address is 2001:db8:1:2::1.
+              </t>
+              <t>
+                DSCP on outer IPv4 header is marked as EF based on QFI value for this traffic flow.
+              </t>
+              <t>
+                Signalled TEID value from control plane protocol is 1654.
+              </t>
+              <t>
+                There is one GTP-U extension header of PDU Session Container whose Next-Extension-Header-Field-Value is 0x85
+              </t>
+              <t>
+                As this example is downlink traffic PDU Session Container includes DL PDU SESSION INFORMATION described in section 5.5.2.1 of <xref target="TS.38.415-3GPP" />
+              </t>
+              <t>
+                Inner IPv4 Header contains actual IPv4 header send by the Internet node. Sender node's IPv6 address is 2001:db8:2:1::1 and receiver UE's IPv6 address is 2001:db8:3:1::1.
+              </t>
+            </list>
+          </t>
+          <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
+            <artwork align="center"><![CDATA[
+  0                   1                   2                   3
+  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+ Outer IPv6 Header
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |Version|     DSCP=EF   |               Flow Label              |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |          Payload Length       | NxtHdr=17(UDP)|    Hop Limit  |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +                   Source IPv6 Address                         +
+ |                        2001:db8:1:1::1                        |
+ +                                                               +
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +              Destination IPv6 Address                         +
+ |                        2001:db8:1:2::1                        |
+ +                                                               +
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ Outer UDP Header
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |     Source Port = xxxx        |         Dest Port = 2152      |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |         UDP Length            |          UDP Checksum         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ GTP-U header
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ | 0x1 |1|0|1|0|0|     0xff      |           Length              |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                           TEID = 1654                         |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |    Sequence Number = 0        |N-PDU Number=0 |NextExtHdr=0x85|
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ GTP-U Extension Header (PDU Session Container)
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |  ExtHdrLen=2  |Type=0 | Spare   |0|    QFI    |   Padding     |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-|
+ |                     Padding                   |NextExtHdr=0x0 |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+ Inner IPv6 Header and PDU
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |Version|     DSCP=0    |               Flow Label              |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |          Payload Length       |    NexttHdr   |    Hop Limit  |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +                   Source IPv6 Address                         +
+ |                        2001:db8:2:1::1                        |
+ +                                                               +
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ +                                                               +
+ |                                                               |
+ +              Destination IPv6 Address                         +
+ |                        2001:db8:3:1::1                        |
+ +                                                               +
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+ |                                                               |
+ |                                                               |
+ .                              PDU                              .
+ .                                                               .
+ |                                                               |
+ |                                                               |
+ +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+          </figure>
+        </section>
       </section>
       <section title="Observations on GTP-U Specification">
         <t>
@@ -1232,7 +1342,19 @@ User Plane           /     |           |         \
         <date month="December" year="2017"/>
         </front>
       </reference>
-      
+
+      <reference anchor='TS.38.415-3GPP'  target="http://ftp.3gpp.org//Specs/archive/38_series/38.415/38415-100.zip">
+        <front>
+        <title>NG-RAN: PDU Session User Plane protocol, 3GPP TS 38.415 (v1.0.0)</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+
       <reference anchor='TS.22.261-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/22_series/22261-f40.zip">
         <front>
         <title>Service requirements for 5G system stage 1, 3GPP TS 22.261 (V15.4.0)</title>
