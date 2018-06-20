@@ -206,6 +206,23 @@
           in end-to-end.
         </t>
 
+        <t hangText="T-PDU:">
+          Transport PDU.
+        </t>
+
+        <t hangText="G-PDU:">
+          GTP encapsulated user Plane Data Unit.
+        </t>
+        
+        <t>
+          GTP-U has above two notions on PDU. T-PDU is a PDU that GTP-U header
+          encapsulates. G-PDU is a PDU that includes GTP-U header. A G-PDU may
+          includes a T-PDU. G-PDU can be sent without T-PDU, but just with
+          extension headers or TLV elements. It can be used for OAM related 
+          operations.
+        </t>
+
+
         <t hangText="PDU session:">
           Association between the UE and a Data Network that provides a PDU
           connectivity service.
@@ -216,7 +233,7 @@
         </t>
         
         <t hangText="User Plane (UP):">
-          Encapsulating user PDU.
+          Encapsulating user end-to-end PDU.
         </t>
         
         <t>
@@ -227,22 +244,40 @@
           such as IP/UDP, L2 and L1.
         </t>
         
+        <t>
+          However 3GPP is consistent to use the term user plane when they
+          indicate that layer. In IETF, we can see the terms data plane, or
+          forwarding plane as variations which often makes us tend to be
+          confused in terminology.
+        </t>
+
+        <t hangText="QFI:">
+          QoS Flow Identifier
+        </t>
           
-        <t hangText="User Plane Fuction (UPF):">
-          An UPF handles the PDU sessions. An UPF is connected to SMF with N4
-          interface. The 5G system allows to deploy two types of UPF; central
-          UPF and local UPF. More detailed information is described in Section
-          6.2.3 of <xref target="TS.23.501-3GPP"/>. 
+          
+        <t hangText="UPF:">
+          User Plane Function
+        </t>
+        
+        <t hangText="SMF:">
+          Session Management Function
+        </t>
+        
+        <t>
+          SMF is a control plane function which provides session management
+          service that handling PDU sessions in the control plane. SMF allocates
+          tunnels corresponding to the PDU sessions and configure the tunnel to
+          the UPF.
         </t>
 
-        <t hangText="Radio Access Network (RAN):">
-          A RAN is an access network where radio bearer sent by UEs traverse. A
-          RAN encapsulate users' packets with any encapsulation such as GTP-U.
+        <t hangText="RAN:">
+          Radio Access Network
         </t>
-
-        <t hangText="Session Management Fuction (SMF):">
-          An SMF is a function which provides control plane functionalities for
-          handling UP for PDU sessions.
+        
+        <t>
+          Noted that UP protocol provides a RAN to connect UPF. But the UP
+          protocol is not appeared on the air in the RAN.
         </t>
 
 <!-- You can add terminologies which are important in this document -->
