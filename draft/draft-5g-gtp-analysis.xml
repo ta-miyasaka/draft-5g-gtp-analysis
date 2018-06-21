@@ -323,7 +323,7 @@
     </section>
 
 
-    <section anchor="gtp-u" title="GTPv1-U">
+    <section anchor="gtp-u" title="GTPv1-U Specification and Observation">
       <section title="Current Status of Mobile User Plane for 5G">
         <t>
           GTP is abbreviation of GPRS Tunneling Protocol and GTPv1-U is a user-plane specific protocol which is defined in <xref target="TS.29.281-3GPP" />.
@@ -335,10 +335,18 @@
           This section describes specifications of GTP-U and summarize the characteristic of GTP-U to see if GTP-U meets the requirements of 5G architecture for user plane in later section.
         </t>
       </section>
-      <section title="GTP-U Specification">
+      <section title="GTP-U Specification and Observation">
         <section title="GTP-U Tunnel">
           <t>
             GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
+            GTP-U support P2P tunnel and P2MP tunnel.
+            At P2P GTP-U tunnel, GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
+            This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
+
+            At P2MP GTP-U tunnel, a multicast GTP-U tunnel is established from one sender tunnel endpoint node to multiple receiver tunnel endpoint nodes.
+            This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service) and described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
+          </t>
+          <t>
             <xref target="fig_Protocol-Stack-ul"/> and <xref target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack for uplink and downlink traffic respectively.
             Sender tunnel endpoint node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP.
             GTP-U tunnel is a uni-directional tunnel and in these two examples there are following four GTP-U tunnels:
@@ -418,7 +426,24 @@
 
  ]]></artwork>
           </figure>
-
+          <t>
+            UDP is utilized for GTP-U encapsulation and UDP destination port is 2152 which is assigned by IANA.
+            UDP source port depends on sender tunnel endpoint node and GTP-U supports dynamic allocation of UDP source port for load balancing objective.
+            This dynamic allocation's specification is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />, however specific procedure and requirement, e.g., 5-tuple hashing, are not described in this document and depends on the implementation of GTP-U tunnel endpoint node.
+          </t>
+          <t>
+            GTP-U supports both IPv4 and IPv6 as internet layer protocol.
+            As for IPv6, GTP-U specification refers <xref target="RFC2460"/>, which is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
+            As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the UDP checksum value to zero,
+            the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
+            It is noted that the IPv6 specification in IETF has been updated to <xref target="RFC8200"/> which allows UDP zero checksum for the tunnel.
+          </t>
+          <t>
+            "Unnecessary fragmentation should be avoided" is recommended and to avoid the fragmentation operator should configure MTU size at UE <xref target="TS.29.281-3GPP" />.
+            However, there's no reference and specification of Path MTU Discovery for IPv6 transport.
+            If encapsulated IPv6 packet is too big on a network link between tunnel endpoint nodes,
+            UE may not receive ICMPv6 Packet Too Big message and causes Path MTU Discovery black hole.
+          </t>
         </section>
         <section title="GTP-U Header Format">
           <t>
@@ -426,6 +451,12 @@
             The Tunnel Endpoint ID (TEID) which is present in the GTP-U header shall indicate which tunnel a particular T-PDU belongs to.
             TEID is signalled to GTP-U tunnel endpoint nodes from control plane function by using control plane protocol.
             In current 5G architecture, the control plane function is SMF and PFCP (Packet Forwarding Control Plane) is selected as the control plane protocol for N4 interface <xref target="TR.29.891-3GPP" />.
+          </t>
+          <t>
+            GTP-U header has Sequence Number field and Sequence Number Flag to reorder incoming packets based on the sequence number.
+            However, the sequence number flag is set to "1" only for RAT HO procedure and sequence number flag should be set to "0" in normal case.
+            Therefore, in normal case receiver tunnel endpoint node doesn't examine sequence number and can't reorder GTP-U packets based on the sequence number.
+            This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
           </t>
             <figure anchor="fig_GTP-U_header" title="GTP-U Header">
             <artwork align="center"><![CDATA[
@@ -484,6 +515,7 @@
           <t>
             The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information.
             Following list summarizes every extension header which is defined in <xref target="TS.29.281-3GPP" />.
+
             <list style="symbols">
               <t>
                 No more extension headers (Next-Ext-Hdr = 0000 0000)
@@ -527,6 +559,12 @@
             </list>
           </t>
 
+          <t>
+            Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the rule for the extension header order is not specified in this document.
+            There are many extension headers for GTP-U and a sender endpoint node can attach multiple extension header in one GTP-U header.
+            This observation may cause a impact on hardware performance on receiving tunnel end point node
+            because receiving end point node can't predict exact bit position of target extension header like PDU Container which contains QFI information and need to examine every extension header.
+          </t>
           <t>
             If Next-Ext-Hdr is set to '0000 0000' it indicates that no more extension headers follows.
             However, GTP-U doesn't have a Next-Protocol-Header field which indicates the type of protocol of following T-PDU like IPv4.
@@ -701,6 +739,7 @@
  |                                                               |
  |                                                               |
  +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
 ]]></artwork>
           </figure>
         </section>
@@ -744,13 +783,13 @@
         <t>
           <list style="format GTP-U-%d:" counter="gtp-u">
             <t>
-              GTP-U has sequence number option and sequence number flag nu in the header, but it is not recommended to be used by almost GTP-U entities.
+              GTP-U has sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
             </t>
           </list>
         </t>
         <t>
-          However, sequence number flag should be set to "0" in normal case, this means receiving tunnel endpoint node doesn't examine sequence number and reorder GTP-U packets based on the sequence number.
-          The sequence number flag is set to "1" only for RAT HO procedure.
+          The sequence number flag is set to "1" only for RAT HO procedure and sequence number flag should be set to "0" in normal case.
+          Therefore, in normal case receiver tunnel endpoint node doesn't examine sequence number and can't reorder GTP-U packets based on the sequence number.
           This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
         </t>
         <t>
