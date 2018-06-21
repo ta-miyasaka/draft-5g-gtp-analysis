@@ -341,7 +341,7 @@
             GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                GTP-U is a Point-to-Point tunneling protocol.
+                GTP-U supports Point-to-Point tunneling protocol.
               </t>
             </list>
             GTP-U support P2P tunnel and P2MP tunnel.
@@ -405,7 +405,7 @@
  ]]></artwork>
           </figure>
 
-                    <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
+          <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
             <artwork align="center"><![CDATA[
 
               N3                  N9
@@ -460,7 +460,7 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                GTP-U endpoint does not support to response ICMP PTB for Path MTU Discovery.
+                GTP-U does not support to response ICMP PTB for Path MTU Discovery.
               </t>
             </list>
             "Unnecessary fragmentation should be avoided" is recommended and to avoid the fragmentation operator should configure MTU size at UE <xref target="TS.29.281-3GPP" />.
@@ -479,7 +479,7 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                GTP-U has sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
+                GTP-U supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
               </t>
             </list>
             GTP-U header has Sequence Number field and Sequence Number Flag to reorder incoming packets based on the sequence number.
@@ -590,7 +590,7 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                "GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+                GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
               </t>
             </list>
             3GPP creates PDU Session Container extension header for NGRAN of 5G and this PDU Session Container extension header carries QFI.
@@ -609,7 +609,7 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                GTP-U doesn't specify the rule for the extension header order.
+                GTP-U does not specify the rule for the extension header order.
               </t>
             </list>
             Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the rule for the extension header order is not specified in this document.
@@ -620,7 +620,7 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                GTP-U has no indication of next-header type.
+                GTP-U does not support an indication of next-header type.
               </t>
             </list>
             If Next-Ext-Hdr is set to '0000 0000' it indicates that no more extension headers follows.
@@ -822,91 +822,91 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U is a Point-to-Point tunneling protocol.
+                Supports a Point-to-Point tunneling protocol.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U supports Point-to-Multipoint tunneling.
+                Supports Point-to-Multipoint tunneling.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U supports load balancing by using dynamic UDP port allocation.
+                Supports load balancing by using dynamic UDP port allocation.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U does not support UDP zero checksum in IPv6 transport case.
+                Does not support UDP zero checksum in IPv6 transport case.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U endpoint does not support to response ICMP PTB for Path MTU Discovery.
+                Does not support to response ICMP PTB for Path MTU Discovery.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U has sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
+                Supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                "GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+                Supports carrying QoS Identifiers transparently for Access Networks in extension headers.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U supports DSCP marking based on the QFI.
+                Supports DSCP marking based on the QFI.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U doesn't specify the rule for the extension header order.
+                Does not specify the rule for the extension header order.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U has no indication of next-header type.
+                Does not support an indication of next-header type.
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U supports active OAM as a path management message "Echo Request/Response".
+                Supports active OAM as a path management message "Echo Request/Response".
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U supports tunnel management messages "Error Indication".
+                Supports tunnel management messages "Error Indication".
               </t>
             </list>
           </t>
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                GTP-U supports tunnel management messages "End Marker".
+                Supports tunnel management messages "End Marker".
               </t>
             </list>
           </t>
