@@ -130,51 +130,87 @@
         <xref target="CP-180116-3GPP"/>. Justification and the objectives of the
         study can be found from <xref target="CP-173160-3GPP"/>.
       </t>
-      
-      <t>
-        To provide adequate information for 3GPP, we need to clearly understand
-        what the current user plane protocol in 5G is, and architectural
-        requirements for the user plane.  As the liaison statement indicates 3GPP
-        specifications related to user plane, those documents set should be a
-        good start point to clarify their specifications and to extract protocol
-        and architectural requirements from them.
-      </t>
-    
-      <t>
-        First, we analyze <xref target="TS.29.281-3GPP">GTP-U</xref> for
-        clarifying it as the current user plane protocol in the 5G system. <xref
-        target="TR.29.891-3GPP"/> describes how GTP-U is selected as the user
-        plane protocol for 5G in 3GPP. GTP-U has been developed by 3GPP from
-        previous generations, and it is widely deployed in existing mobile
-        service networks.  Clarified characteristics of the protocol are
-        described in <xref target="gtp-u"/>. 
-      </t>
-      
-      <t>
-        Then, to clarify what are required to the user plane protocol in
-        architecture level, we analyze <xref target="TS.23.501-3GPP"/> as the
-        5G system architecture specification. <xref target="TS.23.502-3GPP"/> is
-        the specification of system procesures that helps us to understand how
-        the system works in the architecture. <xref target="TS.23.503-3GPP"/> is
-        also helpful to find the role of user plane in the architecture that
-        influences user plane protocol. Extracted architectural requirements are
-        described in <xref target="arch"/>.
-      </t>
 
       <t>
-        Based on the results of above, we identify some aspects where there
-        might be gap between the current user plane protocol and the
-        architectural requirements on which <xref target="TR.29.891-3GPP"/> does
-        not discuss. That aspects are discussed <xref target="eval_aspects"/>.
-        That's we intend to be as a part of the reply to 3GPP. CT4 WG in 3GPP
-        can utilize it as an input to evaluate the candidate protocols for user
-        plane to the 5G system including current protocol.
+        We understand that the current user plane protocol, <xref
+        target="TS.29.281-3GPP">GTP-U</xref>, has been well developed in 3GPP,
+        and deployed very widely as the successor of legacy network
+        technologies, such as TDM circuit, or ATM virtual circuit. That GTP-U
+        success seems based on IP overlay technique that is dramatically scaled
+        compare to the previous ones because it successfully isolates mobile
+        session states from the user plane transport network.
       </t>
       
       <t>
-        <xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/> will
-        provide the candidate protocols on IETF side to the 3GPP study.
+        Even after that big success, it is definitely worth that 3GPP has
+        decided to revisit user plane which seems to response to IPv6 deployment
+        growth and IAB statement <xref target="IAB-Statement"/> that encourages
+        the industry to develop strategies for IPv6-only operation. It can be
+        seen from the justification section in <xref target="CP-173160-3GPP"/>.
       </t>
+      
+      <t>
+        The study description mentions that the study would be based on Release
+        16 requirement while only Release 15 specifications has been available
+        now. However we believe that to provide adequate information for 3GPP,
+        we need to clearly understand what the current user plane protocol is in
+        Release 15, and architectural requirements for the user plane.
+      </t>
+      
+      <t>
+        As the liaison statement indicates 3GPP specifications related to user
+        plane, those documents should be a good start point to clarify their
+        specifications and to extract protocol and architectural requirements
+        from them.
+      </t>
+        
+      <section title="Our Way of Analysis Work">
+
+        <t>
+          In <xref target="TR.29.891-3GPP"/>, it captured user plane
+          requirements and concluded that GTP-U is adopted for the user plane
+          protocol. It seems that GTP-U was only option to be chose and it
+          focused on how to carry 5G specific QoS information between UPF and
+          access networks. That is described in section 5.2 and 11.2 of <xref
+          target="TR.29.891-3GPP"/>. Another aspects of user plane requirements
+          couldn't be found. 
+        </t>
+
+        <t>
+          So first, we analyze <xref target="TS.29.281-3GPP"/> for clarifying it
+          as the current user plane protocol in the 5G system. <xref
+          target="TR.29.891-3GPP"/> describes how GTP-U is selected as the user
+          plane protocol for 5G in 3GPP. Clarified characteristics of the
+          protocol are described in <xref target="gtp-u"/>. 
+        </t>
+      
+        <t>
+          Then, to clarify what are required to the user plane protocol in
+          architecture level, we analyze <xref target="TS.23.501-3GPP"/> as the
+          5G system architecture specification. <xref target="TS.23.502-3GPP"/> is
+          the specification of system procesures that helps us to understand how
+          the system works in the architecture. <xref target="TS.23.503-3GPP"/> is
+          also helpful to find the role of user plane in the architecture that
+          influences user plane protocol. Extracted architectural requirements are
+          described in <xref target="arch"/>.
+        </t>
+
+        <t>
+          Based on the results of above, we identify some aspects where there
+          might be gap between the current user plane protocol and the
+          architectural requirements on which <xref target="TR.29.891-3GPP"/> does
+          not discuss. That aspects are discussed <xref target="eval_aspects"/>.
+          That's we intend to be as a part of the reply to 3GPP. CT4 WG in 3GPP
+          can utilize it as an input to evaluate the candidate protocols for user
+          plane to the 5G system including current protocol.
+        </t>
+      
+        <t>
+          <xref target="I-D.bogineni-dmm-optimized-mobile-user-plane"/> will
+          provide the candidate protocols on IETF side to the 3GPP study.
+        </t>
+      </section>
+      
     </section>
       
     <section title="Terms and Abbreviations">
@@ -1401,6 +1437,18 @@ User Plane           /     |           |         \
         </organization>
         </author>
         <date month="December" year="2017"/>
+        </front>
+      </reference>
+
+      <reference anchor='IAB-Statement'  target="https://www.iab.org/2016/11/07/iab-statement-on-ipv6/">
+        <front>
+        <title>IAB Statement on IPv6</title>
+        <author>
+        <organization>
+        Internet Architecture Board (IAB)
+        </organization>
+        </author>
+        <date month="November" year="2016"/>
         </front>
       </reference>
 
