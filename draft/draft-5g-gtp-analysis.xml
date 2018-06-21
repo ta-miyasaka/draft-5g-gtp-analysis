@@ -942,42 +942,57 @@ User Plane           /     |           |         \
       Note that the aspects on implementation and interoperavility to current networks are out 
       of scope in this document. Moreover, this document does not define priority level of each aspect.
       </t>
-        
-        <section title="Limitation for UEs">
+         <section title="Limitation for UEs">
           <t>
-          UPP would be required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstractured. 
+          Given that UPP is required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstractured. 
           If some types are not supported, UEs which use only such types of PDU session connect to the 5G network. 
           Or alternative means would be required to convey such PDU sessions.
           </t>
+          
+          <t>
+          The point led from this aspect is whether the UPP has means to convey each types of PDU sessions.
+          </t>
         </section>
-        
+
+
         <section title="Forwarding Functionalities">
           <t>
-          In the 5G system, multi-homing (multipoint-to-multipoint forwarding) is required for traffic 
-          balancing or SSC modes. UPP would be required to support multi-homing.
+          The 5G system defines that IPv6 multi-homing in UL (multipoint-to-point forwarding in DL) is supported for some purposes 
+          such as SSC modes or edge computing. Thus, UPP would be required to be capable to support multi-homing and 
+          multipoint-to-point forwarding.
           </t>
           
           <t>
-          Meanwhile, GTP-U is point-to-point or multipoint-to-point tunnel protocol, and it may not satisfy 
-          this requirement. 
+          Meanwhile, GTP-U is basically point-to-point tunnel, and it also support point-to-multipoint forwarding. 
+          GTP-U does not support multipoint-to-point tunneling.
+          </t>
+          
+          <t>
+          The point led from this aspect is whether the UPP support multihoming and multipoint-to-point tunneling.
           </t>
           
         </section>
-        
-        <section title="Supporting Various Traffic Patterns">
+
+        <section title="Transport Variations support for Mobile User Plane">
           <t>
-          The 5G system is supportive for various types service scenarios, and traffic pattern would be 
-          variable. For video streaming will require large packets for providing high throughput. 
-          Also, in M2M communication, the rate of short packets will increase.
+          The 5G system has an assumption to use various types of transport for deploying base stations 
+          for high-frequently radio access widly and high-density. In such cases, MTU size may vary depending on 
+          transport technique type.
           </t>
           
           <t>
           For providing wide coverage, IPv6 should be used for transport and UPP should be IPv6-based. 
-          In addition, for appliying to such various service scenarios, UPP would be required to support 
+          In addition, for appliying to such various types of transport techniques, UPP would be required to support 
           dynamic discovery and adjustment of MTU size.
           </t>
+          
+          <t>
+          The points led from this aspect are that network strudtured with IPv6 and whether UPP support dynamnic 
+          discovery and adjustment of MTU size depending on transport type.
+          </t>
         </section>
-        
+
+
         <section title="Data Paths Management">
           <t>
           In the 5G network, UPFs may be deployed distributedly and UPFs which a data path traverses may vary 
@@ -986,12 +1001,26 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          From these reasons, UPP should be session-less or allow several PDU sessions to use the same tunnels 
-          for reducing the number of tunnels.
+          From these reasons, UPP would be required to be session-less or allow to aggregate several PDU sessions to 
+          a single tunnel for reducing the number of tunnels. Tunnel aggregation may require UPP to support 
+          multipoint-to-point tunneling. 
           </t>
+          
+          <t>
+          When UPP aggregates several PDU sessions, each PDU session must have unique identifable infromation such 
+          as non-duplicated 5-tuple for enabling to disaggregate them at each UPF. For example, some DN may use the same 
+          IPv4 address space, and for avoiding duplicate of IP addresses among some PDU sessions, tunnels would be 
+          established for each DN.
+          </t>
+          
+          <t>
+          The point led from this aspect is whether UPP is session-less tunneling or enables to aggregate several 
+          PDU session into a single tunnel for preventing increase of complexity on tunnel management.
+          </t>
+          
         </section>
-        
-        
+
+
         <section title="QoS Control on Mobile Network">
           <t>
           The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
@@ -1001,17 +1030,26 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          UPP would be required to convey QFI as parameter of encapsulation header. Moreover, in terms of 
-          performance on hardware processes, the order of QFI should be fixed.
+          Given that UPP is required to convey QFI on N3 and N9 interfaces. In terms of performance on hardware processes, 
+          it is better to fix the place where QFI is contained. Moreover, for improving hardware processes 
+          it may be better to content QFI value in a field of outer transporting header, such as a part of 
+          destination IP address field.
           </t>
           
           <t>
           In GTP-U specifications, the order of QFI is not defined, and it may cause deterioration of
-          forwarding throughput and interoperability.
+          forwarding throughput and interoperability. In addition, containing of QFI in an extension header 
+          requires for UPF to parse the formats, and it would be a factor to decrease throughput performance.
+          </t>
+          
+          <t>
+          The points led from this aspect are whether UPP provides a field to convey QFI information over N3 and N9 interfaces 
+          and the place containing the information is pre-defined for make hardware process more efficient.
           </t>
         </section>
         
-        <section title="Traffic Flow Handling">
+        
+        <section title="Traffic Detection and Flow Handling">
           <t>
           In the 5G network, there are cases that a PDU session traverses multiple UPFs. A UPF detects PDU session 
           based on Traffic Detect Information, and enforce some processes to the PDU based on the pre-configured 
@@ -1019,24 +1057,66 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          The load of traffic detection is large. For avoiding such redundant traffic detection, it may be better 
-          that UPP enables to convey optional information such as policy rules and share with some UPFs.
-          </t>
-        </section>
-        
-        <section title="Supporting Network Slicing">
-          <t>
-          Network slicing is a fundamental concept of the 5G system. A network slice is composed of some of network 
-          functions and resources depending on service requirements, and some network slices may be established 
-          on the same physical network. 
+          Meanwhile, it's defined that several types of information can be used as TDI. This means that the place 
+          TDI is contained may be different per PDU session and UPFs are required to monitor/search the whole of outer headers
+          of each packet. This may cause decrease of forwarding performance of UPFs.
           </t>
           
           <t>
-          For monitoring traffic state of each network slice, UPP should be capable to visualize its allocated network 
-          slice. For example, UPP may be required to convey identifier of its allocated network slice as optional 
-          information.
+          For avoiding such redundant traffic detection, it may be better that UPP supports to convey optional 
+          information such as policy rules in the pre-defined place and share with multiple UPFs.
           </t>
+          
+          <t>
+          The points led from this aspect are whether UPP provides fields to contain some optional information such as 
+          policy rules for reducing load of traffic detection.
+          </t>
+          
         </section>
+        
+        
+        
+        
+        <section title="Supporting Network Slicing">
+          <t>
+          Network slicing seems as a fundamental concept of the 5G system. In the user plane,
+          the architecture assumes that a network slice is composed of UPFs belonging to
+          the slice. The slice would share the physical resources with other network slices
+          instantiated on the same networks.
+          </t>
+          
+          <t>
+          Network slices would require different forwarding policies, in the intermediate transport network, depending 
+          on requirements of the assumed services. Then, UPP would be required to represent such policies as the appropriate 
+          format to the transport network. For example, in case that a slice has a requirement on forwarding latency and 
+          dedicated route definition provided by TE is required, UPP would be required to convey the TE information as visible 
+          for underlay transport network.
+          </t>
+          
+          <t>
+          Moreover, for monitoring traffic state of each network slice, UPP would be required to convey an identifier of slice 
+          that the PDU session is allocated as visble to the operator. For example, UPP may be required to convey identifier 
+          of its allocated network slice as optional information.
+          </t>
+          
+          
+          <t>
+          The points led from this aspect whether UPP support to convey some optional information including forwarding 
+          policy and slice identifier as the appropriate format for under transport network or operator.
+          </t>
+          
+          <t> 
+          As long as those slices share the resources in the networks, IP routing and
+          transport system underneath the user plane have to be shared. It could mean that 
+          the assumed slice operation, UPFs connect each other through direct (virtual)
+          link, will restrict slicing instantiation techniques while no 3GPP specification 
+          exist to specify the network slicing lifecycle. 
+          </t>
+          
+          
+        </section>
+               
+
           
     </section>
 
