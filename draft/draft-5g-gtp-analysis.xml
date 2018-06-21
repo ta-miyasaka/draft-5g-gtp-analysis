@@ -341,7 +341,7 @@
             GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
             <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                GTP-U supports Point-to-Point tunneling protocol.
+                GTP-U is a Point-to-Point tunneling protocol.
               </t>
             </list>
             GTP-U support P2P tunnel and P2MP tunnel.
@@ -822,7 +822,7 @@
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
-                Supports a Point-to-Point tunneling protocol.
+                A Point-to-Point tunneling protocol.
               </t>
             </list>
           </t>
