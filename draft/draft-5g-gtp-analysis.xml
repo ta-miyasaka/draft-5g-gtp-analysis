@@ -1050,6 +1050,8 @@ User Plane           /     |           |         \
             The 5G system provides IP connectivity over N3, N6, and N9 interfaces. 
           </t>
         </list>
+      </t>
+      
       <t>
          On N6 interface, point-to-point 
          tunneling based on UDP/IPv6 may be used to deliver unstructured PDU type data. Then, the content information
