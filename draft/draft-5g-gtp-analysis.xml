@@ -954,7 +954,20 @@
       provide the feasibility includes network slicing, network capability exposure, etc. (Ref. 
       <xref target="TS.22.261-3GPP"/>)
       </t>
-    
+      
+      <t>
+      As a principle of the 5G system, User Plane (UP) functions are separated from the Control Plane (CP) 
+      functions for allowing independent scalability, evolution and flexible deployments.
+      </t>
+      
+      <t>
+      Network slicing is one of the fundamental concepts of the 5G system. A network slice is a logical 
+      network that provides specific network capabilities and characteristics, and it includes
+      some control plane and user plane functions. Structures of network slices may differ for 
+      supported service features and network functions optimizations. Multiple network slices may 
+      established on the same physical network includes RAN, CN, and DN.
+      </t>
+      
       <t>
       The 5G system is defined as a service-based architecture, and PDU sessions are available to be controlled 
       from other authorized network functions via control plane functions. The architecture overview is shown in 
@@ -1034,12 +1047,14 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            The 5G system provides IP connectivity over N3, N6, and N9 interfaces. On N6 interface, point-to-point 
-            tunneling based on UDP/IPv6 may be used to deliver unstructured PDU type data. Then, the content information
-            of the PDU may be mapped into UDP port number, and the UDP port numbers is pre-configured in the UPF and DN.
-            This is described in the section 9.2 of <xref target="TS.29.561-3GPP"/>.
+            The 5G system provides IP connectivity over N3, N6, and N9 interfaces. 
           </t>
         </list>
+      <t>
+         On N6 interface, point-to-point 
+         tunneling based on UDP/IPv6 may be used to deliver unstructured PDU type data. Then, the content information
+         of the PDU may be mapped into UDP port number, and the UDP port numbers is pre-configured in the UPF and DN.
+         This is described in the section 9.2 of <xref target="TS.29.561-3GPP"/>.
       </t>
            
            
@@ -1047,19 +1062,34 @@ User Plane           /     |           |         \
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
             The 5G system allows to deploy multiple UPFs as anchors for a single
-            PDU session, and a single PDU session supports multi-homing for such
-            anchor UPFs. 
+            PDU session, and IPv6 multi-homing of a single PDU session is supported 
+            for such anchor UPFs. 
           </t>
         </list>
       </t>
+      
       <t>
-        Thus, UPP should be a multipoint-to-point tunnel in UL/DL to support the
-        case of multihoming with a single PDU session. As examples of use cases
-        that use multi-homing for a single PDU session, SSC Mode 1 and 2
-        described in the section 5.6.4 and 5.6.9 of <xref
-        target="TS.23.501-3GPP"/>. Corresponding to specifications of SSC Mode 1
-        and 2, multi-homing for Ethernet type PDU session.
+        As examples of use cases that use multi-homing for a single PDU session, SSC Mode 1 and 2
+        described in the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
+        Corresponding to specifications of SSC Mode 1 and 2, multi-homing for Ethernet type PDU session.
       </t>
+      
+      <t>
+        Multi-homing is assumed to be used for edge computing scenario. Edge computing enables some services
+        to be hosted close to the UE's access point of attachment, and achieve an efficient service delivery 
+        through the reduced end-to-end latency and load on the transport network. In edge computing, local 
+        user's traffic is routed or steered to application in the local DN by UPF. This includes the use of a 
+        single PDU session with multiple PDU session Anchoes (UL CL/IPv6 multi-homing). This refers the section
+        5.13 of <xref target="TS.23.501-3GPP"/>.
+      </t>
+        
+      
+      <t>
+        Thus, UPP would be required to support multi-homign of a single PDU sesssion 
+        in UL. Simultaniously, it may to required to be a multipoint-to-point tunnel in DL 
+        for supporting the case of multi-homing with a single PDU session in UL. 
+      </t>
+      
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -1196,18 +1226,18 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-      Note that the aspects on implementation and interoperavility to current networks are out 
+      Note that the aspects on implementation and interoperability to current networks are out 
       of scope in this document. Moreover, this document does not define priority level of each aspect.
       </t>
-         <section title="Limitation for UEs">
+         <section title="Supporting PDU Session Types">
           <t>
-          Given that UPP is required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstractured. 
+          Given that UPP is required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstructured. 
           If some types are not supported, UEs which use only such types of PDU session connect to the 5G network. 
           Or alternative means would be required to convey such PDU sessions.
           </t>
           
           <t>
-          The point led from this aspect is whether the UPP has means to convey each types of PDU sessions.
+          The point led from this aspect is whether the UPP has means to convey each type of PDU sessions.
           </t>
         </section>
 
@@ -1233,18 +1263,18 @@ User Plane           /     |           |         \
         <section title="Transport Variations support for Mobile User Plane">
           <t>
           The 5G system has an assumption to use various types of transport for deploying base stations 
-          for high-frequently radio access widly and high-density. In such cases, MTU size may vary depending on 
+          for high-frequently radio access widely and high-density. In such cases, MTU size may vary depending on 
           transport technique type.
           </t>
           
           <t>
           For providing wide coverage, IPv6 should be used for transport and UPP should be IPv6-based. 
-          In addition, for appliying to such various types of transport techniques, UPP would be required to support 
+          In addition, for applying to such various types of transport techniques, UPP would be required to support 
           dynamic discovery and adjustment of MTU size.
           </t>
           
           <t>
-          The points led from this aspect are that network strudtured with IPv6 and whether UPP support dynamnic 
+          The points led from this aspect are that network structured with IPv6 and whether UPP support dynamic 
           discovery and adjustment of MTU size depending on transport type.
           </t>
         </section>
@@ -1252,9 +1282,9 @@ User Plane           /     |           |         \
 
         <section title="Data Paths Management">
           <t>
-          In the 5G network, UPFs may be deployed distributedly and UPFs which a data path traverses may vary 
+          In the 5G network, UPFs may be deployed distributedly, and UPFs which a data path traverses may vary 
           for UPF's load balancing or depending on service scenarios. In other words, UPF may be required to 
-          connect a tunnel to another UPF dinamically, and the number of tunnels among UPFs would be large.
+          connect a tunnel to another UPF dynamically, and the number of tunnels among UPFs would be large.
           </t>
           
           <t>
@@ -1264,7 +1294,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          When UPP aggregates several PDU sessions, each PDU session must have unique identifable infromation such 
+          When UPP aggregates several PDU sessions, each PDU session must have unique identifiable information such 
           as non-duplicated 5-tuple for enabling to disaggregate them at each UPF. For example, some DN may use the same 
           IPv4 address space, and for avoiding duplicate of IP addresses among some PDU sessions, tunnels would be 
           established for each DN.
@@ -1336,7 +1366,7 @@ User Plane           /     |           |         \
         
         <section title="Supporting Network Slicing">
           <t>
-          Network slicing seems as a fundamental concept of the 5G system. In the user plane,
+          Network slicing is as a fundamental concept of the 5G system. In the user plane,
           the architecture assumes that a network slice is composed of UPFs belonging to
           the slice. The slice would share the physical resources with other network slices
           instantiated on the same networks.
