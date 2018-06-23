@@ -193,8 +193,15 @@
         specifications and to extract protocol and architectural requirements
         from them.
       </t>
-        
-      <section title="Our Way of Analysis Work">
+
+      <section title="Current Status of Mobile User Plane for 5G">
+        <t>
+          3GPP RAN and CT4 decided to use GTP-U as the 5G user plane
+          encapsulation protocol over N3 and N9 that respectively described
+          in<xref target="TS.38.300-3GPP" /> and <xref target="TR.29.891-3GPP"
+          />. N3 is a interface between RAN and UPF and N9 is a interface
+          between different UPFs <xref target="TS.23.501-3GPP" />.
+        </t>
 
         <t>
           In <xref target="TR.29.891-3GPP"/>, it captured user plane
@@ -205,9 +212,11 @@
           target="TR.29.891-3GPP"/>. Another aspects of user plane requirements
           couldn't be found. 
         </t>
-
+      </section>
+        
+      <section title="Our Way of Analysis Work">
         <t>
-          So first, we analyze <xref target="TS.29.281-3GPP"/> for clarifying it
+          First, we analyze <xref target="TS.29.281-3GPP"/> for clarifying it
           as the current user plane protocol in the 5G system. <xref
           target="TR.29.891-3GPP"/> describes how GTP-U is selected as the user
           plane protocol for 5G in 3GPP. Clarified characteristics of the
@@ -261,6 +270,21 @@
       
       <t>
         <list style="hanging">
+        <t hangText="GTP:">
+          GPRS Tunneling Protocol
+        </t>
+        
+        <t hangText="GTP-U">
+          User Plane part of GTP
+        </t>
+
+        <t>
+          Noted that GTP version 1 (GTPv1-U) is the user-plane protocol
+          specification which is defined in <xref target="TS.29.281-3GPP" />.
+          Unless there is no specific annotation, we refer GTP-U to GTPv1-U in
+          this document.
+        </t>
+
         <t hangText="PDU:">
           Protocol Data Unit of end-to-end user protocol packet.
         </t>
@@ -354,18 +378,12 @@
 
 
     <section anchor="gtp-u" title="GTP-U Specification and Observation">
-      <section title="Current Status of Mobile User Plane for 5G">
-        <t>
-          GTP is abbreviation of GPRS Tunneling Protocol and GTPv1-U is a user-plane specific protocol which is defined in <xref target="TS.29.281-3GPP" />.
-          Unless there is no specific annotation, we refer to GTPv1-U as GTP-U in this document.
-        </t>
-        <t>
-          3GPP RAN and CT4 decided to use GTP-U as the 5G user plane encapsulation protocol over N3 and N9
-          respectively <xref target="TS.38.300-3GPP" /> <xref target="TR.29.891-3GPP" />.N3 is a interface between RAN and UPF and N9 is a interface between different UPFs <xref target="TS.23.501-3GPP" />.
-          This section describes specifications of GTP-U and summarize the characteristic of GTP-U to see if GTP-U meets the requirements of 5G architecture for user plane in later section.
-        </t>
-      </section>
-     
+      <t>
+        In this section we analyze the GTP-U specification and summarize
+        clarified characteristic of GTP-U to see if GTP-U meets the requirements
+        of 5G architecture for user plane in later section.
+      </t>
+
       <section title="GTP-U Tunnel">
         <t>
           GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
