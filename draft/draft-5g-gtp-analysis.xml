@@ -353,7 +353,7 @@
     </section>
 
 
-    <section anchor="gtp-u" title="GTPv1-U Specification and Observation">
+    <section anchor="gtp-u" title="GTP-U Specification and Observation">
       <section title="Current Status of Mobile User Plane for 5G">
         <t>
           GTP is abbreviation of GPRS Tunneling Protocol and GTPv1-U is a user-plane specific protocol which is defined in <xref target="TS.29.281-3GPP" />.
@@ -365,562 +365,562 @@
           This section describes specifications of GTP-U and summarize the characteristic of GTP-U to see if GTP-U meets the requirements of 5G architecture for user plane in later section.
         </t>
       </section>
-      <section title="GTP-U Specification and Observation">
-        <section title="GTP-U Tunnel">
-          <t>
-            GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U is a Point-to-Point tunneling protocol.
-              </t>
-            </list>
-            GTP-U support P2P tunnel and P2MP tunnel.
-            At P2P GTP-U tunnel, GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
-            This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports Point-to-Multipoint tunneling.
-              </t>
-            </list>
-            At P2MP GTP-U tunnel, a multicast GTP-U tunnel is established from one sender tunnel endpoint node to multiple receiver tunnel endpoint nodes.
-            This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service) and described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
-          </t>
-          <t>
-            <xref target="fig_Protocol-Stack-ul"/> and <xref target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack for uplink and downlink traffic respectively.
-            Sender tunnel endpoint node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP.
-            GTP-U tunnel is a uni-directional tunnel and in these two examples there are following four GTP-U tunnels:
-            <list style="numbers">
-              <t>
-                GTP-U Tunnel from RAN to UPF1 in uplink traffic flow (TEID=1)
-              </t>
-              <t>
-                GTP-U Tunnel from UPF1 to UPF2 in uplink traffic flow (TEID=2)
-              </t>
-              <t>
-                GTP-U Tunnel from UPF2 to UPF1 in downlink traffic flow (TEID=3)
-              </t>
-              <t>
-                GTP-U Tunnel from UPF1 to RAN in downlink traffic flow (TEID=4)
-              </t>
-            </list>
-          </t>
-          <figure anchor="fig_Protocol-Stack-ul" title="Protocol Stack by GTPv1-U for Uplink Traffic Flow">
-            <artwork align="center"><![CDATA[
-
-              N3                  N9
-          GTP-U Tunnel       GTP-U Tunnel
-           (TEID=1)            (TEID=2)
-        ------------->      ------------->
-  +-----+            +------+            +------+
-  | RAN |------------| UPF1 |------------| UPF2 |
-  +-----+            +------+            +------+
-
-         +---------+         +---------+
-         |   L1    |         |   L1    |
-         +---------+         +---------+
-         |   L2    |         |   L2    |
-         +---------+         +---------+
-         |IPv4/IPv6|         |IPv4/IPv6|
-         +---------+         +---------+
-         |   UDP   |         |   UDP   |         +---------+
-         +---------+         +---------+         |    L1   |
-         |GTP-U Hdr|         |GTP-U Hdr|         +---------+
-         |(TEID=1) |         |(TEID=2) |         |    L2   |
-         +---------+         +---------+         +---------+
-         |IPv4/IPv6|         |IPv4/IPv6|         |IPv4/IPv6|
-         +---------+         +---------+         +---------+
-         |   PDU   | ----->  |   PDU   | ----->  |   PDU   | ----->
-         +---------+         +---------+         +---------+
-
- ]]></artwork>
-          </figure>
-
-          <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
-            <artwork align="center"><![CDATA[
-
-              N3                  N9
-          GTP-U Tunnel       GTP-U Tunnel
-           (TEID=4)            (TEID=3)
-        <-------------      <-------------
-  +-----+            +------+            +------+
-  | RAN |------------| UPF1 |------------| UPF2 |
-  +-----+            +------+            +------+
-
-         +---------+         +---------+
-         |   L1    |         |   L1    |
-         +---------+         +---------+
-         |   L2    |         |   L2    |
-         +---------+         +---------+
-         |IPv4/IPv6|         |IPv4/IPv6|
-         +---------+         +---------+
-         |   UDP   |         |   UDP   |         +---------+
-         +---------+         +---------+         |    L1   |
-         |GTP-U Hdr|         |GTP-U Hdr|         +---------+
-         |(TEID=4) |         |(TEID=3) |         |    L2   |
-         +---------+         +---------+         +---------+
-         |IPv4/IPv6|         |IPv4/IPv6|         |IPv4/IPv6|
-         +---------+         +---------+         +---------+
-  <----- |   PDU   |  <----- |   PDU   |  <----- |   PDU   |
-         +---------+         +---------+         +---------+
-
- ]]></artwork>
-          </figure>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports load balancing by using dynamic UDP port allocation.
-              </t>
-            </list>
-            UDP is utilized for GTP-U encapsulation and UDP destination port is 2152 which is assigned by IANA.
-            UDP source port depends on sender tunnel endpoint node and GTP-U supports dynamic allocation of UDP source port for load balancing objective.
-            This dynamic allocation's specification is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />, however specific procedure and requirement, e.g., 5-tuple hashing, are not described in this document and depends on the implementation of GTP-U tunnel endpoint node.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U does not support UDP zero checksum in IPv6 transport case.
-              </t>
-            </list>
-            GTP-U supports both IPv4 and IPv6 as internet layer protocol.
-            As for IPv6, GTP-U specification refers <xref target="RFC2460"/>, which is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
-            As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the UDP checksum value to zero,
-            the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
-            It is noted that the IPv6 specification in IETF has been updated to <xref target="RFC8200"/> which allows UDP zero checksum for the tunnel.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U does not support to response ICMP PTB for Path MTU Discovery.
-              </t>
-            </list>
-            "Unnecessary fragmentation should be avoided" is recommended and to avoid the fragmentation operator should configure MTU size at UE <xref target="TS.29.281-3GPP" />.
-            However, there's no reference and specification of Path MTU Discovery for IPv6 transport.
-            If encapsulated IPv6 packet is too big on a network link between tunnel endpoint nodes,
-            UE may not receive ICMPv6 Packet Too Big message and causes Path MTU Discovery black hole.
-          </t>
-        </section>
-        <section title="GTP-U Header Format">
-          <t>
-            <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U header.
-            The Tunnel Endpoint ID (TEID) which is present in the GTP-U header shall indicate which tunnel a particular T-PDU belongs to.
-            TEID is signalled to GTP-U tunnel endpoint nodes from control plane function by using control plane protocol.
-            In current 5G architecture, the control plane function is SMF and PFCP (Packet Forwarding Control Plane) is selected as the control plane protocol for N4 interface <xref target="TR.29.891-3GPP" />.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
-              </t>
-            </list>
-            GTP-U header has Sequence Number field and Sequence Number Flag to reorder incoming packets based on the sequence number.
-            However, the sequence number flag is set to "1" only for RAT HO procedure and sequence number flag should be set to "0" in normal case.
-            Therefore, in normal case receiver tunnel endpoint node doesn't examine sequence number and can't reorder GTP-U packets based on the sequence number.
-            This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
-          </t>
-            <figure anchor="fig_GTP-U_header" title="GTP-U Header">
-            <artwork align="center"><![CDATA[
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Ver |P|R|E|S|N| Message Type|             Length              |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                Tunnel Endpoint Identifier                     |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |      Sequence Number        |   N-PDU Number  |  Next-Ext-Hdr |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-]]></artwork>
-          </figure>
-          <t>
-            <list style="symbols">
-              <t>Ver: Version field (Set to '1')</t>
-              <t>P: Protocol Type (Set to '1')</t>
-              <t>R: Reserved bit (Set to '0')</t>
-              <t>E: Extension Header Flag (Set to '1' if extension header exists)</t>
-              <t>S: Sequence Number Flag (Set to '1' if sequence number exists)</t>
-              <t>N: N-PDU Number Flag (Set to '1' if N-PDU number exists)</t>
-              <t>Message Type: Indicates the type of GTP-U message</t>
-              <t>Length: Indicates the length in octets of the payload</t>
-              <t>Tunnel Endpoint Identifier (TEID)</t>
-              <t>Sequence Number: Indicates increasing sequence number for T-PDUs is
-                 transmitted via GTP-U tunnels</t>
-              <t>N-PDU Number: It is used only for inter SGSN, 2G-3G handover case, etc.</t>
-              <t>Next-Ext-Hdr: Indicates following extension header type</t>
-            </list>
-          </t>
-
-          <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
+     
+      <section title="GTP-U Tunnel">
+        <t>
+          GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U is a Point-to-Point tunneling protocol.
+            </t>
+          </list>
+          GTP-U support P2P tunnel and P2MP tunnel.
+          At P2P GTP-U tunnel, GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
+          This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports Point-to-Multipoint tunneling.
+            </t>
+          </list>
+          At P2MP GTP-U tunnel, a multicast GTP-U tunnel is established from one sender tunnel endpoint node to multiple receiver tunnel endpoint nodes.
+          This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service) and described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <xref target="fig_Protocol-Stack-ul"/> and <xref target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack for uplink and downlink traffic respectively.
+          Sender tunnel endpoint node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP.
+          GTP-U tunnel is a uni-directional tunnel and in these two examples there are following four GTP-U tunnels:
+          <list style="numbers">
+            <t>
+              GTP-U Tunnel from RAN to UPF1 in uplink traffic flow (TEID=1)
+            </t>
+            <t>
+              GTP-U Tunnel from UPF1 to UPF2 in uplink traffic flow (TEID=2)
+            </t>
+            <t>
+              GTP-U Tunnel from UPF2 to UPF1 in downlink traffic flow (TEID=3)
+            </t>
+            <t>
+              GTP-U Tunnel from UPF1 to RAN in downlink traffic flow (TEID=4)
+            </t>
+          </list>
+        </t>
+        <figure anchor="fig_Protocol-Stack-ul" title="Protocol Stack by GTPv1-U for Uplink Traffic Flow">
           <artwork align="center"><![CDATA[
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | Ext-Hdr Length|                                               |
- +-+-+-+-+-+-+-+-+                                               |
- |                  Extension Header Content                     |
- .                                                               .
- .                                               +-+-+-+-+-+-+-+-+
- |                                               |  Next-Ext-Hdr |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-]]></artwork>
-          </figure>
-          <t>
-            <list style="symbols">
-              <t>Ext-Hdr Length: The length of the Extension header shall be
-                 defined in a variable length of 4 octets</t>
-              <t>Extension Header Content: Contains 3GPP related information</t>
-              <t>Next-Ext-Hdr: Indicates following extension header type</t>
-            </list>
-          </t>
 
-          <t>
-            The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information.
-            Following list summarizes every extension header which is defined in <xref target="TS.29.281-3GPP" />.
+            N3                  N9
+        GTP-U Tunnel       GTP-U Tunnel
+         (TEID=1)            (TEID=2)
+      ------------->      ------------->
++-----+            +------+            +------+
+| RAN |------------| UPF1 |------------| UPF2 |
++-----+            +------+            +------+
 
-            <list style="symbols">
-              <t>
-                No more extension headers (Next-Ext-Hdr = 0000 0000)
-              </t>
-              <t>
-                Reserved - Control Plane only (Next-Ext-Hdr = 0000 0001)
-              </t>
-              <t>
-                Reserved - Control Plane only (Next-Ext-Hdr = 0000 0010)
-              </t>
-              <t>
-                Service Class Indicator (Next-Ext-Hdr = 0010 0000)
-              </t>
-              <t>
-                UDP Port (Next-Ext-Hdr = 0100 0000)
-              </t>
-              <t>
-                RAN Container (Next-Ext-Hdr = 1000 0001)
-              </t>
-              <t>
-                Long PDCP PDU Number (Next-Ext-Hdr = 1000 0010)
-              </t>
-              <t>
-                Xw RAN Container (Next-Ext-Hdr = 1000 0011)
-              </t>
-              <t>
-                NR RAN Container (Next-Ext-Hdr = 1000 0100)
-              </t>
-              <t>
-                PDU Session Container (Next-Ext-Hdr = 1000 0101)
-              </t>
-              <t>
-                PDCP PDU Number (Next-Ext-Hdr = 1100 0000)
-              </t>
-              <t>
-                Reserved - Control Plane only (Next-Ext-Hdr = 1100 0001)
-              </t>
-              <t>
-                Reserved - Control Plane only (Next-Ext-Hdr = 1100 0010)
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
-              </t>
-            </list>
-            3GPP creates PDU Session Container extension header for NGRAN of 5G and this PDU Session Container extension header carries QFI.
-            PDU Session Container is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
-            In this manner, GTP-U can carry 3GPP specific information by using extension header.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports DSCP marking based on the QFI.
-              </t>
-            </list>
-            DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QFI.
-            This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U does not specify the rule for the extension header order.
-              </t>
-            </list>
-            Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the rule for the extension header order is not specified in this document.
-            There are many extension headers for GTP-U and a sender endpoint node can attach multiple extension header in one GTP-U header.
-            This observation may cause a impact on hardware performance on receiving tunnel end point node
-            because receiving end point node can't predict exact bit position of target extension header like PDU Container which contains QFI information and need to examine every extension header.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U does not support an indication of next-header type.
-              </t>
-            </list>
-            If Next-Ext-Hdr is set to '0000 0000' it indicates that no more extension headers follows.
-            However, GTP-U doesn't have a Next-Protocol-Header field which indicates the type of protocol of following T-PDU like IPv4.
-            Therefore a control plane protocol needs to signal the type of protocol of T-PDU for each GTP-U tunnel.
-          </t>
-        </section>
-
-        <section title="Control Plane Protocol for GTP-U">
-          <t>
-            Control plane protocol for GTP-U signals TEID to tunnel endpoint nodes and
-            sender tunnel endpoint node encapsulates T-PDU with the signalled TEID.
-            Once UE attachment is requested, control plane protocol signals TEID which is assigned to the PDU session to each tunnel end point node.
-          </t>
-          <t>
-            3GPP CT4 proposed to use extended PFCP (Packet Forwarding Control Protocol) for N4 interface <xref target="TR.29.891-3GPP" />.
-            PFCP is a control plane protocol for mobile user plane and running on UDP and IPv4/IPv6 <xref target="TS.29.244-3GPP" />.
-          </t>
-        </section>
-        <section title="GTP-U signalling message">
-          <t>
-            GTP-U supports several signalling message for OAM and purpose. This section summarizes GTP-U signalling messages which are defined in <xref target="TR.29.891-3GPP" />.
-          </t>
-          <section title="Path Management Message">
-            <t>
-              For path management purpose, GTP-U supports following signalling messages.
-              <list style="symbols">
-                <t>
-                  Echo Request
-                </t>
-                <t>
-                  Echo Response
-                </t>
-                <t>
-                  Supported Extension Headers Notification
-                </t>
-              </list>
-            </t>
-            <t>
-              <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-                <t>
-                  GTP-U supports active OAM as a path management message "Echo Request/Response".
-                </t>
-              </list>
-              A GTP-U tunnel endpoint node sends a Echo Request message to another nodes for keep-alive and received node sends a Echo Response message to sender node as acknowledgment.
-              Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
-              <xref target="TR.29.891-3GPP" /> recommends not to send Echo Request message more often than 60s on each path.
-            </t>
-            <t>
-              Supported Extension Headers Notification message indicates a list of supported that tunnel endpoint node can support.
-              This message is sent only in case a tunnel endpoint node receives GTP-U packet with unsupported extension header.
-            </t>
-          </section>
-          <section title="Tunnel Management Message">
-            <t>
-              For tunnel management purpose, GTP-U supports following signalling messages.
-              <list style="symbols">
-                <t>
-                  Error Indication
-                </t>
-                <t>
-                  End Marker
-                </t>
-              </list>
-            </t>
-            <t>
-              <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-                <t>
-                  GTP-U supports tunnel management messages "Error Indication".
-                </t>
-              </list>
-              GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
-              Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
-            </t>
-            <t>
-              <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-                <t>
-                  GTP-U supports tunnel management messages "End Marker".
-                </t>
-              </list>
-              GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
-              End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
-            </t>
-          </section>
-        </section>
-        <section title="Protocol Stack Example">
-          <t>
-            <xref target="fig_GTP_stack_example" /> shows an packet format
-            example of GTP-U over IPv6 that carries an extension header for QFI
-            and an IPv6 PDU. All values in the example are illustration purpose
-            only.
-          </t>
-          <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
-            <artwork align="center"><![CDATA[
-  0                   1                   2                   3
-  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
- Outer IPv6 Header
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Version|     DSCP=EF   |               Flow Label              |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |          Payload Length       | NxtHdr=17(UDP)|    Hop Limit  |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +                   Source IPv6 Address                         +
- |                        2001:db8:1:1::1                        |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +              Destination IPv6 Address                         +
- |                        2001:db8:1:2::1                        |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
- Outer UDP Header
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |     Source Port = xxxx        |         Dest Port = 2152      |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |         UDP Length            |          UDP Checksum         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
- GTP-U header
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- | 0x1 |1|0|1|0|0|     0xff      |           Length              |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                           TEID = 1654                         |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |    Sequence Number = 0        |N-PDU Number=0 |NextExtHdr=0x85|
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
- GTP-U Extension Header (PDU Session Container)
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |  ExtHdrLen=1  |Type=0 | Spare   |0|    QFI    |NextExtHdr=0x0 |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
- Inner IPv6 Header
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |Version|     DSCP=0    |               Flow Label              |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |          Payload Length       |    NexttHdr   |    Hop Limit  |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +                   Source IPv6 Address                         +
- |                        2001:db8:2:1::1                        |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- +                                                               +
- |                                                               |
- +              Destination IPv6 Address                         +
- |                        2001:db8:3:1::1                        |
- +                                                               +
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-
- Payload
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
- |                                                               |
- |                                                               |
- .                        TCP/UDP/etc., Data                     .
- .                                                               .
- |                                                               |
- |                                                               |
- +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+       +---------+         +---------+
+       |   L1    |         |   L1    |
+       +---------+         +---------+
+       |   L2    |         |   L2    |
+       +---------+         +---------+
+       |IPv4/IPv6|         |IPv4/IPv6|
+       +---------+         +---------+
+       |   UDP   |         |   UDP   |         +---------+
+       +---------+         +---------+         |    L1   |
+       |GTP-U Hdr|         |GTP-U Hdr|         +---------+
+       |(TEID=1) |         |(TEID=2) |         |    L2   |
+       +---------+         +---------+         +---------+
+       |IPv4/IPv6|         |IPv4/IPv6|         |IPv4/IPv6|
+       +---------+         +---------+         +---------+
+       |   PDU   | ----->  |   PDU   | ----->  |   PDU   | ----->
+       +---------+         +---------+         +---------+
 
 ]]></artwork>
-          </figure>
+        </figure>
+
+        <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
+          <artwork align="center"><![CDATA[
+
+            N3                  N9
+        GTP-U Tunnel       GTP-U Tunnel
+         (TEID=4)            (TEID=3)
+      <-------------      <-------------
++-----+            +------+            +------+
+| RAN |------------| UPF1 |------------| UPF2 |
++-----+            +------+            +------+
+
+       +---------+         +---------+
+       |   L1    |         |   L1    |
+       +---------+         +---------+
+       |   L2    |         |   L2    |
+       +---------+         +---------+
+       |IPv4/IPv6|         |IPv4/IPv6|
+       +---------+         +---------+
+       |   UDP   |         |   UDP   |         +---------+
+       +---------+         +---------+         |    L1   |
+       |GTP-U Hdr|         |GTP-U Hdr|         +---------+
+       |(TEID=4) |         |(TEID=3) |         |    L2   |
+       +---------+         +---------+         +---------+
+       |IPv4/IPv6|         |IPv4/IPv6|         |IPv4/IPv6|
+       +---------+         +---------+         +---------+
+<----- |   PDU   |  <----- |   PDU   |  <----- |   PDU   |
+       +---------+         +---------+         +---------+
+
+]]></artwork>
+        </figure>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports load balancing by using dynamic UDP port allocation.
+            </t>
+          </list>
+          UDP is utilized for GTP-U encapsulation and UDP destination port is 2152 which is assigned by IANA.
+          UDP source port depends on sender tunnel endpoint node and GTP-U supports dynamic allocation of UDP source port for load balancing objective.
+          This dynamic allocation's specification is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />, however specific procedure and requirement, e.g., 5-tuple hashing, are not described in this document and depends on the implementation of GTP-U tunnel endpoint node.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U does not support UDP zero checksum in IPv6 transport case.
+            </t>
+          </list>
+          GTP-U supports both IPv4 and IPv6 as internet layer protocol.
+          As for IPv6, GTP-U specification refers <xref target="RFC2460"/>, which is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
+          As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the UDP checksum value to zero,
+          the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
+          It is noted that the IPv6 specification in IETF has been updated to <xref target="RFC8200"/> which allows UDP zero checksum for the tunnel.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U does not support to response ICMP PTB for Path MTU Discovery.
+            </t>
+          </list>
+          "Unnecessary fragmentation should be avoided" is recommended and to avoid the fragmentation operator should configure MTU size at UE <xref target="TS.29.281-3GPP" />.
+          However, there's no reference and specification of Path MTU Discovery for IPv6 transport.
+          If encapsulated IPv6 packet is too big on a network link between tunnel endpoint nodes,
+          UE may not receive ICMPv6 Packet Too Big message and causes Path MTU Discovery black hole.
+        </t>
+      </section>
+      <section title="GTP-U Header Format">
+        <t>
+          <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U header.
+          The Tunnel Endpoint ID (TEID) which is present in the GTP-U header shall indicate which tunnel a particular T-PDU belongs to.
+          TEID is signalled to GTP-U tunnel endpoint nodes from control plane function by using control plane protocol.
+          In current 5G architecture, the control plane function is SMF and PFCP (Packet Forwarding Control Plane) is selected as the control plane protocol for N4 interface <xref target="TR.29.891-3GPP" />.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
+            </t>
+          </list>
+          GTP-U header has Sequence Number field and Sequence Number Flag to reorder incoming packets based on the sequence number.
+          However, the sequence number flag is set to "1" only for RAT HO procedure and sequence number flag should be set to "0" in normal case.
+          Therefore, in normal case receiver tunnel endpoint node doesn't examine sequence number and can't reorder GTP-U packets based on the sequence number.
+          This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+          <figure anchor="fig_GTP-U_header" title="GTP-U Header">
+          <artwork align="center"><![CDATA[
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Ver |P|R|E|S|N| Message Type|             Length              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                Tunnel Endpoint Identifier                     |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|      Sequence Number        |   N-PDU Number  |  Next-Ext-Hdr |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+        </figure>
+        <t>
+          <list style="symbols">
+            <t>Ver: Version field (Set to '1')</t>
+            <t>P: Protocol Type (Set to '1')</t>
+            <t>R: Reserved bit (Set to '0')</t>
+            <t>E: Extension Header Flag (Set to '1' if extension header exists)</t>
+            <t>S: Sequence Number Flag (Set to '1' if sequence number exists)</t>
+            <t>N: N-PDU Number Flag (Set to '1' if N-PDU number exists)</t>
+            <t>Message Type: Indicates the type of GTP-U message</t>
+            <t>Length: Indicates the length in octets of the payload</t>
+            <t>Tunnel Endpoint Identifier (TEID)</t>
+            <t>Sequence Number: Indicates increasing sequence number for T-PDUs is
+               transmitted via GTP-U tunnels</t>
+            <t>N-PDU Number: It is used only for inter SGSN, 2G-3G handover case, etc.</t>
+            <t>Next-Ext-Hdr: Indicates following extension header type</t>
+          </list>
+        </t>
+
+        <figure anchor="fig_GTP-U_Ext_header" title="Extension GTP-U Header">
+        <artwork align="center"><![CDATA[
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| Ext-Hdr Length|                                               |
++-+-+-+-+-+-+-+-+                                               |
+|                  Extension Header Content                     |
+.                                                               .
+.                                               +-+-+-+-+-+-+-+-+
+|                                               |  Next-Ext-Hdr |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+]]></artwork>
+        </figure>
+        <t>
+          <list style="symbols">
+            <t>Ext-Hdr Length: The length of the Extension header shall be
+               defined in a variable length of 4 octets</t>
+            <t>Extension Header Content: Contains 3GPP related information</t>
+            <t>Next-Ext-Hdr: Indicates following extension header type</t>
+          </list>
+        </t>
+
+        <t>
+          The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information.
+          Following list summarizes every extension header which is defined in <xref target="TS.29.281-3GPP" />.
+
+          <list style="symbols">
+            <t>
+              No more extension headers (Next-Ext-Hdr = 0000 0000)
+            </t>
+            <t>
+              Reserved - Control Plane only (Next-Ext-Hdr = 0000 0001)
+            </t>
+            <t>
+              Reserved - Control Plane only (Next-Ext-Hdr = 0000 0010)
+            </t>
+            <t>
+              Service Class Indicator (Next-Ext-Hdr = 0010 0000)
+            </t>
+            <t>
+              UDP Port (Next-Ext-Hdr = 0100 0000)
+            </t>
+            <t>
+              RAN Container (Next-Ext-Hdr = 1000 0001)
+            </t>
+            <t>
+              Long PDCP PDU Number (Next-Ext-Hdr = 1000 0010)
+            </t>
+            <t>
+              Xw RAN Container (Next-Ext-Hdr = 1000 0011)
+            </t>
+            <t>
+              NR RAN Container (Next-Ext-Hdr = 1000 0100)
+            </t>
+            <t>
+              PDU Session Container (Next-Ext-Hdr = 1000 0101)
+            </t>
+            <t>
+              PDCP PDU Number (Next-Ext-Hdr = 1100 0000)
+            </t>
+            <t>
+              Reserved - Control Plane only (Next-Ext-Hdr = 1100 0001)
+            </t>
+            <t>
+              Reserved - Control Plane only (Next-Ext-Hdr = 1100 0010)
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+            </t>
+          </list>
+          3GPP creates PDU Session Container extension header for NGRAN of 5G and this PDU Session Container extension header carries QFI.
+          PDU Session Container is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
+          In this manner, GTP-U can carry 3GPP specific information by using extension header.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports DSCP marking based on the QFI.
+            </t>
+          </list>
+          DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QFI.
+          This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U does not specify the rule for the extension header order.
+            </t>
+          </list>
+          Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the rule for the extension header order is not specified in this document.
+          There are many extension headers for GTP-U and a sender endpoint node can attach multiple extension header in one GTP-U header.
+          This observation may cause a impact on hardware performance on receiving tunnel end point node
+          because receiving end point node can't predict exact bit position of target extension header like PDU Container which contains QFI information and need to examine every extension header.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U does not support an indication of next-header type.
+            </t>
+          </list>
+          If Next-Ext-Hdr is set to '0000 0000' it indicates that no more extension headers follows.
+          However, GTP-U doesn't have a Next-Protocol-Header field which indicates the type of protocol of following T-PDU like IPv4.
+          Therefore a control plane protocol needs to signal the type of protocol of T-PDU for each GTP-U tunnel.
+        </t>
+      </section>
+
+      <section title="Control Plane Protocol for GTP-U">
+        <t>
+          Control plane protocol for GTP-U signals TEID to tunnel endpoint nodes and
+          sender tunnel endpoint node encapsulates T-PDU with the signalled TEID.
+          Once UE attachment is requested, control plane protocol signals TEID which is assigned to the PDU session to each tunnel end point node.
+        </t>
+        <t>
+          3GPP CT4 proposed to use extended PFCP (Packet Forwarding Control Protocol) for N4 interface <xref target="TR.29.891-3GPP" />.
+          PFCP is a control plane protocol for mobile user plane and running on UDP and IPv4/IPv6 <xref target="TS.29.244-3GPP" />.
+        </t>
+      </section>
+      <section title="GTP-U signalling message">
+        <t>
+          GTP-U supports several signalling message for OAM and purpose. This section summarizes GTP-U signalling messages which are defined in <xref target="TR.29.891-3GPP" />.
+        </t>
+        <section title="Path Management Message">
+          <t>
+            For path management purpose, GTP-U supports following signalling messages.
+            <list style="symbols">
+              <t>
+                Echo Request
+              </t>
+              <t>
+                Echo Response
+              </t>
+              <t>
+                Supported Extension Headers Notification
+              </t>
+            </list>
+          </t>
+          <t>
+            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+              <t>
+                GTP-U supports active OAM as a path management message "Echo Request/Response".
+              </t>
+            </list>
+            A GTP-U tunnel endpoint node sends a Echo Request message to another nodes for keep-alive and received node sends a Echo Response message to sender node as acknowledgment.
+            Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
+            <xref target="TR.29.891-3GPP" /> recommends not to send Echo Request message more often than 60s on each path.
+          </t>
+          <t>
+            Supported Extension Headers Notification message indicates a list of supported that tunnel endpoint node can support.
+            This message is sent only in case a tunnel endpoint node receives GTP-U packet with unsupported extension header.
+          </t>
         </section>
-        <section title="Observations Summary">
+        <section title="Tunnel Management Message">
           <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
+            For tunnel management purpose, GTP-U supports following signalling messages.
+            <list style="symbols">
               <t>
-                A Point-to-Point tunneling protocol.
+                Error Indication
+              </t>
+              <t>
+                End Marker
               </t>
             </list>
           </t>
           <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                Supports Point-to-Multipoint tunneling.
+                GTP-U supports tunnel management messages "Error Indication".
               </t>
             </list>
+            GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
+            Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
           </t>
           <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
               <t>
-                Supports load balancing by using dynamic UDP port allocation.
+                GTP-U supports tunnel management messages "End Marker".
               </t>
             </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Does not support UDP zero checksum in IPv6 transport case.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Does not support to response ICMP PTB for Path MTU Discovery.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Supports carrying QoS Identifiers transparently for Access Networks in extension headers.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Supports DSCP marking based on the QFI.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Does not specify the rule for the extension header order.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Does not support an indication of next-header type.
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Supports active OAM as a path management message "Echo Request/Response".
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Supports tunnel management messages "Error Indication".
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u">
-              <t>
-                Supports tunnel management messages "End Marker".
-              </t>
-            </list>
+            GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
+            End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
           </t>
         </section>
       </section>
+      <section title="Protocol Stack Example">
+        <t>
+          <xref target="fig_GTP_stack_example" /> shows an packet format
+          example of GTP-U over IPv6 that carries an extension header for QFI
+          and an IPv6 PDU. All values in the example are illustration purpose
+          only.
+        </t>
+        <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
+          <artwork align="center"><![CDATA[
+0                   1                   2                   3
+0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
+Outer IPv6 Header
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Version|     DSCP=EF   |               Flow Label              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Payload Length       | NxtHdr=17(UDP)|    Hop Limit  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                                                               |
++                   Source IPv6 Address                         +
+|                        2001:db8:1:1::1                        |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                                                               |
++              Destination IPv6 Address                         +
+|                        2001:db8:1:2::1                        |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Outer UDP Header
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|     Source Port = xxxx        |         Dest Port = 2152      |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|         UDP Length            |          UDP Checksum         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+GTP-U header
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+| 0x1 |1|0|1|0|0|     0xff      |           Length              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                           TEID = 1654                         |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|    Sequence Number = 0        |N-PDU Number=0 |NextExtHdr=0x85|
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+GTP-U Extension Header (PDU Session Container)
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|  ExtHdrLen=1  |Type=0 | Spare   |0|    QFI    |NextExtHdr=0x0 |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Inner IPv6 Header
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|Version|     DSCP=0    |               Flow Label              |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|          Payload Length       |    NexttHdr   |    Hop Limit  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                                                               |
++                   Source IPv6 Address                         +
+|                        2001:db8:2:1::1                        |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
++                                                               +
+|                                                               |
++              Destination IPv6 Address                         +
+|                        2001:db8:3:1::1                        |
++                                                               +
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+Payload
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                                                               |
+|                                                               |
+.                        TCP/UDP/etc., Data                     .
+.                                                               .
+|                                                               |
+|                                                               |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+
+]]></artwork>
+        </figure>
+      </section>
+      <section title="Observations Summary">
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              A Point-to-Point tunneling protocol.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports Point-to-Multipoint tunneling.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports load balancing by using dynamic UDP port allocation.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Does not support UDP zero checksum in IPv6 transport case.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Does not support to response ICMP PTB for Path MTU Discovery.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports DSCP marking based on the QFI.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Does not specify the rule for the extension header order.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Does not support an indication of next-header type.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports active OAM as a path management message "Echo Request/Response".
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports tunnel management messages "Error Indication".
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Supports tunnel management messages "End Marker".
+            </t>
+          </list>
+        </t>
+      </section>
+    
     </section>
 
 
