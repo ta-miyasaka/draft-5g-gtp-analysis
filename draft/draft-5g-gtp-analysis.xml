@@ -386,22 +386,27 @@
 
       <section title="GTP-U Tunnel">
         <t>
-          GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and encapsulates T-PDU from UE with UDP+IP.
+          GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and
+          encapsulates T-PDU from UE on top of IP/UDP. TEID value allocated on
+          each end point which tunnel indicates particular T-PDU belongs to.
+          That is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
               GTP-U is a Point-to-Point tunneling protocol.
             </t>
           </list>
-          GTP-U support P2P tunnel and P2MP tunnel.
-          At P2P GTP-U tunnel, GTP-U tunnel is established between a given pair of tunnel endpoint nodes by using control plane protocol which signals common TEID value toward these two tunnel endpoint nodes.
-          This characteristic is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          Point-to-Multipoint (P2MP) tunneling enables one sender tunnel
+          endpoint node to multiple receiver tunnel endpoint nodes. The P2MP
+          tunneling is used for MBMS (Multimedia Broadcast Multicast Service)
+          through GTP-U described in section 4.2.6 of <xref
+          target="TS.29.281-3GPP" />.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
               GTP-U supports Point-to-Multipoint tunneling.
             </t>
           </list>
-          At P2MP GTP-U tunnel, a multicast GTP-U tunnel is established from one sender tunnel endpoint node to multiple receiver tunnel endpoint nodes.
-          This multicast GTP-U tunnel is used for MBMS(Multimedia Broadcast Multicast Service) and described in section 4.2.6 of <xref target="TS.29.281-3GPP" />.
         </t>
         <t>
           <xref target="fig_Protocol-Stack-ul"/> and <xref target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack for uplink and downlink traffic respectively.
