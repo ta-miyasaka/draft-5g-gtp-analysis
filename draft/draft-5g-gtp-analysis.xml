@@ -759,7 +759,7 @@
           </t>
         </section>
       </section>
-      <section title="Protocol Stack Example">
+      <section title="Packet Format">
         <t>
           <xref target="fig_GTP_stack_example" /> shows an packet format
           example of GTP-U over IPv6 that carries an extension header for QFI
