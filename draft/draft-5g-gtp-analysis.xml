@@ -738,31 +738,10 @@
         </section>
         <section title="Protocol Stack Example">
           <t>
-            <xref target="fig_GTP_stack_example" /> shows an example of GTP-U protocol stack.
-            There are following assumptions for this example.
-            <list style="symbols">
-              <t>
-                Traffic flow direction is from the Internet to UE, which equals to downlink traffic flow of <xref target="fig_Protocol-Stack-dl" />
-              </t>
-              <t>
-                GTP-U sender tunnel endpoint node's IPv6 address is 2001:db8:1:1::1 and receiver tunnel endpoint node's IPv6 address is 2001:db8:1:2::1.
-              </t>
-              <t>
-                DSCP on outer IPv4 header is marked as EF based on QFI value for this traffic flow.
-              </t>
-              <t>
-                Signalled TEID value from control plane protocol is 1654.
-              </t>
-              <t>
-                There is one GTP-U extension header of PDU Session Container whose Next-Extension-Header-Field-Value is 0x85
-              </t>
-              <t>
-                As this example is downlink traffic PDU Session Container includes DL PDU SESSION INFORMATION described in section 5.5.2.1 of <xref target="TS.38.415-3GPP" />
-              </t>
-              <t>
-                Inner IPv4 Header contains actual IPv4 header send by the Internet node. Sender node's IPv6 address is 2001:db8:2:1::1 and receiver UE's IPv6 address is 2001:db8:3:1::1.
-              </t>
-            </list>
+            <xref target="fig_GTP_stack_example" /> shows an packet format
+            example of GTP-U over IPv6 that carries an extension header for QFI
+            and an IPv6 PDU. All values in the example are illustration purpose
+            only.
           </t>
           <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
             <artwork align="center"><![CDATA[
