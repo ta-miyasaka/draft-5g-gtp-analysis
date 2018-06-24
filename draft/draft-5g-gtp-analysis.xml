@@ -504,7 +504,7 @@
               GTP-U does not support UDP zero checksum in IPv6 transport case.
             </t>
           </list>
-          GTP-U supports both IPv4 and IPv6 as internet layer protocol.
+          GTP-U supports both IPv4 and IPv6 as underlying transport layer protocol.
           As for IPv6, GTP-U specification refers <xref target="RFC2460"/>, which is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
           As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the UDP checksum value to zero,
           the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
