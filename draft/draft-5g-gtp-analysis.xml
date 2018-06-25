@@ -1079,18 +1079,19 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        Multi-homing is assumed to be used for edge computing scenario. Edge computing enables some services
-        to be hosted close to the UE's access point of attachment, and achieve an efficient service delivery 
+        Multi-homing is also assumed to be used for edge computing scenario. Edge computing enables some services
+        to be hosted close to the UE's access point of attachment, and achieves an efficient service delivery 
         through the reduced end-to-end latency and load on the transport network. In edge computing, local 
         user's traffic is routed or steered to application in the local DN by UPF. This includes the use of a 
         single PDU session with multiple PDU session Anchoes (UL CL/IPv6 multi-homing). This refers the section
         5.13 of <xref target="TS.23.501-3GPP"/>.
       </t>
         
-      
+<!-- (Multiple tunnels for multihomed PDU session may satisfy the above requirement) -->       
       <t>
-        Thus, UPP would be required to support multi-homign of a single PDU sesssion 
-        in UL. Simultaniously, it may to required to be a multipoint-to-point tunnel in DL 
+        Thus, UPP would be required to support multi-homing of a single PDU sesssion 
+        in UL. In short, UPP would be required to establish multiple tunnels or be 
+        point-to-multipoint tunnel. Simultaniously, it might be required to be a multipoint-to-point tunnel in DL 
         for supporting the case of multi-homing with a single PDU session in UL. 
       </t>
       
@@ -1127,7 +1128,7 @@ User Plane           /     |           |         \
         and UPP shall support to aggregate several PDU sessions into a tunnel or
         shall be a session-less tunnel.
       </t>
-      
+<!--   (This paragraph seems to be leaping requirements which can be obtained from 23501)  
       <t>
         Moreover, in cases that a PDU session traverses multiple UPFs and is enforced
         some processes at each UPF, each UPF is required to
@@ -1135,7 +1136,7 @@ User Plane           /     |           |         \
         avoiding this redandant identifications, UPP might be required to convey
         identifiers represeinting subscription or allocated policy information. 
       </t>
-           
+-->           
       
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
@@ -1248,9 +1249,10 @@ User Plane           /     |           |         \
 
         <section title="Forwarding Functionalities">
           <t>
-          The 5G system defines that IPv6 multi-homing in UL (multipoint-to-point forwarding in DL) is supported for some purposes 
-          such as SSC modes or edge computing. Thus, UPP would be required to be capable to support multi-homing and 
-          multipoint-to-point forwarding.
+          The 5G system defines that IPv6 multi-homing of a single PDU session in UL (multipoint-to-point 
+          forwarding in DL) is supported for some purposes such as SSC modes or edge computing. 
+          Thus, UPP would be required to be capable to support multi-homing of a single PDU session and 
+          might be required to be multipoint-to-point tunnel.
           </t>
           
           <t>
@@ -1372,8 +1374,8 @@ User Plane           /     |           |         \
           <t>
           Network slicing is as a fundamental concept of the 5G system. In the user plane,
           the architecture assumes that a network slice is composed of UPFs belonging to
-          the slice. The slice would share the physical resources with other network slices
-          instantiated on the same networks.
+          the slice. A slice would share the physical resources includes transport network and 
+          UPFs with other network slices instantiated on the same networks.
           </t>
           
           <t>
@@ -1387,13 +1389,15 @@ User Plane           /     |           |         \
           <t>
           Moreover, for monitoring traffic state of each network slice, UPP would be required to convey an identifier of slice 
           that the PDU session is allocated as visble to the operator. For example, UPP may be required to convey identifier 
-          of its allocated network slice as optional information.
+          representing its allocated network slice as optional information. In network slicing 
+          scenario, some UPFs may be shared with multiple network slices, and such identifier can be also used for reducing 
+          loads of relay UPFs on slice detection. 
           </t>
           
           
           <t>
           The points led from this aspect whether UPP support to convey some optional information including forwarding 
-          policy and slice identifier as the appropriate format for under transport network or operator.
+          policy and slice identifier as the appropriate format for under transport network or operator. 
           </t>
           
           <t> 
