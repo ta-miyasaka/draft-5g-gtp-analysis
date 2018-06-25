@@ -174,7 +174,7 @@
       <t>
         Even after that big success, it is definitely worth that 3GPP has
         decided to revisit user plane which seems to response to IPv6 deployment
-        growth and IAB statement <xref target="IAB-Statement"/> that encourages
+        growth and <xref target="IAB-Statement"/> that encourages
         the industry to develop strategies for IPv6-only operation. It can be
         seen from the justification section in <xref target="CP-173160-3GPP"/>.
       </t>
@@ -1467,10 +1467,6 @@ User Plane           /     |           |         \
     <t>TBD</t>
     </section>
     
-    
-    <section title="IANA Considerations">
-    <t>TBD</t>
-    </section>
     
     <section title="Acknowledgement">
     <t>
