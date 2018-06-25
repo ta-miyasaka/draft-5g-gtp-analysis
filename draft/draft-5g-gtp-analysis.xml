@@ -963,11 +963,10 @@ Payload
       </t>
       
       <t>
-      Network slicing is one of the fundamental concepts of the 5G system. A network slice is a logical 
-      network that provides specific network capabilities and characteristics, and it includes
-      some control plane and user plane functions. Structures of network slices may differ for 
-      supported service features and network functions optimizations. Multiple network slices may 
-      established on the same physical network includes RAN, CN, and DN.
+      Network slicing, one of the fundamental concepts of the 5G system, provides logical 
+      network separation. In terms of user plane, multiple network slices can be established
+      with UPFs on top of same physical network resources. Allocated resources and structures
+      may be differentiated among the slices by which the required features or capabilities.
       </t>
       
       <t>
