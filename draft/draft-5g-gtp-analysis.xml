@@ -949,7 +949,7 @@ Payload
 
     <section anchor="arch" title="5GS Architectural Requriements for User Plane Protocols">
 
-      <section title="Overview of 5G System Architecture">
+      <section anchor="archi-overview" title="Overview of 5G System Architecture">
       <t>
       The 5G system is designed for applying to diverse devices and services such, and the UPP is 
       required to have capabilities for saticefying their requirements. For example, a 5G system is expected to 
@@ -1369,12 +1369,13 @@ User Plane           /     |           |         \
         
         
         
-        <section title="Supporting Network Slicing">
+        <section title="Supporting Network Slicing Diversity">
           <t>
-          Network slicing is as a fundamental concept of the 5G system. In the user plane,
-          the architecture assumes that a network slice is composed of UPFs belonging to
-          the slice. A slice would share the physical resources includes transport network and 
-          UPFs with other network slices instantiated on the same networks.
+          As described in <xref target="archi-overview"/>, a network slice is composed of UPFs belonging to
+          the slice while a slice would share the physical resources with others. As <xref target="TS.28.530-3GPP"/>
+          described in section 4, underlay transport network of UP and UPFs are shared with other network slices
+          on the same networks. The data model defined in <xref target="TS.29.510-3GPP"/> allows that a UPF
+          can belong to multiple slices as same as other type of NFs.
           </t>
           
           <t>
@@ -1649,6 +1650,31 @@ User Plane           /     |           |         \
         </front>
       </reference>
          
+       <reference anchor='TS.28.530-3GPP'  target="http://ftp.3gpp.org//Specs/archive/28_series/28.530/28530-100.zip">
+        <front>
+        <title>3GPP TS 28.530 (V1.0.0): Management and orchestration of networks and network slicing; Concepts,
+               use cases and requirements (work in progress)</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+
+       <reference anchor='TS.29.510-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-06/Rel-15/29_series/29510-f00.zip">
+        <front>
+        <title>3GPP TS 29.510 (V15.0.0): 5G System; Network Function Repository Services; Stage 3</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+
       <reference anchor='CP-180116-3GPP'  target="http://www.3gpp.org/ftp/tsg_ct/TSG_CT/TSGC_79_Chennai/Docs/CP-180116.zip">
         <front>
         <title>LS on user plane protocol study</title>
