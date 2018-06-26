@@ -573,8 +573,7 @@
         </figure>
         <t>
           <list style="symbols">
-            <t>Ext-Hdr Length: The length of the Extension header shall be
-               defined in a variable length of 4 octets</t>
+            <t>Ext-Hdr Length: Represents the length of the Extension header in units of 4 octets</t>
             <t>Extension Header Content: Contains 3GPP related information</t>
             <t>Next-Ext-Hdr: Indicates following extension header type</t>
           </list>
@@ -582,47 +581,36 @@
 
         <t>
           The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information.
-          Following list summarizes every extension header which is defined in <xref target="TS.29.281-3GPP" />.
+          Following list summarizes every extension header which is used for user plane protocol. These extension headers are defined in <xref target="TS.29.281-3GPP" />.
+          In this list Next-Ext-Hdr is represented in binary.
 
           <list style="symbols">
             <t>
-              No more extension headers (Next-Ext-Hdr = 0000 0000)
+              No more extension headers (Next-Ext-Hdr = 00000000)
             </t>
             <t>
-              Reserved - Control Plane only (Next-Ext-Hdr = 0000 0001)
+              Service Class Indicator (Next-Ext-Hdr = 00100000)
             </t>
             <t>
-              Reserved - Control Plane only (Next-Ext-Hdr = 0000 0010)
+              UDP Port (Next-Ext-Hdr = 01000000)
             </t>
             <t>
-              Service Class Indicator (Next-Ext-Hdr = 0010 0000)
+              RAN Container (Next-Ext-Hdr = 10000001)
             </t>
             <t>
-              UDP Port (Next-Ext-Hdr = 0100 0000)
+              Long PDCP PDU Number (Next-Ext-Hdr = 10000010)
             </t>
             <t>
-              RAN Container (Next-Ext-Hdr = 1000 0001)
+              Xw RAN Container (Next-Ext-Hdr = 10000011)
             </t>
             <t>
-              Long PDCP PDU Number (Next-Ext-Hdr = 1000 0010)
+              NR RAN Container (Next-Ext-Hdr = 10000100)
             </t>
             <t>
-              Xw RAN Container (Next-Ext-Hdr = 1000 0011)
+              PDU Session Container (Next-Ext-Hdr = 10000101)
             </t>
             <t>
-              NR RAN Container (Next-Ext-Hdr = 1000 0100)
-            </t>
-            <t>
-              PDU Session Container (Next-Ext-Hdr = 1000 0101)
-            </t>
-            <t>
-              PDCP PDU Number (Next-Ext-Hdr = 1100 0000)
-            </t>
-            <t>
-              Reserved - Control Plane only (Next-Ext-Hdr = 1100 0001)
-            </t>
-            <t>
-              Reserved - Control Plane only (Next-Ext-Hdr = 1100 0010)
+              PDCP PDU Number (Next-Ext-Hdr = 11000000)
             </t>
           </list>
         </t>
