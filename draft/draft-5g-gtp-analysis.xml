@@ -617,12 +617,12 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+              GTP-U supports carrying QoS Identifiers transparently for Access Networks in an extension headers.
             </t>
           </list>
-          3GPP creates PDU Session Container extension header for NGRAN of 5G and this PDU Session Container extension header carries QFI.
-          PDU Session Container is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
-          In this manner, GTP-U can carry 3GPP specific information by using extension header.
+          GTP-U is designed to carry 3GPP specific information with extension headers.
+          3GPP creates PDU Session Container extension header for NGRAN of 5G to carry QFI.
+          It is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
