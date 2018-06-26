@@ -839,7 +839,7 @@ Payload
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
-              Does not support UDP zero checksum in IPv6 transport case.
+              UDP zero checksum is not available in case of IPv6 transport.
             </t>
           </list>
         </t>
