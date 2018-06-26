@@ -848,7 +848,7 @@
 ]]></artwork>
           </figure>
         </section>
-        <section title="Observations Summary">
+        <section anchor="gtp-u-summary" title="Observations Summary">
           <t>
             <list style="format [GTP-U-%d]:" counter="gtp-u">
               <t>
@@ -1013,7 +1013,7 @@ User Plane           /     |           |         \
       </section>
 
 
-      <section title="Architectural Requirements for User Plane Protocols">
+      <section anchor="archi-req" title="Architectural Requirements for User Plane Protocols">
       <t>
       This section lists the requirements for the UPP on the 5G system. The requirements are picked 
       up from <xref target="TS.23.501-3GPP"/>. In addition, some of service requirements described in 
@@ -1412,53 +1412,26 @@ User Plane           /     |           |         \
 
     <section anchor="conclusion" title="Conclusion">
       <t>
-        We analyse the 3GPP specifications of 5G architecture in terms of user
+        We analysed the 3GPP specifications of 5G architecture in terms of user
         plane and the current protocol adopted to the user plane. After the
         analysis work, we believe that the results described in this document
-        clarify the user plane protocol and the architectural requirements to be
-        ready to provide our inputs to the 3GPP User Plane Protocol Study work.
+        shows that we reach at certain level of understanding on 5G systems and
+        ready to provide our inputs to 3GPP.
       </t>
       
       <t>
-        An extensive study work on 5G architecture <xref
-        target="TR.29.891-3GPP"/> captured user plane requirements and concluded
-        that GTP-U is adopted for the user plane protocol. On the other hand, we
-        identify some aspects where there might be gap between the current user
-        plane protocol and the architectural requirements based on the results
-        of the analysis.
-      </t>
-      
-      <t>
-        When it comes to the user plane study part in <xref
-        target="TR.29.891-3GPP"/>, it seems that GTP-U was only option to be
-        chose and it focused on how to carry 5G specific QoS information between
-        UPF and access network. That is described in section 5.2 and 11.2 of
-        <xref target="TR.29.891-3GPP"/>. Another aspects of user plane
-        requirements couldn't be found. 
-      </t>
-      
-      <t>
-        We understand that GTP-U has been well developed and deployed very
-        widely as the successor of legacy network technologies, such as TDM
-        circuit, or ATM virtual circuit. That GTP-U success seems based on IP
-        overlay technique that is dramatically scaled compare to the previous
-        ones because it successfully isolates mobile session states from the
-        user plane transport network.
-      </t>
-      
-      <t>
-        Even after that big success, we appreciate that 3GPP has decided to
-        revisit user plane which seems to response to IPv6 deployment growth and
-        IAB statement to other SDOs. It can be seen from the justification
-        section in <xref target="CP-173160-3GPP">User Plane Protocol Study
-        Description</xref>.
+        We clarified GTP-U through the analysis and listed observed
+        characteristics in <xref target="gtp-u-summary"/>. We also clarified the
+        architectural requirements for UP protocol described in <xref
+        target="archi-req"/>.
       </t>
         
       <t>
-        The study description mentions that the study would be based on release
-        16 requirement. However we believe that providing the analysis result
-        based on release 15 specifications could also help to evolve their
-        technology through the study work.
+        As we identify some potential gaps between current UP protocol and the
+        architectural requirements, it is worth to study possible candidate UP
+        protocols for the 5G system including current one. Our conclusion here
+        is that we suggest the UP protocol study work in 3GPP takes into account
+        the evaluation aspects described in <xref target="eval_aspects"/>. 
       </t>
       
     </section>
