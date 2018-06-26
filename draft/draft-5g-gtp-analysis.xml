@@ -632,6 +632,8 @@
           </list>
           DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QFI.
           This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
+          However in <xref target="TS.29.281-3GPP" /> "DSCP marking based on QCI" is specified but "DSCP marking based on QFI" has not been noted.
+          To support QFI of 5G QoS framework, it seems to need to update <xref target="TS.29.281-3GPP" />.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
