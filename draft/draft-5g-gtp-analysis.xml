@@ -668,71 +668,59 @@
           3GPP decided to use extended PFCP (Packet Forwarding Control Protocol) <xref target="TS.29.244-3GPP" /> for N4 interface <xref target="TR.29.891-3GPP" /> to signal tunnel states from SMF to UPF.
         </t>
       </section>
-      <section title="GTP-U signalling message">
+      <section title="GTP-U message">
         <t>
-          GTP-U supports several signalling message for OAM and purpose. This section summarizes GTP-U signalling messages which are defined in <xref target="TR.29.891-3GPP" />.
+          GTP-U supports inband messaging to signal OAM. Currently GTP-U sipports following messages <xref target="TS.29.281-3GPP" />.
+          <list style="symbols">
+            <t>
+              Echo Request
+            </t>
+            <t>
+              Echo Response
+            </t>
+            <t>
+              Supported Extension Headers Notification
+            </t>
+            <t>
+              Error Indication
+            </t>
+            <t>
+              End Marker
+            </t>
+            </list>
+          </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports active OAM as a path management message "Echo Request/Response".
+            </t>
+          </list>
+          A GTP-U tunnel endpoint node sends a Echo Request message to another nodes for keep-alive and received node sends a Echo Response message to sender node as acknowledgment.
+          Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
+          <xref target="TR.29.891-3GPP" /> recommends not to send Echo Request message more often than 60s on each path.
         </t>
-        <section title="Path Management Message">
-          <t>
-            For path management purpose, GTP-U supports following signalling messages.
-            <list style="symbols">
-              <t>
-                Echo Request
-              </t>
-              <t>
-                Echo Response
-              </t>
-              <t>
-                Supported Extension Headers Notification
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports active OAM as a path management message "Echo Request/Response".
-              </t>
-            </list>
-            A GTP-U tunnel endpoint node sends a Echo Request message to another nodes for keep-alive and received node sends a Echo Response message to sender node as acknowledgment.
-            Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
-            <xref target="TR.29.891-3GPP" /> recommends not to send Echo Request message more often than 60s on each path.
-          </t>
-          <t>
-            Supported Extension Headers Notification message indicates a list of supported that tunnel endpoint node can support.
-            This message is sent only in case a tunnel endpoint node receives GTP-U packet with unsupported extension header.
-          </t>
-        </section>
-        <section title="Tunnel Management Message">
-          <t>
-            For tunnel management purpose, GTP-U supports following signalling messages.
-            <list style="symbols">
-              <t>
-                Error Indication
-              </t>
-              <t>
-                End Marker
-              </t>
-            </list>
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports tunnel management messages "Error Indication".
-              </t>
-            </list>
-            GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
-            Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
-          </t>
-          <t>
-            <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-              <t>
-                GTP-U supports tunnel management messages "End Marker".
-              </t>
-            </list>
-            GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
-            End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
-          </t>
-        </section>
+        <t>
+          Supported Extension Headers Notification message indicates a list of supported that tunnel endpoint node can support.
+          This message is sent only in case a tunnel endpoint node receives GTP-U packet with unsupported extension header.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports tunnel management messages "Error Indication".
+            </t>
+          </list>
+          GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
+          Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports tunnel management messages "End Marker".
+            </t>
+          </list>
+          GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
+          End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
+        </t>
       </section>
       <section title="Packet Format">
         <t>
@@ -740,6 +728,7 @@
           example of GTP-U over IPv6 that carries an extension header for QFI
           and an IPv6 PDU. All values in the example are illustration purpose
           only.
+          The encoding of PDU Session Container for QFI refers to <xref target="TS.38.415-3GPP" />.
         </t>
         <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
           <artwork align="center"><![CDATA[
@@ -772,7 +761,7 @@ Outer UDP Header
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |     Source Port = xxxx        |         Dest Port = 2152      |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|         UDP Length            |          UDP Checksum         |
+|         UDP Length            |    UDP Checksum (Non-zero)    |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 GTP-U header
@@ -918,7 +907,6 @@ Payload
           </list>
         </t>
       </section>
-    
     </section>
 
 
