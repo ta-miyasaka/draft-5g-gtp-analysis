@@ -414,30 +414,21 @@
           GTP-U tunnel is a uni-directional tunnel and in these two examples there are following four GTP-U tunnels:
           <list style="numbers">
             <t>
-              GTP-U Tunnel from RAN to UPF1 in uplink traffic flow (TEID=1)
+              A GTP-U Tunnel from RAN to UPF1 (TEID=1), UPF1 to UPF2 (TEID=2) in the uplink
             </t>
             <t>
-              GTP-U Tunnel from UPF1 to UPF2 in uplink traffic flow (TEID=2)
-            </t>
-            <t>
-              GTP-U Tunnel from UPF2 to UPF1 in downlink traffic flow (TEID=3)
-            </t>
-            <t>
-              GTP-U Tunnel from UPF1 to RAN in downlink traffic flow (TEID=4)
+              A GTP-U Tunnel from UPF2 to UPF1 (TEID=3), UPF1 to RAN (TEID=4) in the downlink
             </t>
           </list>
         </t>
         <figure anchor="fig_Protocol-Stack-ul" title="Protocol Stack by GTPv1-U for Uplink Traffic Flow">
           <artwork align="center"><![CDATA[
-
-            N3                  N9
-        GTP-U Tunnel       GTP-U Tunnel
+                 GTP-U Tunnel
          (TEID=1)            (TEID=2)
       ------------->      ------------->
-+-----+            +------+            +------+
++-----+    N3      +------+     N9     +------+
 | RAN |------------| UPF1 |------------| UPF2 |
 +-----+            +------+            +------+
-
        +---------+         +---------+
        |   L1    |         |   L1    |
        +---------+         +---------+
@@ -454,21 +445,17 @@
        +---------+         +---------+         +---------+
        |   PDU   | ----->  |   PDU   | ----->  |   PDU   | ----->
        +---------+         +---------+         +---------+
-
 ]]></artwork>
         </figure>
 
         <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
           <artwork align="center"><![CDATA[
-
-            N3                  N9
-        GTP-U Tunnel       GTP-U Tunnel
+                 GTP-U Tunnel
          (TEID=4)            (TEID=3)
       <-------------      <-------------
-+-----+            +------+            +------+
++-----+    N3      +------+     N9     +------+
 | RAN |------------| UPF1 |------------| UPF2 |
 +-----+            +------+            +------+
-
        +---------+         +---------+
        |   L1    |         |   L1    |
        +---------+         +---------+
@@ -485,23 +472,23 @@
        +---------+         +---------+         +---------+
 <----- |   PDU   |  <----- |   PDU   |  <----- |   PDU   |
        +---------+         +---------+         +---------+
-
 ]]></artwork>
         </figure>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports load balancing by using dynamic UDP port allocation.
+              GTP-U supports load balancing by using dynamic UDP source port allocation.
             </t>
           </list>
           UDP is utilized for GTP-U encapsulation and UDP destination port is 2152 which is assigned by IANA.
-          UDP source port depends on sender tunnel endpoint node and GTP-U supports dynamic allocation of UDP source port for load balancing objective.
-          This dynamic allocation's specification is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />, however specific procedure and requirement, e.g., 5-tuple hashing, are not described in this document and depends on the implementation of GTP-U tunnel endpoint node.
+          Allocation of UDP source port depends on sender tunnel endpoint node and GTP-U supports dynamic allocation of UDP source port for load balancing objective.
+          The specification of this dynamic allocation is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />,
+          however specific procedure, e.g., 5-tuple hashing, is not described in the document and depends on the implementation of GTP-U tunnel endpoint node.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U does not support UDP zero checksum in IPv6 transport case.
+              UDP zero checksum is not available in case of IPv6 transport.
             </t>
           </list>
           GTP-U supports both IPv4 and IPv6 as underlying transport layer protocol.
@@ -509,6 +496,7 @@
           As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the UDP checksum value to zero,
           the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
           It is noted that the IPv6 specification in IETF has been updated to <xref target="RFC8200"/> which allows UDP zero checksum for the tunnel.
+          If GTP-U support UFP zero checksum in future version, possible interoperability issue between previous generations which does not support zero checksum may raise.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
