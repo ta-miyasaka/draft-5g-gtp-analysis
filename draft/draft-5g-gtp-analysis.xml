@@ -660,13 +660,12 @@
 
       <section title="Control Plane Protocol for GTP-U">
         <t>
-          Control plane protocol for GTP-U signals TEID to tunnel endpoint nodes and
-          sender tunnel endpoint node encapsulates T-PDU with the signalled TEID.
-          Once UE attachment is requested, control plane protocol signals TEID which is assigned to the PDU session to each tunnel end point node.
+          Control plane protocol for GTP-U signals TEID between tunnel endpoint nodes.
+          GTPv2-C <xref target="TS.29.274-3GPP" /> is the original control plane protocol tied with GTP-U
+          in previous generation architectures before CUPS (Control and User Plane Separation).
         </t>
         <t>
-          3GPP CT4 proposed to use extended PFCP (Packet Forwarding Control Protocol) for N4 interface <xref target="TR.29.891-3GPP" />.
-          PFCP is a control plane protocol for mobile user plane and running on UDP and IPv4/IPv6 <xref target="TS.29.244-3GPP" />.
+          3GPP decided to use extended PFCP (Packet Forwarding Control Protocol) <xref target="TS.29.244-3GPP" /> for N4 interface <xref target="TR.29.891-3GPP" /> to signal tunnel states from SMF to UPF.
         </t>
       </section>
       <section title="GTP-U signalling message">
@@ -1611,6 +1610,18 @@ User Plane           /     |           |         \
        <reference anchor='TS.29.510-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-06/Rel-15/29_series/29510-f00.zip">
         <front>
         <title>3GPP TS 29.510 (V15.0.0): 5G System; Network Function Repository Services; Stage 3</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+
+       <reference anchor='TS.29.274-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.274/29274-f40.zip">
+        <front>
+        <title>3GPP TS 29.274 (V15.4.0): 3GPP Evolved Packet System (EPS); Evolved General Packet Radio Service (GPRS) Tunnelling Protocol for Control plane (GTPv2-C); Stage 3</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
