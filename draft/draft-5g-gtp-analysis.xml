@@ -638,13 +638,12 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U does not specify the rule for the extension header order.
+              GTP-U does not specify extension header order.
             </t>
           </list>
-          Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the rule for the extension header order is not specified in this document.
-          There are many extension headers for GTP-U and a sender endpoint node can attach multiple extension header in one GTP-U header.
-          This observation may cause a impact on hardware performance on receiving tunnel end point node
-          because receiving end point node can't predict exact bit position of target extension header like PDU Container which contains QFI information and need to examine every extension header.
+          Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the order of extension header order is not specified in this document.
+          Thereby the receiving endpoint can't predict exact position where the target extension headers are.
+          This could impact on header lookup performance on the node.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
