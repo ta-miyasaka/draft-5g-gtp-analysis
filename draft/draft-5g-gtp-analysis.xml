@@ -648,12 +648,12 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U does not support an indication of next-header type.
+              GTP-U does not support to indicate next protocol type.
             </t>
           </list>
-          If Next-Ext-Hdr is set to '0000 0000' it indicates that no more extension headers follows.
-          However, GTP-U doesn't have a Next-Protocol-Header field which indicates the type of protocol of following T-PDU like IPv4.
-          Therefore a control plane protocol needs to signal the type of protocol of T-PDU for each GTP-U tunnel.
+          When Next-Ext-Hdr is set to 0x00 it indicates that no more extension headers follow.
+          As GTP is designed to indicate protocol types for T-PDU by control-plane signaling,
+          GTP-U doesn't have Next-Protocol-Header field to indicate the T-PDU type in the header.
         </t>
       </section>
 
