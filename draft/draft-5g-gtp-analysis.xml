@@ -851,7 +851,7 @@ Payload
 ]]></artwork>
         </figure>
       </section>
-      <section title="Observations Summary">
+      <section anchor="gtp-u-summary" title="Observations Summary">
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
