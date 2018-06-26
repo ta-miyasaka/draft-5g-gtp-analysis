@@ -1294,8 +1294,10 @@ User Plane           /     |           |         \
                                           
     <section anchor="eval_aspects" title="Evaluation Aspects">
       <t>
-      This section provides examples of evaluation aspects for protocol comparison. The evaluation aspects are 
-      led from architectural requirements of 5G system (<xref target="arch"/>) and some assumed service scenarios. 
+        This section provides UP protocol evaluation aspects that are mainly we
+        derive from the architectural requirements described in <xref
+        target="arch"/>. Expected deployment scenarios to those aspects explain
+        the evaluations purpose in the aspects.
       </t>
       
       <t>
