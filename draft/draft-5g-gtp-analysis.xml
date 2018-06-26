@@ -1502,7 +1502,8 @@ User Plane           /     |           |         \
             Moreover, for more efficient usage of network resources, UPF and its (virtual) ports would be required 
             to allow multiple slices to use it simultaniously. If the a (virtual) port must be assigned to per slice, 
             the number of slices can be deployed is limited by the number of ports. In case that a port is shared with 
-            multiple slices, a way to detect slices allocated to each PDU session would be required. For example, UP protocol 
+            multiple slices, a way to detect slices allocated to each PDU session would be required for executing the 
+            appropriate processes to each slice. For example, UP protocol 
             might be required to convey some information for slice detection.
           </t>
             
@@ -1520,7 +1521,7 @@ User Plane           /     |           |         \
           
           <t>
           The points led from this aspect whether UP protocol supports to convey some optional information including forwarding 
-          policy and slice identifier as the appropriate format for under transport network or operator. 
+          policy and slice identifier as the appropriate format for under transport network or other functions. 
           </t>
           
           <t> 
