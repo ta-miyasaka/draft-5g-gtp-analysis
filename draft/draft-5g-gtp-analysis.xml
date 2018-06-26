@@ -1301,7 +1301,9 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-      In addition, this section shows gap between GTP-U specifications and 5G architectural requirements.
+        As we were noticed that the gaps between GTP-U specifications and 5G
+        architectural requirements through the analysis. We describe those gaps
+        briefly in the evaluation aspects associated to it.
       </t>
       
       <t>
