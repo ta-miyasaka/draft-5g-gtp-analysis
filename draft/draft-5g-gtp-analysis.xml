@@ -40,7 +40,7 @@
 <!-- end of list of popular I-D processing instructions --> 
 
 
-<rfc category="info" docName="draft-hmm-dmm-5g-uplane-analysis">
+<rfc category="info" docName="draft-hmm-dmm-5g-uplane-analysis-00">
   <!-- ***** FRONT MATTER ***** --> 
 
 
@@ -99,6 +99,7 @@
       </address>
     </author>
 
+<!--
     <author fullname="Takashi Ito" initials="T." surname="Ito">
       <organization>NTT docomo</organization>
 
@@ -113,6 +114,7 @@
         <email>itoutakas@nttdocomo.com</email>
       </address>
     </author>
+-->
 
     <author fullname="Daniel Voyer" initials="D." surname="Voyer">
       <organization>Bell Canada</organization>
