@@ -917,9 +917,12 @@ Payload
       <section anchor="archi-overview" title="Overview of 5G System Architecture">
       <t>
       The 5G system is designed for applying to diverse devices and services such, and the UPP is 
-      required to have capabilities for saticefying their requirements. For example, a 5G system is expected to 
+      required to have capabilities for saticefying their requirements. 
+<!--
+      For example, a 5G system is expected to 
       provide the feasibility includes network slicing, network capability exposure, etc. (Ref. 
       <xref target="TS.22.261-3GPP"/>)
+-->
       </t>
       
       <t>
@@ -935,9 +938,11 @@ Payload
       </t>
       
       <t>
-      The 5G system is defined as a service-based architecture, and PDU sessions are available to be controlled 
-      from other authorized network functions via control plane functions. The architecture overview is shown in 
-      <xref target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in <xref target="TS.23.501-3GPP"/>.
+      The architecture overview is shown in <xref target="fig_3GPP-5GS-ARCH"/>. The details of 
+      functions are described in <xref target="TS.23.501-3GPP"/>. User plane path and applied 
+      functions for a tunnel will be manipulated based on application requirements that the 
+      PDU session corresponding to the tunnel is available to be handled by other authorized 
+      functions through the control plane.
       </t>
 
 <figure anchor="fig_3GPP-5GS-ARCH"
@@ -976,12 +981,69 @@ User Plane           /     |           |         \
       <t>
       This document mainly focuses on requirements for N9 interface as relevant to UPP of 5G system.
       </t>
+         
+      <section anchor="UPF-Func" title="UPF Functionalities">
+        <t>
+          UPF has a role to handle UP traffic, and provides functionalities to 
+          look up user data traffic and enforce the appropriate policies to it. 
+        </t>
+        
+        <t>
+          The followings are defined as UPF functionalities for traffic handlig:
+        <list style="symbols">
+          <t>User Plane part of policy rule enforcement, e.g. Gating, Redirection, Traffic steering)</t>
+          <t>QoS handling for user plane, e.g. UL/DL rate enforcement, Reflective QoS marking in DL</t>
+          <t>Transport level packet marking in the uplink and downlink</t>
+        </list>
+        </t>
+        
+        <t> 
+          Other functionalities are described in the section 6.2.3 of <xref target="TS.23.501-3GPP"/>
+        </t>
+        
+        <t>
+          UPF shall detect user plane depending on information indecated by SMF.
+          User data traffic is detected with combination of the following information:
+        </t>
+        <t>
+        <list style="symbols">
+          <t>For IPv4 or IPv6 PDU Session type
+            <list style="symbols">
+              <t>PDU Session</t>
+              <t>QFI</t>
+              <t>Application Identifier: The Application ID is an index to a set of application detection rules configured in UPF</t>
+            </list>
+          </t>
+          <t>For Ethernet PDU Session type
+            <list style="symbols">
+              <t>PDU Session</t>
+              <t>QFI</t>
+              <t>Ethernet Packet Filter Set:
+                <list style="symbols">
+                  <t>Source/destination MAC address</t>
+                  <t>Ethertype as defined in IEEE 802.3</t>
+                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) VID fields as defined in IEEE 802.1Q</t>
+                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) PCP/DEI fields as defined in IEEE 802.1Q</t>
+                  <t>IP Packet Filter Set, in case Ethertype indicates IPv4/IPv6 payload</t>
+                  <t>Packet filter direction</t>
+                </list>
+              </t>
+            </list>
+          </t>
+          </list>
+          </t>
+          <t>
+           Such information for traffic detection (Traffic Detection Information)
+           is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
+          </t>
+        </section>
       </section>
-
+       
+        
 
       <section anchor="archi-req" title="Architectural Requirements for User Plane Protocols">
       <t>
-      This section lists the requirements for the UPP on the 5G system. The requirements are picked 
+      This section lists the requirements for the UP protocol on the 5G system. The requirements are picked 
       up from <xref target="TS.23.501-3GPP"/>. In addition, some of service requirements described in 
       <xref target="TS.22.261-3GPP"/> are referred to clarify the originations of architectural requirements.
       </t>
@@ -989,7 +1051,7 @@ User Plane           /     |           |         \
       <t>
       According to <xref target="TS.23.501-3GPP"/>, the specifications potentially have assumptions that the user 
       plane protocol is a tunnel representing a single TEID between a pair of UPFs and it is corresponding to a 
-      single PDU session. In short, the UPP is a tunnel and it is assumed to be managed under per 
+      single PDU session. In short, the UP protocol is a tunnel and it is assumed to be managed under per 
       PDU session handling. Also, it should be a stateful tunnel in the UPFs along with the PDU session.
       </t>
     
@@ -1000,22 +1062,26 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            IPv4, IPv6, Ethernet and Unstructured Packet Data Unit (PDU) are
-            supported in the 5G system.
+            Supporting IPv4, IPv6, Ethernet and Unstructured PDU
           </t>
         </list>
       </t>
       <t> 
-        In short, UPP must support all of these PDU session types. This is refered in the section 3.1 of 
-        <xref target="TS.23.501-3GPP"/>.
+        The 5G system defines four types of PDU session as IPv4, IPv6, Ethernet, 
+        and Unstractured. Therefore, UP protocol must support to convey all of 
+        these PDU session types.  This is described in <xref target="TS.23.501-3GPP"/>.
       </t>
       
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            The 5G system provides IP connectivity over N3, N6, and N9 interfaces. 
+            Supporting IP connectivity over N3, N6, and N9 interfaces 
           </t>
         </list>
+      </t>
+      
+      <t>
+        The 5G system provides IP connectivity over N3, N6, and N9 interfaces. 
       </t>
       
       <t>
@@ -1029,41 +1095,65 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            The 5G system allows to deploy multiple UPFs as anchors for a single
-            PDU session, and IPv6 multi-homing of a single PDU session is supported 
-            for such anchor UPFs. 
+             Supporting deployment of multiple UPFs as anchors for a single PDU session 
           </t>
         </list>
       </t>
       
       <t>
-        As examples of use cases that use multi-homing for a single PDU session, SSC Mode 1 and 2
-        described in the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
-        Corresponding to specifications of SSC Mode 1 and 2, multi-homing for Ethernet type PDU session.
+        The 5G system allows to deploy multiple UPFs as anchors for a single 
+        PDU session, and suupports multihoming of a single PDU session for 
+        such anchor UPFs.
       </t>
       
       <t>
-        Multi-homing is also assumed to be used for edge computing scenario. Edge computing enables some services
+        Multihoming is provided with Branching Point (BP) or Uplink Classifier (UL CL) 
+        which are functionalities of UPF. 
+        BP provides forwarding of UL traffic towards the different PDU Session Anchors 
+        based on the source IPv6 prefixes and merge of DL traffic to the UE. 
+        UL CL provides destination based multihoming for load balancing.
+      </t>
+   
+      <t>
+        Multihoming of a single PDU session could be achieved by multiple P2P
+        or a P2MP tunneling.  Simultaniously, in the revrsed direction, 
+        multiple P2P or a MP2P tunneling would be used for supporting multihoming. 
+        However, P2P tunneling might cause explosively 
+        increase of the number of tunnles. For reducing total number of tunnel
+        states, it would be better that UP protocol supports P2MP/MP2P tunneling.
+      </t>
+        
+        
+        
+      <t>
+        SSC mode 3 for session continuity in hand-over case uses a single PDU multihoming 
+        with BP to make sure make-before-break. It is
+        described in the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
+<!--
+        Corresponding to specifications of SSC Mode 1 and 2, multi-homing for Ethernet type PDU session.
+-->
+      </t>
+      
+      <t>
+        Multihoming is also assumed to be used for edge computing scenario. Edge computing enables some services
         to be hosted close to the UE's access point of attachment, and achieves an efficient service delivery 
         through the reduced end-to-end latency and load on the transport network. In edge computing, local 
-        user's traffic is routed or steered to application in the local DN by UPF. This includes the use of a 
-        single PDU session with multiple PDU session Anchoes (UL CL/IPv6 multi-homing). This refers the section
+        user's traffic is routed or steered to application in the local DN by UPF. This refers the section
         5.13 of <xref target="TS.23.501-3GPP"/>.
       </t>
         
-<!-- (Multiple tunnels for multihomed PDU session may satisfy the above requirement) -->       
+<!-- (Multiple tunnels for multihomed PDU session may satisfy the above requirement)     
       <t>
-        Thus, UPP would be required to support multi-homing of a single PDU sesssion 
-        in UL. In short, UPP would be required to establish multiple tunnels or be 
-        point-to-multipoint tunnel. Simultaniously, it might be required to be a multipoint-to-point tunnel in DL 
-        for supporting the case of multi-homing with a single PDU session in UL. 
+        Thus, UP protocol would be required to support multihoming of a single PDU sesssion.
+        Especially, UP protocol would be required to support P2MP and M2TP tunneling for reducing 
+        managed tunnels.
       </t>
+-->
       
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            The 5G system potentially supports flexible UPF selection for PDU
-            compared to persistent S/P-GW in 4G.
+            Supporting flexible UPF selection for PDU compared to persistent S/P-GW in 4G.
           </t>
         </list>
       </t>
@@ -1076,20 +1166,33 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            There's no limitation for number of UPFs in a data plane path.
+             No limitation for number of UPFs in a data path
           </t>
         </list>
       </t>
+      
       <t>
-        This specification is described in the section 8.3.1 of <xref
-        target="TS.23.501-3GPP"/>. Putting multiple UPFs in a data path enables
-        to deploy functions as Application Function required through the path.
-        In addition, putting multiple UPFs as anchors closed to UEs' site may
-        enable to make data path more efficient. This usage is refered in the
-        6.5 of <xref target="TS.22.261-3GPP"/>. It is exptected that multiple
+        The number of UPF in the data path is not constrained by 3GPP specifications.
+        This specification is described in the section 8.3.1 of <xref target="TS.23.501-3GPP"/>.
+      </t>
+        
+      <t>
+        Putting multiple UPFs, which provides specific function, in a data path enables 
+        flexible function deployment to make sure load distributin optimizations, etc.
+      </t>
+        
+      <t>
+        In addition, deployment of multiple UPFs as anchors closed to UEs' site and 
+        connecting them without extra anchor points
+        enable to make data path more efficient.  This usage is described in
+        the section 6.5 of <xref target="TS.22.261-3GPP"/>. 
+      </t>
+        
+      <t>
+        It is exptected that multiple
         UPFs with per session tunnel handling for a PDU session becomes
         complicated task more and more for a SMF by increasing number of UPFs,
-        and UPP shall support to aggregate several PDU sessions into a tunnel or
+        and UP protocol shall support to aggregate several PDU sessions into a tunnel or
         shall be a session-less tunnel.
       </t>
 <!--   (This paragraph seems to be leaping requirements which can be obtained from 23501)  
@@ -1118,7 +1221,7 @@ User Plane           /     |           |         \
         before 5G. This specification is described in 5.7.1 of <xref
         target="TS.23.501-3GPP"/>.
       </t>
-
+<!--
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -1178,7 +1281,8 @@ User Plane           /     |           |         \
         Such information for traffic detection (Traffic Detection Information)
         is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
       </t>
-           
+-->
+        
 <!-- Any more requirements? -->
                                                                         
       </section>
@@ -1198,7 +1302,7 @@ User Plane           /     |           |         \
       Note that the aspects on implementation and interoperability to current networks are out 
       of scope in this document. Moreover, this document does not define priority level of each aspect.
       </t>
-         <section title="Supporting PDU Session Types">
+         <section title="Supporting PDU Session Type Variations">
           <t>
           Given that UPP is required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstructured. 
           If some types are not supported, UEs which use only such types of PDU session connect to the 5G network. 
@@ -1213,24 +1317,29 @@ User Plane           /     |           |         \
 
         <section title="Forwarding Functionalities">
           <t>
-          The 5G system defines that IPv6 multi-homing of a single PDU session in UL (multipoint-to-point 
-          forwarding in DL) is supported for some purposes such as SSC modes or edge computing. 
-          Thus, UPP would be required to be capable to support multi-homing of a single PDU session and 
-          might be required to be multipoint-to-point tunnel.
+          The 5G system defines that multi-homing of a single PDU session
+          and multipoint-to-point forwarding in the reversed direction are supported for some
+          purposes such as SSC mode 3or edge computing.  Thus, UP protocol would be
+          required to  support mult-homing of a single PDU session.
           </t>
           
           <t>
-          Meanwhile, GTP-U is basically point-to-point tunnel, and it also support point-to-multipoint forwarding. 
-          GTP-U does not support multipoint-to-point tunneling.
+          In terms of the number of required tunnels, UP protocol would be 
+          required to support P2MP and MP2P tunneling.
+          </t>
+            
+          <t>
+          Meanwhile, GTP-U is basically P2P tunnel, and it also support P2MP forwarding. 
+          However, GTP-U does not support MP2P tunneling.
           </t>
           
           <t>
-          The point led from this aspect is whether the UPP support multihoming and multipoint-to-point tunneling.
+          The point led from this aspect is whether the UP protocol support multihoming and both P2MP and MP2P tunneling.
           </t>
           
         </section>
 
-        <section title="Transport Variations support for Mobile User Plane">
+        <section title="Supporting Transport Variations">
           <t>
           The 5G system has an assumption to use various types of transport for deploying base stations 
           for high-frequently radio access widely and high-density. In such cases, MTU size may vary depending on 
@@ -1238,19 +1347,19 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          For providing wide coverage, IPv6 should be used for transport and UPP should be IPv6-based. 
-          In addition, for applying to such various types of transport techniques, UPP would be required to support 
+          For providing wide coverage, IPv6 should be used for transport and UP protocol should be IPv6-based. 
+          In addition, for applying to such various types of transport techniques, UP protocol would be required to support 
           dynamic discovery and adjustment of MTU size.
           </t>
           
           <t>
-          The points led from this aspect are that network structured with IPv6 and whether UPP support dynamic 
+          The points led from this aspect are that network structured with IPv6 and whether UP protocol support dynamic 
           discovery and adjustment of MTU size depending on transport type.
           </t>
         </section>
 
 
-        <section title="Data Paths Management">
+        <section title="Data Path Management">
           <t>
           In the 5G network, UPFs may be deployed distributedly, and UPFs which a data path traverses may vary 
           for UPF's load balancing or depending on service scenarios. In other words, UPF may be required to 
@@ -1258,27 +1367,27 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          From these reasons, UPP would be required to be session-less or allow to aggregate several PDU sessions to 
-          a single tunnel for reducing the number of tunnels. Tunnel aggregation may require UPP to support 
+          From these reasons, UP protocol would be required to be session-less or allow to aggregate several PDU sessions to 
+          a single tunnel for reducing the number of tunnels. Tunnel aggregation may require UP protocol to support 
           multipoint-to-point tunneling. 
           </t>
           
           <t>
-          When UPP aggregates several PDU sessions, each PDU session must have unique identifiable information such 
+          When UP protocol aggregates several PDU sessions, each PDU session must have unique identifiable information such 
           as non-duplicated 5-tuple for enabling to disaggregate them at each UPF. For example, some DN may use the same 
           IPv4 address space, and for avoiding duplicate of IP addresses among some PDU sessions, tunnels would be 
           established for each DN.
           </t>
           
           <t>
-          The point led from this aspect is whether UPP is session-less tunneling or enables to aggregate several 
+          The point led from this aspect is whether UP protocol is session-less tunneling or enables to aggregate several 
           PDU session into a single tunnel for preventing increase of complexity on tunnel management.
           </t>
           
         </section>
 
 
-        <section title="QoS Control on Mobile Network">
+        <section title="QoS Control">
           <t>
           The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
           an assumption that QFI is carried in an encapsulation header on N3 and N9. Moreover, UPFs optionally 
@@ -1287,7 +1396,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          Given that UPP is required to convey QFI on N3 and N9 interfaces. In terms of performance on hardware processes, 
+          Given that UP protocol is required to convey QFI on N3 and N9 interfaces. In terms of performance on hardware processes, 
           it is better to fix the place where QFI is contained. Moreover, for improving hardware processes 
           it may be better to content QFI value in a field of outer transporting header, such as a part of 
           destination IP address field.
@@ -1300,7 +1409,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          The points led from this aspect are whether UPP provides a field to convey QFI information over N3 and N9 interfaces 
+          The points led from this aspect are whether UP protocol provides a field to convey QFI information over N3 and N9 interfaces 
           and the place containing the information is pre-defined for make hardware process more efficient.
           </t>
         </section>
@@ -1320,12 +1429,12 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          For avoiding such redundant traffic detection, it may be better that UPP supports to convey optional 
+          For avoiding such redundant traffic detection, it may be better that UP protocol supports to convey optional 
           information such as policy rules in the pre-defined place and share with multiple UPFs.
           </t>
           
           <t>
-          The points led from this aspect are whether UPP provides fields to contain some optional information such as 
+          The points led from this aspect are whether UP protocol provides fields to contain some optional information such as 
           policy rules for reducing load of traffic detection.
           </t>
           
@@ -1345,24 +1454,36 @@ User Plane           /     |           |         \
           
           <t>
           Network slices would require different forwarding policies, in the intermediate transport network, depending 
-          on requirements of the assumed services. Then, UPP would be required to represent such policies as the appropriate 
+          on requirements of the assumed services. Then, UP protocol would be required to represent such policies as the appropriate 
           format to the transport network. For example, in case that a slice has a requirement on forwarding latency and 
-          dedicated route definition provided by TE is required, UPP would be required to convey the TE information as visible 
+          dedicated route definition provided by TE is required, UP protocol would be required to convey the TE information as visible 
           for underlay transport network.
           </t>
           
           <t>
-          Moreover, for monitoring traffic state of each network slice, UPP would be required to convey an identifier of slice 
-          that the PDU session is allocated as visble to the operator. For example, UPP may be required to convey identifier 
+            Moreover, for more efficient usage of network resources, UPF and its (virtual) ports would be required 
+            to allow multiple slices to use it simultaniously. If the a (virtual) port must be assigned to per slice, 
+            the number of slices can be deployed is limited by the number of ports. In case that a port is shared with 
+            multiple slices, a way to detect slices allocated to each PDU session would be required for executing the 
+            appropriate processes to each slice. For example, UP protocol 
+            might be required to convey some information for slice detection.
+          </t>
+            
+            
+            
+    <!--      
+          <t>
+          Moreover, for monitoring traffic state of each network slice, UP protocol would be required to convey an identifier of slice 
+          that the PDU session is allocated as visble to the operator. For example, UP protocol may be required to convey identifier 
           representing its allocated network slice as optional information. In network slicing 
           scenario, some UPFs may be shared with multiple network slices, and such identifier can be also used for reducing 
           loads of relay UPFs on slice detection. 
           </t>
-          
+    -->      
           
           <t>
-          The points led from this aspect whether UPP support to convey some optional information including forwarding 
-          policy and slice identifier as the appropriate format for under transport network or operator. 
+          The points led from this aspect whether UP protocol supports to convey some optional information including forwarding 
+          policy and slice identifier as the appropriate format for under transport network or other functions. 
           </t>
           
           <t> 
