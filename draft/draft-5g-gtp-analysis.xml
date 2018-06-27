@@ -1296,29 +1296,39 @@ User Plane           /     |           |         \
       <t>
         This section provides UP protocol evaluation aspects that are mainly we
         derive from the architectural requirements described in <xref
-        target="arch"/>. Expected deployment scenarios to those aspects explain
-        the evaluations purpose in the aspects.
+        target="arch"/>. Those aspect are not prioritized by the order here. 
+        Expected deployment scenarios explain the evaluations purpose in the 
+        corresponding aspects. 
       </t>
       
       <t>
         As we were noticed that the gaps between GTP-U specifications and 5G
-        architectural requirements through the analysis. We describe those gaps
-        briefly in the evaluation aspects associated to it.
+        architectural requirements through the analysis, those each gap are briefly
+        described in the evaluation aspect associated to it.
       </t>
       
       <t>
-      Note that the aspects on implementation and interoperability to current networks are out 
-      of scope in this document. Moreover, this document does not define priority level of each aspect.
+         Since it is obvious that 5G system should be able to interwork with
+         existing previous generation based systems, any aspects from coexisting
+         and interworking point of view are not particularly articulated here. 
+         It may be described in a next version.
       </t>
+
          <section title="Supporting PDU Session Type Variations">
           <t>
-          Given that UP protocol is required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstructured. 
-          If some types are not supported, UEs which use only such types of PDU session connect to the 5G network. 
-          Or alternative means would be required to convey such PDU sessions.
+            Given that UP protocol is required to support all PDU session types:
+            IPv4, IPv6, Ethernet, and Unstructured. However, it is expected that
+            some deployment cases allow candidate protocol to adopt only one or
+            few PDU session type(s) for simplicity of operations. As we can
+            expect that IPv4 connectivity services will be available through
+            IPv6-only PDU session that enabled by bunch of IPv6 transition
+            solutions already available in the field.
           </t>
-          
+            
           <t>
-          The point led from this aspect is whether the UP protocol has means to convey each type of PDU sessions.
+            For this, the expected evaluation points from this aspect should be whether
+            there is substitutional means to cover other PDU session types. And how much
+            it is simple than deploying original PDU session types.
           </t>
         </section>
 
