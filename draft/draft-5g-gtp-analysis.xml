@@ -916,7 +916,7 @@ Payload
 
       <section anchor="archi-overview" title="Overview of 5G System Architecture">
       <t>
-      The 5G system is designed for applying to diverse devices and services such, and the UPP is 
+      The 5G system is designed for applying to diverse devices and services such, and the UP protocol is 
       required to have capabilities for saticefying their requirements. 
 <!--
       For example, a 5G system is expected to 
@@ -979,7 +979,7 @@ User Plane           /     |           |         \
 
 
       <t>
-      This document mainly focuses on requirements for N9 interface as relevant to UPP of 5G system.
+      This document mainly focuses on requirements for N9 interface as relevant to UP protocol of 5G system.
       </t>
          
       <section anchor="UPF-Func" title="UPF Functionalities">
@@ -1056,7 +1056,7 @@ User Plane           /     |           |         \
       </t>
     
       <t>
-      The requirements for UPPs are described below:
+      The requirements for UP protocols are described below:
       </t>
         
       <t>
@@ -1310,7 +1310,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-          The point led from this aspect is whether the UPP has means to convey each type of PDU sessions.
+          The point led from this aspect is whether the UP protocol has means to convey each type of PDU sessions.
           </t>
         </section>
 
