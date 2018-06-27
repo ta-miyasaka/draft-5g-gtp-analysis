@@ -1355,25 +1355,42 @@ User Plane           /     |           |         \
             the the nature of candidate UP protocols are to establish MP2P data
             path.
           </t>
-          
         </section>
 
         <section title="Supporting Transport Variations">
           <t>
-          The 5G system has an assumption to use various types of transport for deploying base stations 
-          for high-frequently radio access widely and high-density. In such cases, MTU size may vary depending on 
-          transport technique type.
+            5G system will be expected that the new radio spectrums in high frequency 
+            bands require operators to deploy their base stations much dense for much
+            wider areas compare to previous generation footprints. To make sure that
+            density and coverage, all available types of transport in the field
+            must be employed between RAN to UPF, or UPF to UPF.
           </t>
           
           <t>
-          For providing wide coverage, IPv6 should be used for transport and UP protocol should be IPv6-based. 
-          In addition, for applying to such various types of transport techniques, UP protocol would be required to support 
-          dynamic discovery and adjustment of MTU size.
+            It is also expected that MTU size of each transport could be varied.
+            Because one could be own fiber which the operator configure the MTU
+            size as they like while others are third-party provided L2/L3 VPN
+            lines which MTU size can't be controlled by the operators. So it is 
+            recommended MTU size discovery for each data path 
+            and dynamic MTU size adjustment mechanisms, while GTP-U does not 
+            support those mechanisms.
           </t>
           
           <t>
-          The points led from this aspect are that network structured with IPv6 and whether UP protocol support dynamic 
-          discovery and adjustment of MTU size depending on transport type.
+            As the study item in 3GPP mentioned, IPv6 is preferable address
+            family not only for UEs, but also for the UP transport, in terms of
+            size of available address space to support dence and wide footprint
+            of base stations. However it increases header size from 20bytes to
+            40bytes compare to IPv4. It could be a problem if the MTU size is
+            uncontrollable, or only limited MTU size available to carry committed
+            PDU size on the user plane.
+          </t>
+          
+          <t>
+            The evaluation points from this aspect should be that the candidate
+            protocols are able to dynamically adjust path MTU size with appropriate
+            MTU size discovery mechanism. It also should be that how the candidate 
+            protocols leverage IPv6 to deal with header size increasing.
           </t>
         </section>
 
