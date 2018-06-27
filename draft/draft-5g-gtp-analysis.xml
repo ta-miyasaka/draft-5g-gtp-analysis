@@ -1340,7 +1340,7 @@ User Plane           /     |           |         \
       Note that the aspects on implementation and interoperability to current networks are out 
       of scope in this document. Moreover, this document does not define priority level of each aspect.
       </t>
-         <section title="Supporting PDU Session Types">
+         <section title="Supporting PDU Session Type Variations">
           <t>
           Given that UPP is required to support every PDU session type: IPv4, IPv6, Ethernet, and Unstructured. 
           If some types are not supported, UEs which use only such types of PDU session connect to the 5G network. 
@@ -1377,7 +1377,7 @@ User Plane           /     |           |         \
           
         </section>
 
-        <section title="Transport Variations support for Mobile User Plane">
+        <section title="Supporting Transport Variations">
           <t>
           The 5G system has an assumption to use various types of transport for deploying base stations 
           for high-frequently radio access widely and high-density. In such cases, MTU size may vary depending on 
@@ -1397,7 +1397,7 @@ User Plane           /     |           |         \
         </section>
 
 
-        <section title="Data Paths Management">
+        <section title="Data Path Management">
           <t>
           In the 5G network, UPFs may be deployed distributedly, and UPFs which a data path traverses may vary 
           for UPF's load balancing or depending on service scenarios. In other words, UPF may be required to 
@@ -1425,7 +1425,7 @@ User Plane           /     |           |         \
         </section>
 
 
-        <section title="QoS Control on Mobile Network">
+        <section title="QoS Control">
           <t>
           The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
           an assumption that QFI is carried in an encapsulation header on N3 and N9. Moreover, UPFs optionally 
