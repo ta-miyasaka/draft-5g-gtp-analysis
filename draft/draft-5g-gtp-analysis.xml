@@ -1153,7 +1153,7 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            Supporting flexible UPF selection for PDU compared to persistent S/P-GW in 4G.
+            Supporting flexible UPF selection for PDU
           </t>
         </list>
       </t>
@@ -1208,8 +1208,8 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            A PDU session is able to aggregate multiple QoS Flow indicated with
-            QFI.
+            Supporting aggregation of multiple QoS Flow indicated with
+            QFI into a PDU Session
           </t>
         </list>
       </t>
