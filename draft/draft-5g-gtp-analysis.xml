@@ -1328,31 +1328,32 @@ User Plane           /     |           |         \
           <t>
             For this, the expected evaluation points from this aspect should be whether
             there is substitutional means to cover other PDU session types. And how much
-            it is simple than deploying original PDU session types.
+            it makes simple the system than deploying original PDU session types.
           </t>
         </section>
 
 
-        <section title="Forwarding Functionalities">
+        <section title="Nature of Data Path">
           <t>
-          The 5G system defines that multi-homing of a single PDU session
-          and multipoint-to-point forwarding in the reversed direction are supported for some
-          purposes such as SSC mode 3or edge computing.  Thus, UP protocol would be
-          required to  support mult-homing of a single PDU session.
+            As it is described in <xref target="archi-req"/>, the single PDU
+            session multi-homing case requires multipoint-to-point (MP2P) data
+            path. It should be much scalable than multi-homing with multiple PDU
+            sessions because number of required path states in the UPFs are
+            reduced as closed to egress endpoint. Against that point-to-point
+            (P2P) protocol requires same number of states in each UPF throughout
+            the path. 
           </t>
           
           <t>
-          In terms of the number of required tunnels, UP protocol would be 
-          required to support P2MP and MP2P tunneling.
-          </t>
-            
-          <t>
-          Meanwhile, GTP-U is basically P2P tunnel, and it also support P2MP forwarding. 
-          However, GTP-U does not support MP2P tunneling.
+            Supporting MP2P data path by GTP-U could be a gap in terms of single
+            PDU session multi-homing, since GTP-U is a point-to-point tunneling
+            protocol as it is described in <xref target="gtp-u"/>. 
           </t>
           
           <t>
-          The point led from this aspect is whether the UP protocol support multihoming and both P2MP and MP2P tunneling.
+            Therefore the expected evaluation points from this aspect is whether
+            the the nature of candidate UP protocols are to establish MP2P data
+            path.
           </t>
           
         </section>
