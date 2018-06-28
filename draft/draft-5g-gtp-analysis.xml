@@ -514,7 +514,7 @@
           UE may not receive ICMPv6 Packet Too Big message and causes Path MTU Discovery black hole.
         </t>
       </section>
-      <section title="GTP-U Header Format">
+      <section anchor="gtp-u-header" title="GTP-U Header Format">
         <t>
           <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U header.
         </t>
@@ -1436,28 +1436,27 @@ User Plane           /     |           |         \
   
         <section anchor="eval-qos" title="QoS Control">
           <t>
-          The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
-          an assumption that QFI is carried in an encapsulation header on N3 and N9. Moreover, UPFs optionally 
-          support QoS marking on transport headers (e.g., DSCP of IP header or CoS of Ethernet header) depending 
-          on QFI.
+            The QoS model is based on QoS flows to which QFI indicates in the 5G
+            system that allows multiple QoS flows are aggregated into a single
+            PDU session. So that it is given that the UP protocol should convey
+            QFIs in for a PDU session and the UPF needs to lookup the QFI. It
+            makes sure that reflects QoS policy in the 5G system to
+            corresponding forwarding policy in the user plane IP transports.
           </t>
           
           <t>
-          Given that UP protocol is required to convey QFI on N3 and N9 interfaces. In terms of performance on hardware processes, 
-          it is better to fix the place where QFI is contained. Moreover, for improving hardware processes 
-          it may be better to content QFI value in a field of outer transporting header, such as a part of 
-          destination IP address field.
+            As we pointed out in <xref target="gtp-u-header"/>, the lookup
+            process could impact UPF performance if the QFI container position
+            in the header is unpredictable. It could happen many times along the
+            path because the each UPFs should do it again and again in case that
+            various different QoS policies are deployed in the networks under
+            the UP as we discussed in <xref target="eval-transport"/>.
           </t>
           
           <t>
-          In GTP-U specifications, the order of QFI is not defined, and it may cause deterioration of
-          forwarding throughput and interoperability. In addition, containing of QFI in an extension header 
-          requires for UPF to parse the formats, and it would be a factor to decrease throughput performance.
-          </t>
-          
-          <t>
-          The points led from this aspect are whether UP protocol provides a field to convey QFI information over N3 and N9 interfaces 
-          and the place containing the information is pre-defined for make hardware process more efficient.
+            The expected evaluation points from this aspect should be whether
+            the candidate protocols can provide stable ID space for QFI which
+            shouldn't be a big deal since QFI just requires 6-bits space.
           </t>
         </section>
         
