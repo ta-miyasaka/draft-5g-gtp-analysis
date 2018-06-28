@@ -1397,32 +1397,41 @@ User Plane           /     |           |         \
 
         <section title="Data Path Management">
           <t>
-          In the 5G network, UPFs may be deployed distributedly, and UPFs which a data path traverses may vary 
-          for UPF's load balancing or depending on service scenarios. In other words, UPF may be required to 
-          connect a tunnel to another UPF dynamically, and the number of tunnels among UPFs would be large.
+            As <xref target="archi-req"/> described, the 5G systems allows user
+            plane that flexible UPF selection, multiple anchor UPFs, and no
+            limit on how many UPFs chained for the data path of the PDU session.
+            UPF deployments in the field will thereby be distributed to be able
+            to optimize the data path based on various logics and service
+            scenarios.
           </t>
           
           <t>
-          From these reasons, UP protocol would be required to be session-less or allow to aggregate several PDU sessions to 
-          a single tunnel for reducing the number of tunnels. Tunnel aggregation may require UP protocol to support 
-          multipoint-to-point tunneling. 
+            That powerful user plane capability could affect data path
+            management complicated and difficult to be managed through the
+            control plane, or operation support systems (OSS). Perhaps it could
+            be the case where the UP protocol is P2P and it only supports per
+            session base data path handling.
           </t>
           
           <t>
-          When UP protocol aggregates several PDU sessions, each PDU session must have unique identifiable information such 
-          as non-duplicated 5-tuple for enabling to disaggregate them at each UPF. For example, some DN may use the same 
-          IPv4 address space, and for avoiding duplicate of IP addresses among some PDU sessions, tunnels would be 
-          established for each DN.
+            Because it increases data path states by number of sessions, and
+            number of endpoints of UPFs that makes data path handling much
+            hectic and the control plane tend to be overloaded by not only usual
+            attach/detach/hand-over operation, but also existing session
+            manipulation triggered by UPF/transport nodes/paths restoration,
+            etc.,
           </t>
           
           <t>
-          The point led from this aspect is whether UP protocol is session-less tunneling or enables to aggregate several 
-          PDU session into a single tunnel for preventing increase of complexity on tunnel management.
+            The evaluation points from this aspect should be that how much the
+            candidate protocols can reduce data path management loads both on
+            the control plane NFs and UPFs compare to the P2P per session based
+            handling. It could possibly include N3 and N6 in addition to N9
+            while it supports flexible user plane data path optimizations for
+            some example scenarios.
           </t>
-          
         </section>
-
-
+  
         <section title="QoS Control">
           <t>
           The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
