@@ -1004,7 +1004,7 @@ User Plane           /     |           |         \
         </t>
         
         <t>
-          UPF shall detect user plane depending on information indicated by SMF.
+          UPF shall detect user plane traffic flow depending on information indicated by SMF.
           User data traffic is detected with combination of the following information:
         </t>
         <t>
@@ -1481,32 +1481,28 @@ User Plane           /     |           |         \
         
         <section anchor="eval-flow" title="Traffic Detection and Flow Handling">
           <t>
-          In the 5G network, there are cases that a PDU session traverses multiple UPFs. A UPF detects PDU session 
-          based on Traffic Detect Information, and enforce some processes to the PDU based on the pre-configured 
-          policy rule.
+            As described in <xref target="UPF-Func"/>, UPF need to detect
+            traffic flow specified by SMF within a PDU session, and enforce some
+            processes to the PDU based on the pre-configured policy rule.
           </t>
           
           <t>
-          Meanwhile, it's defined that several types of information can be used as TDI. This means that the place 
-          TDI is contained may be different per PDU session and UPFs are required to monitor/search the whole of outer headers
-          of each packet. This may cause decrease of forwarding performance of UPFs.
+            As similar with QoS flow lookup described in <xref
+            target="eval-qos"/>, repeatedly detecting an specified traffic flow
+            in inner PDU many times along the path. It could increase redundant
+            flow detection load on every UPFs that could be avoided if the
+            upstream UPF put an ID which abstracts the detected flow into the
+            packets. It enables following UPFs just find the ID to detect the
+            indicated flow from the packet.
           </t>
           
           <t>
-          For avoiding such redundant traffic detection, it may be better that UP protocol supports to convey optional 
-          information such as policy rules in the pre-defined place and share with multiple UPFs.
+            The expected evaluation points from this aspect should be whether
+            the candidate protocols can provide enough bits space on stable ID
+            space to put abstracted detected flow identifier.
           </t>
-          
-          <t>
-          The points led from this aspect are whether UP protocol provides fields to contain some optional information such as 
-          policy rules for reducing load of traffic detection.
-          </t>
-          
         </section>
-        
-        
-        
-        
+
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
           <t>
           As described in <xref target="archi-overview"/>, a network slice is composed of UPFs belonging to
