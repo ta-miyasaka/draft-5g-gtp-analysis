@@ -1507,19 +1507,19 @@ User Plane           /     |           |         \
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
         
           <t>
-            It is expected that various means should be available case by case,
-            operator by operator, to embody network slicing for their the 5G
-            systems unless it follows 3GPP fundamental concept for slicing,
-            as described in <xref target="archi-overview"/>.
+            It is expected that various means should be available in case by
+            case, operator by operator, to embody network slicing for their 5G
+            systems unless it follows the fundamental slicing concept, as
+            described in <xref target="archi-overview"/>.
           </t>
           
           <t>
-            As <xref target="TS.28.530-3GPP"/> described in section 4, underlay
-            transport network of UP and UPFs are shared with other network
-            slices on the same networks. The data model defined in <xref
-            target="TS.29.510-3GPP"/> allows that a Network Instance, a UPF and
-            its interfaces can belong to multiple slices as same as other type
-            of NFs as it doesn't make them slice unique in the model.
+            As <xref target="TS.28.530-3GPP"/> described in section 4, UP
+            underlay transport networks and UPFs are shared by network slices.
+            The data model defined in <xref target="TS.29.510-3GPP"/> allows
+            that a Network Instance, a UPF and its interfaces can belong to
+            multiple slices as same as other type of NFs as the model doesn't
+            make them slice unique.
           </t>
 
           <t> 
