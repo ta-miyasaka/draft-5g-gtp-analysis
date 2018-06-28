@@ -8,6 +8,7 @@
 -->
 
 <!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC6935 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
 <!ENTITY RFC8200 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
 
@@ -329,11 +330,11 @@
         </t>
         
         <t>
-          In fact, we can't find exact text that defines UP in the
-          architecture specification. However when we see the figure 8.3.1-1 in
-          <xref target="TS.23.501-3GPP"/>, the layer right under PDU that
-          directly encapsulates PDU. Underneath layers of UP are UP transport,
-          such as IP/UDP, L2 and L1.
+          In fact, we can't find exact text that defines UP in the architecture
+          specification. However when we see the figure 8.3.1-1 in <xref
+          target="TS.23.501-3GPP"/>, we specify UP as the layer right under PDU
+          that directly encapsulates PDU. Underneath layers of UP are UP
+          transport, such as IP/UDP, L2 and L1.
         </t>
         
         <t>
@@ -495,9 +496,10 @@
           </list>
           GTP-U supports both IPv4 and IPv6 as underlying transport layer protocol.
           As for IPv6, GTP-U specification refers <xref target="RFC2460"/>, which is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
-          As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the UDP checksum value to zero,
+          As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the checksum value to zero,
           the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
           It is noted that the IPv6 specification in IETF has been updated to <xref target="RFC8200"/> which allows UDP zero checksum for the tunnel.
+          <xref target="RFC6935"/> describes benefits of zero checksum for tunnel protocol over UDP.
           If GTP-U support UFP zero checksum in future version, possible interoperability issue between previous generations which does not support zero checksum may raise.
         </t>
         <t>
@@ -1606,6 +1608,7 @@ User Plane           /     |           |         \
     <references title="Informative References">
 
     &RFC2460;
+    &RFC6935;
     &RFC8200;
     &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
 
