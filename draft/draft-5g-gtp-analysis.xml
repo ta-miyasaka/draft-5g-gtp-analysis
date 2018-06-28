@@ -674,7 +674,7 @@
       </section>
       <section title="GTP-U message">
         <t>
-          GTP-U supports inband messaging to signal OAM. Currently GTP-U sipports following messages <xref target="TS.29.281-3GPP" />.
+          GTP-U supports in-band messaging to signal OAM. Currently GTP-U supports following messages <xref target="TS.29.281-3GPP" />.
           <list style="symbols">
             <t>
               Echo Request
@@ -914,12 +914,12 @@ Payload
     </section>
 
 
-    <section anchor="arch" title="5GS Architectural Requriements for User Plane Protocols">
+    <section anchor="arch" title="5GS Architectural Requirements for User Plane Protocols">
 
       <section anchor="archi-overview" title="Overview of 5G System Architecture">
       <t>
       The 5G system is designed for applying to diverse devices and services such, and the UP protocol is 
-      required to have capabilities for saticefying their requirements. 
+      required to have capabilities for satisfying their requirements. 
 <!--
       For example, a 5G system is expected to 
       provide the feasibility includes network slicing, network capability exposure, etc. (Ref. 
@@ -991,7 +991,7 @@ User Plane           /     |           |         \
         </t>
         
         <t>
-          The followings are defined as UPF functionalities for traffic handlig:
+          The followings are defined as UPF functionalities for traffic handling:
         <list style="symbols">
           <t>User Plane part of policy rule enforcement, e.g. Gating, Redirection, Traffic steering)</t>
           <t>QoS handling for user plane, e.g. UL/DL rate enforcement, Reflective QoS marking in DL</t>
@@ -1004,7 +1004,7 @@ User Plane           /     |           |         \
         </t>
         
         <t>
-          UPF shall detect user plane depending on information indecated by SMF.
+          UPF shall detect user plane depending on information indicated by SMF.
           User data traffic is detected with combination of the following information:
         </t>
         <t>
@@ -1070,7 +1070,7 @@ User Plane           /     |           |         \
       </t>
       <t> 
         The 5G system defines four types of PDU session as IPv4, IPv6, Ethernet, 
-        and Unstractured. Therefore, UP protocol must support to convey all of 
+        and Unstructured. Therefore, UP protocol must support to convey all of 
         these PDU session types.  This is described in <xref target="TS.23.501-3GPP"/>.
       </t>
       
@@ -1108,7 +1108,7 @@ User Plane           /     |           |         \
       
       <t>
         The 5G system allows to deploy multiple UPFs as anchors for a single 
-        PDU session, and suupports multihoming of a single PDU session for 
+        PDU session, and supports multihoming of a single PDU session for 
         such anchor UPFs.
       </t>
       
@@ -1122,10 +1122,10 @@ User Plane           /     |           |         \
    
       <t>
         Multihoming of a single PDU session could be achieved by multiple P2P
-        or a P2MP tunneling.  Simultaniously, in the revrsed direction, 
+        or a P2MP tunneling.  Simultaneously, in the reverse direction, 
         multiple P2P or a MP2P tunneling would be used for supporting multihoming. 
         However, P2P tunneling might cause explosively 
-        increase of the number of tunnles. For reducing total number of tunnel
+        increase of the number of tunnels. For reducing total number of tunnel
         states, it would be better that UP protocol supports P2MP/MP2P tunneling.
       </t>
         
@@ -1184,7 +1184,7 @@ User Plane           /     |           |         \
         
       <t>
         Putting multiple UPFs, which provides specific function, in a data path enables 
-        flexible function deployment to make sure load distributin optimizations, etc.
+        flexible function deployment to make sure load distribution optimizations, etc.
       </t>
         
       <t>
@@ -1195,7 +1195,7 @@ User Plane           /     |           |         \
       </t>
         
       <t>
-        It is exptected that multiple
+        It is expected that multiple
         UPFs with per session tunnel handling for a PDU session becomes
         complicated task more and more for a SMF by increasing number of UPFs,
         and UP protocol shall support to aggregate several PDU sessions into a tunnel or
@@ -1220,8 +1220,8 @@ User Plane           /     |           |         \
         </list>
       </t>
       <t>
-        Against to the previous generation, 5G enables UPF to multiprex QoS
-        Flows, equivarent with IP-CAN bearers in  the previous generation, into
+        Against to the previous generation, 5G enables UPF to multiplex QoS
+        Flows, equivalent with IP-CAN bearers in  the previous generation, into
         one single PDU session. That means that a single tunnel includes
         multiple QFIs contrast to just one QoS Flow (a bearer) to one tunnel
         before 5G. This specification is described in 5.7.1 of <xref
@@ -1381,7 +1381,7 @@ User Plane           /     |           |         \
           <t>
             As the study item in 3GPP mentioned, IPv6 is preferable address
             family not only for UEs, but also for the UP transport, in terms of
-            size of available address space to support dence and wide footprint
+            size of available address space to support dense and wide footprint
             of base stations. However it increases header size from 20bytes to
             40bytes compare to IPv4. It could be a problem if the MTU size is
             uncontrollable, or only limited MTU size available to carry committed
@@ -1439,9 +1439,9 @@ User Plane           /     |           |         \
             The QoS model is based on QoS flows to which QFI indicates in the 5G
             system that allows multiple QoS flows are aggregated into a single
             PDU session. So that it is given that the UP protocol should convey
-            QFIs in for a PDU session and the UPF needs to lookup the QFI. It
-            makes sure that reflects QoS policy in the 5G system to
-            corresponding forwarding policy in the user plane IP transports.
+            QFIs for a PDU session and the UPF needs to lookup them. It makes
+            sure that reflects QoS policy in the 5G system to corresponding
+            forwarding policy in the user plane IP transports.
           </t>
           
           <t>
@@ -1550,7 +1550,7 @@ User Plane           /     |           |         \
 
     <section anchor="conclusion" title="Conclusion">
       <t>
-        We analysed the 3GPP specifications of 5G architecture in terms of user
+        We analyzed the 3GPP specifications of 5G architecture in terms of user
         plane and the current protocol adopted to the user plane. After the
         analysis work, we believe that the results described in this document
         shows that we reach at certain level of understanding on 5G systems and
