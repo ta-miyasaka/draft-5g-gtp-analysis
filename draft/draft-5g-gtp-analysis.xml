@@ -1073,6 +1073,10 @@ User Plane           /     |           |         \
       </t>
       
       <t>
+        Note: In TS 23.501 v15.2.0, IPv4v6 is added as a PDU session type.
+      </t>     
+      
+      <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
             Supporting IP connectivity over N3, N6, and N9 interfaces 
@@ -1153,7 +1157,7 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            Supporting flexible UPF selection for PDU compared to persistent S/P-GW in 4G.
+            Supporting flexible UPF selection for PDU
           </t>
         </list>
       </t>
@@ -1208,8 +1212,8 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            A PDU session is able to aggregate multiple QoS Flow indicated with
-            QFI.
+            Supporting aggregation of multiple QoS Flow indicated with
+            QFI into a PDU Session
           </t>
         </list>
       </t>
@@ -1535,8 +1539,12 @@ User Plane           /     |           |         \
     
     <section title="Acknowledgement">
     <t>
-    The author would like to thank Arashmid Akhavain and Tom Harbert for reviewing various iterations of
-    the document and for providing content into various sections. 
+      The authors would like to thank Tom Harbert, Takashi Ito, John Leddy, and 
+      Pablo Camarillo for their detailed reviews, comments, and contributions.
+    </t>
+    
+    <t>
+      A special thank you goes to Arashmid Akhavain for his technical review and feedback.
     </t>
     </section>
 
