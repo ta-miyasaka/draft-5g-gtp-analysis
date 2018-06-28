@@ -1073,6 +1073,10 @@ User Plane           /     |           |         \
       </t>
       
       <t>
+        Note: In TS 23.501 v15.2.0, IPv4v6 is added as a PDU session type.
+      </t>     
+      
+      <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
             Supporting IP connectivity over N3, N6, and N9 interfaces 
