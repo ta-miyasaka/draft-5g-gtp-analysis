@@ -1488,28 +1488,32 @@ User Plane           /     |           |         \
           
           <t>
             As similar with QoS flow lookup described in <xref
-            target="eval-qos"/>, repeatedly detecting an specified traffic flow
-            in inner PDU many times along the path. It could increase redundant
+            target="eval-qos"/>, UPFs along the path are repeatedly detecting an
+            specified traffic flow in inner PDU. It could increase redundant
             flow detection load on every UPFs that could be avoided if the
-            upstream UPF put an ID which abstracts the detected flow into the
-            packets. It enables following UPFs just find the ID to detect the
-            indicated flow from the packet.
+            upstream UPF put some identifier which abstracts the detected flow
+            into the packets. It enables following UPFs just find the ID to
+            detect the indicated flow from the packet.
           </t>
           
           <t>
             The expected evaluation points from this aspect should be whether
-            the candidate protocols can provide enough bits space on stable ID
-            space to put abstracted detected flow identifier.
+            the candidate protocols can provide means to reduce that redundant
+            flow detection that could be enough bits space on stable ID space to
+            put abstracted detected flow identifier.
           </t>
         </section>
 
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
           <t>
-          As described in <xref target="archi-overview"/>, a network slice is composed of UPFs belonging to
-          the slice while a slice would share the physical resources with others. As <xref target="TS.28.530-3GPP"/>
-          described in section 4, underlay transport network of UP and UPFs are shared with other network slices
-          on the same networks. The data model defined in <xref target="TS.29.510-3GPP"/> allows that a UPF
-          can belong to multiple slices as same as other type of NFs.
+            As described in <xref target="archi-overview"/>, a network slice is
+            composed of UPFs belonging to the slice while a slice would share
+            the physical resources with others. As <xref
+            target="TS.28.530-3GPP"/> described in section 4, underlay transport
+            network of UP and UPFs are shared with other network slices on the
+            same networks. The data model defined in <xref
+            target="TS.29.510-3GPP"/> allows that a UPF can belong to multiple
+            slices as same as other type of NFs.
           </t>
           
           <t>
