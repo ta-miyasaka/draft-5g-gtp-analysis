@@ -1316,7 +1316,7 @@ User Plane           /     |           |         \
          It may be described in a next version.
       </t>
 
-         <section title="Supporting PDU Session Type Variations">
+         <section anchor="eval-pdu" title="Supporting PDU Session Type Variations">
           <t>
             Given that UP protocol is required to support all PDU session types:
             IPv4, IPv6, Ethernet, and Unstructured. However, it is expected that
@@ -1335,7 +1335,7 @@ User Plane           /     |           |         \
         </section>
 
 
-        <section title="Nature of Data Path">
+        <section anchor="eval-nature" title="Nature of Data Path">
           <t>
             As it is described in <xref target="archi-req"/>, the single PDU
             session multi-homing case requires multipoint-to-point (MP2P) data
@@ -1359,7 +1359,7 @@ User Plane           /     |           |         \
           </t>
         </section>
 
-        <section title="Supporting Transport Variations">
+        <section anchor="eval-transport" title="Supporting Transport Variations">
           <t>
             5G system will be expected that the new radio spectrums in high frequency 
             bands require operators to deploy their base stations much dense for much
@@ -1389,7 +1389,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-            The evaluation points from this aspect should be that the candidate
+            The expected evaluation points from this aspect should be that the candidate
             protocols are able to dynamically adjust path MTU size with appropriate
             MTU size discovery mechanism. It also should be that how the candidate 
             protocols leverage IPv6 to deal with header size increasing.
@@ -1397,7 +1397,7 @@ User Plane           /     |           |         \
         </section>
 
 
-        <section title="Data Path Management">
+        <section anchor="eval-datapath" title="Data Path Management">
           <t>
             As <xref target="archi-req"/> described, the 5G systems allows user
             plane that flexible UPF selection, multiple anchor UPFs, and no
@@ -1425,7 +1425,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-            The evaluation points from this aspect should be that how much the
+            The expected evaluation points from this aspect should be that how much the
             candidate protocols can reduce data path management loads both on
             the control plane NFs and UPFs compare to the P2P per session based
             handling. It could possibly include N3 and N6 in addition to N9
@@ -1434,7 +1434,7 @@ User Plane           /     |           |         \
           </t>
         </section>
   
-        <section title="QoS Control">
+        <section anchor="eval-qos" title="QoS Control">
           <t>
           The 5G QoS model is based on QoS Flows, and a QFI is used to identify a QoS Flow. The 5G system has 
           an assumption that QFI is carried in an encapsulation header on N3 and N9. Moreover, UPFs optionally 
@@ -1462,7 +1462,7 @@ User Plane           /     |           |         \
         </section>
         
         
-        <section title="Traffic Detection and Flow Handling">
+        <section anchor="eval-flow" title="Traffic Detection and Flow Handling">
           <t>
           In the 5G network, there are cases that a PDU session traverses multiple UPFs. A UPF detects PDU session 
           based on Traffic Detect Information, and enforce some processes to the PDU based on the pre-configured 
@@ -1490,7 +1490,7 @@ User Plane           /     |           |         \
         
         
         
-        <section title="Supporting Network Slicing Diversity">
+        <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
           <t>
           As described in <xref target="archi-overview"/>, a network slice is composed of UPFs belonging to
           the slice while a slice would share the physical resources with others. As <xref target="TS.28.530-3GPP"/>
