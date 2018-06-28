@@ -1121,16 +1121,34 @@ User Plane           /     |           |         \
       </t>
    
       <t>
-        Multihoming of a single PDU session could be achieved by multiple P2P
-        or a P2MP tunneling.  Simultaneously, in the reverse direction, 
-        multiple P2P or a MP2P tunneling would be used for supporting multihoming. 
-        However, P2P tunneling might cause explosively 
-        increase of the number of tunnels. For reducing total number of tunnel
-        states, it would be better that UP protocol supports P2MP/MP2P tunneling.
+        On UL side, multihoming of a single PDU session is achieved by a
+        point-to-point (P2P) tunnel per anchor UPF. It means that multiple P2P
+        path are established from one source gNB or UPF to the multiple
+        destination anchor UPFs for the PDU session.
+      </t>
+      
+      <t>
+        On DL side, one single multipoint-to-point (MP2P) path exists from the
+        anchor UPFs to the source gNB or UPF for the PDU session in this
+        multihoming case. It means that the paths from the anchor UPFs are
+        merged into just one tunnel state at the source gNB or UPF for the PDU
+        session.
       </t>
         
-        
-        
+      <t>
+        Multiple P2P paths on DL could also be used for multihoming. However it
+        should be the multiple PDU sessions multihoming case where the
+        destination gNB or UPF needs to maintain multiple tunnel states under
+        the one PDU session to one UP tunnel architectural principle.
+      </t>
+
+      <t>
+        However, P2P tunneling could increase explosively the number of states
+        in UPF as the anchor UPF/DN incremented to the PDU session. Thereby
+        single PDU session multihoming with MP2P path should be a better option
+        for multihoming in case of reducing total number of tunnel states.
+      </t>
+
       <t>
         SSC mode 3 for session continuity in hand-over case uses a single PDU multihoming 
         with BP to make sure make-before-break. It is
