@@ -1539,8 +1539,12 @@ User Plane           /     |           |         \
     
     <section title="Acknowledgement">
     <t>
-    The author would like to thank Arashmid Akhavain and Tom Harbert for reviewing various iterations of
-    the document and for providing content into various sections. 
+      The authors would like to thank Tom Harbert, Takashi Ito, John Leddy, and 
+      Pablo Camarillo for their detailed reviews, comments, and contributions.
+    </t>
+    
+    <t>
+      A special thank you goes to Arashmid Akhavain for his technical review and feedback.
     </t>
     </section>
 
