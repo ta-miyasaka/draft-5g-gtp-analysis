@@ -1505,25 +1505,53 @@ User Plane           /     |           |         \
         </section>
 
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
+        
           <t>
-            As described in <xref target="archi-overview"/>, a network slice is
-            composed of UPFs belonging to the slice while a slice would share
-            the physical resources with others. As <xref
-            target="TS.28.530-3GPP"/> described in section 4, underlay transport
-            network of UP and UPFs are shared with other network slices on the
-            same networks. The data model defined in <xref
-            target="TS.29.510-3GPP"/> allows that a UPF can belong to multiple
-            slices as same as other type of NFs.
+            It is expected that various means should be available case by case,
+            operator by operator, to embody network slicing for their the 5G
+            systems unless it follows 3GPP fundamental concept for slicing,
+            as described in <xref target="archi-overview"/>.
           </t>
           
           <t>
-          Network slices would require different forwarding policies, in the intermediate transport network, depending 
-          on requirements of the assumed services. Then, UP protocol would be required to represent such policies as the appropriate 
-          format to the transport network. For example, in case that a slice has a requirement on forwarding latency and 
-          dedicated route definition provided by TE is required, UP protocol would be required to convey the TE information as visible 
-          for underlay transport network.
+            As <xref target="TS.28.530-3GPP"/> described in section 4, underlay
+            transport network of UP and UPFs are shared with other network
+            slices on the same networks. The data model defined in <xref
+            target="TS.29.510-3GPP"/> allows that a Network Instance, a UPF and
+            its interfaces can belong to multiple slices as same as other type
+            of NFs as it doesn't make them slice unique in the model.
+          </t>
+
+          <t> 
+            As long as those slices share the resources in the networks, IP
+            routing and transport system underneath the user plane have to be
+            shared. It could mean that the assumed slice operation, UPFs connect
+            each other through direct (virtual) link while it can be shared by
+            multiple slices, need to indicate a slice in the user plane packets
+            over the wire.
           </t>
           
+          <t>
+            That's just one way for network slicing, but it helps to reduce the
+            operational burden while there's no 3GPP specification for slice
+            lifecycle managements, such as create, update, and delete operations
+            for slices. Even it depends on each operator's policy, sharing
+            Network Instance, UPFs and the interfaces among slices makes
+            operators relax and not to be much hustled on slice lifecycle
+            management.
+          </t>
+          
+          <t>
+            It could also make sense in case that each network slice requires
+            different forwarding policies in the middle of the path. Some
+            identifier in the packets for a slice could be a glue between UP
+            path and its underlying transport networks. For example, a slice
+            requires certain level of latency with dedicated route, traffic
+            engineering (TE) embodies appropriate forwarding policy through the
+            underlay transport network.
+          </t>
+          
+<!--          
           <t>
             Moreover, for more efficient usage of network resources, UPF and its (virtual) ports would be required 
             to allow multiple slices to use it simultaniously. If the a (virtual) port must be assigned to per slice, 
@@ -1533,9 +1561,6 @@ User Plane           /     |           |         \
             might be required to convey some information for slice detection.
           </t>
             
-            
-            
-    <!--      
           <t>
           Moreover, for monitoring traffic state of each network slice, UP protocol would be required to convey an identifier of slice 
           that the PDU session is allocated as visble to the operator. For example, UP protocol may be required to convey identifier 
@@ -1543,20 +1568,16 @@ User Plane           /     |           |         \
           scenario, some UPFs may be shared with multiple network slices, and such identifier can be also used for reducing 
           loads of relay UPFs on slice detection. 
           </t>
-    -->      
+-->      
           
           <t>
-          The points led from this aspect whether UP protocol supports to convey some optional information including forwarding 
-          policy and slice identifier as the appropriate format for under transport network or other functions. 
+            The expected evaluation points from this aspect should be whether
+            the candidate protocols can support to indicate a network slice in
+            the UP packets that could be enough bits space on stable ID space to
+            put slice identifier to indicate a slice, or a forwarding policy
+            within the slice.
           </t>
           
-          <t> 
-          As long as those slices share the resources in the networks, IP routing and
-          transport system underneath the user plane have to be shared. It could mean that 
-          the assumed slice operation, UPFs connect each other through direct (virtual)
-          link, will restrict slicing instantiation techniques while no 3GPP specification 
-          exist to specify the network slicing lifecycle. 
-          </t>
           
           
         </section>
