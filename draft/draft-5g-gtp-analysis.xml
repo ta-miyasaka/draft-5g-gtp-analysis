@@ -242,9 +242,9 @@
           might be gap between the current user plane protocol and the
           architectural requirements on which <xref target="TR.29.891-3GPP"/> does
           not discuss. That aspects are discussed <xref target="eval_aspects"/>.
-          That's we intend to be as a part of the reply to 3GPP. CT4 WG in 3GPP
+          That's what we intend to be as a part of the reply to 3GPP. CT4 WG in 3GPP
           can utilize it as an input to evaluate the candidate protocols for user
-          plane to the 5G system including current protocol.
+          plane to the 5G system including the current protocol.
         </t>
       
         <t>
@@ -1126,7 +1126,7 @@ User Plane           /     |           |         \
       <t>
         On UL side, multihoming of a single PDU session is achieved by a
         point-to-point (P2P) tunnel per anchor UPF. It means that multiple P2P
-        path are established from one source gNB or UPF to the multiple
+        paths are established from one source gNB or UPF to the multiple
         destination anchor UPFs for the PDU session.
       </t>
       
@@ -1318,7 +1318,7 @@ User Plane           /     |           |         \
     <section anchor="eval_aspects" title="Evaluation Aspects">
       <t>
         This section provides UP protocol evaluation aspects that are mainly we
-        derive from the architectural requirements described in <xref
+        derived from the architectural requirements described in <xref
         target="arch"/>. Those aspect are not prioritized by the order here. 
         Expected deployment scenarios explain the evaluations purpose in the 
         corresponding aspects. 
@@ -1375,7 +1375,7 @@ User Plane           /     |           |         \
           
           <t>
             Therefore the expected evaluation points from this aspect is whether
-            the the nature of candidate UP protocols are to establish MP2P data
+            the nature of candidate UP protocols are to utilize MP2P data
             path.
           </t>
         </section>
@@ -1432,7 +1432,7 @@ User Plane           /     |           |         \
             That powerful user plane capability could affect data path
             management complicated and difficult to be managed through the
             control plane, or operation support systems (OSS). Perhaps it could
-            be the case where the UP protocol is P2P and it only supports per
+            be the case where the UP protocol nature is P2P and it only supports per
             session base data path handling.
           </t>
           
@@ -1440,16 +1440,16 @@ User Plane           /     |           |         \
             Because it increases data path states by number of sessions, and
             number of endpoints of UPFs that makes data path handling much
             hectic and the control plane tend to be overloaded by not only usual
-            attach/detach/hand-over operation, but also existing session
-            manipulation triggered by UPF/transport nodes/paths restoration,
+            attach/detach/hand-over operations, but also existing session
+            manipulation triggered by UPF and transport nodes/paths restoration,
             etc.,
           </t>
           
           <t>
             The expected evaluation points from this aspect should be that how much the
             candidate protocols can reduce data path management loads both on
-            the control plane NFs and UPFs compare to the P2P per session based
-            handling. It could possibly include N3 and N6 in addition to N9
+            the control plane NFs and UPFs compare to the per session based
+            handling for P2P paths. It could possibly include N3 and N6 in addition to N9
             while it supports flexible user plane data path optimizations for
             some example scenarios.
           </t>
@@ -1612,8 +1612,8 @@ User Plane           /     |           |         \
       </t>
         
       <t>
-        As we identify some potential gaps between current UP protocol and the
-        architectural requirements, it is worth to study possible candidate UP
+        As we identified some potential gaps between the current UP protocol and the
+        architectural requirements even for Release 15, it is worth to study possible candidate UP
         protocols for the 5G system including current one. Our conclusion here
         is that we suggest the UP protocol study work in 3GPP takes into account
         the evaluation aspects described in <xref target="eval_aspects"/>. 
