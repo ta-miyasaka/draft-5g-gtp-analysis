@@ -1665,7 +1665,8 @@ User Plane           /     |           |         \
 <!--
     &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
 -->
-      <reference anchor='I-D.bogineni-dmm-optimized-mobile-user-plane'>
+      <reference anchor='I-D.bogineni-dmm-optimized-mobile-user-plane'
+       target="http://www.ietf.org/internet-drafts/draft-bogineni-dmm-optimized-mobile-user-plane-01.txt">
         <front>
         <title>Optimized Mobile User Plane Solutions for 5G</title>
         <author initials="K" surname="Bogineni" fullname="Kalyani Bogineni">
@@ -1701,7 +1702,7 @@ User Plane           /     |           |         \
         <date month="June" day="29" year="2018"/>
         </front>
         <seriesInfo name="Internet-Draft" value="draft-bogineni-dmm-optimized-mobile-user-plane-01"/>
-        <format type="TXT" target="http://www.ietf.org/internet-drafts/draft-bogineni-dmm-optimized-mobile-user-plane-01.txt"/>
+        <format type="TXT"/>
       </reference>
          
       <reference anchor='TR.29.891-3GPP' target="http://www.3gpp.org/FTP/Specs/2017-12/Rel-15/29_series/29891-f00.zip">
