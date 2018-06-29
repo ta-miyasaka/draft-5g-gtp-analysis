@@ -202,7 +202,7 @@
           3GPP RAN and CT4 decided to use GTP-U as the 5G user plane
           encapsulation protocol over N3 and N9 that respectively described
           in<xref target="TS.38.300-3GPP" /> and <xref target="TR.29.891-3GPP"
-          />. N3 is a interface between RAN and UPF and N9 is a interface
+          />. N3 is an interface between RAN and UPF and N9 is an interface
           between different UPFs <xref target="TS.23.501-3GPP" />.
         </t>
 
@@ -230,7 +230,7 @@
           Then, to clarify what are required to the user plane protocol in
           architecture level, we analyze <xref target="TS.23.501-3GPP"/> as the
           5G system architecture specification. <xref target="TS.23.502-3GPP"/> is
-          the specification of system procesures that helps us to understand how
+          the specification of system procedures that helps us to understand how
           the system works in the architecture. <xref target="TS.23.503-3GPP"/> is
           also helpful to find the role of user plane in the architecture that
           influences user plane protocol. Extracted architectural requirements are
@@ -310,7 +310,7 @@
         <t>
           GTP-U has above two notions on PDU. T-PDU is a PDU that GTP-U header
           encapsulates. G-PDU is a PDU that includes GTP-U header. A G-PDU may
-          includes a T-PDU. G-PDU can be sent without T-PDU, but just with
+          include a T-PDU. G-PDU can be sent without T-PDU, but just with
           extension headers or TLV elements. It can be used for OAM related 
           operations.
         </t>
@@ -624,7 +624,7 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports carrying QoS Identifiers transparently for Access Networks in an extension headers.
+              GTP-U supports carrying QoS Identifiers transparently for Access Networks in an extension header.
             </t>
           </list>
           GTP-U is designed to carry 3GPP specific information with extension headers.
@@ -731,7 +731,7 @@
       </section>
       <section title="Packet Format">
         <t>
-          <xref target="fig_GTP_stack_example" /> shows an packet format
+          <xref target="fig_GTP_stack_example" /> shows a packet format
           example of GTP-U over IPv6 that carries an extension header for QFI
           and an IPv6 PDU. All values in the example are illustration purpose
           only.
@@ -1322,7 +1322,7 @@ User Plane           /     |           |         \
       <t>
         This section provides UP protocol evaluation aspects that are mainly we
         derived from the architectural requirements described in <xref
-        target="arch"/>. Those aspect are not prioritized by the order here. 
+        target="arch"/>. Those aspects are not prioritized by the order here. 
         Expected deployment scenarios explain the evaluations purpose in the 
         corresponding aspects. 
       </t>
@@ -1534,7 +1534,7 @@ User Plane           /     |           |         \
             to each other through direct (virtual) link as <xref
             target="archi-overview"/> describes that UPFs compose a network
             slice on an UP. So IP routing and transport system underneath the UP
-            are not visible from the 5G sytem. However some means need to
+            are not visible from the 5G system. However some means need to
             indicate a slice on the shared underlying networks of the UP over
             the wire.
           </t>
@@ -1631,7 +1631,7 @@ User Plane           /     |           |         \
     
     <section title="Acknowledgement">
     <t>
-      The authors would like to thank Tom Harbert, Takashi Ito, John Leddy,
+      The authors would like to thank Tom Herbert, Takashi Ito, John Leddy,
       Pablo Camarillo, Daisuke Yokota, Satoshi Watanabe, Koji Tsubouchi and
       Miya Kohno for their detailed reviews, comments, and contributions.
     </t>
@@ -1834,7 +1834,7 @@ User Plane           /     |           |         \
 
        <reference anchor='TS.29.274-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.274/29274-f40.zip">
         <front>
-        <title>3GPP TS 29.274 (V15.4.0): 3GPP Evolved Packet System (EPS); Evolved General Packet Radio Service (GPRS) Tunnelling Protocol for Control plane (GTPv2-C); Stage 3</title>
+        <title>3GPP TS 29.274 (V15.4.0): 3GPP Evolved Packet System (EPS); Evolved General Packet Radio Service (GPRS) Tunneling Protocol for Control plane (GTPv2-C); Stage 3</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
