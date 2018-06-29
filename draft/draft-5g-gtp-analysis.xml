@@ -1700,7 +1700,7 @@ User Plane           /     |           |         \
         </author>
         <date month="June" day="29" year="2018"/>
         </front>
-        <seriesInfo name="Internet-Draft" value="draft-bogineni-dmm-optimized-mobile-user-plane-01　(work in progress)"/>
+        <seriesInfo name="Internet-Draft" value="draft-bogineni-dmm-optimized-mobile-user-plane-01"/>
         <format type="TXT" target="http://www.ietf.org/internet-drafts/draft-bogineni-dmm-optimized-mobile-user-plane-01.txt"/>
       </reference>
          
