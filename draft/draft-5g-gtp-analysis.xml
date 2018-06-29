@@ -10,7 +10,10 @@
 <!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
 <!ENTITY RFC6935 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
 <!ENTITY RFC8200 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
+
+<!--
 <!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
+-->
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -1659,8 +1662,48 @@ User Plane           /     |           |         \
     &RFC2460;
     &RFC6935;
     &RFC8200;
+<!--
     &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
-
+-->
+      <reference anchor='I-D.bogineni-dmm-optimized-mobile-user-plane'>
+        <front>
+        <title>Optimized Mobile User Plane Solutions for 5G</title>
+        <author initials="K" surname="Bogineni" fullname="Kalyani Bogineni">
+        <organization/>
+        </author>
+        <author initials="A" surname="Akhavain" fullname="Arashmid Akhavain">
+        <organization/>
+        </author>
+        <author initials="T" surname="Herbert" fullname="Tom Herbert">
+        <organization/>
+        </author>
+        <author initials="D" surname="Farinacci" fullname="Dino Farinacci">
+        <organization/>
+        </author>
+        <author initials="A" surname="Rodriguez-Natal" fullname="A. Rodriguez-Natal">
+        <organization/>
+        </author>
+        <author initials="G" surname="Carofiglio" fullname="G. Carofiglio">
+        <organization/>
+        </author>
+        <author initials="J" surname="Auge" fullname="J. Auge">
+        <organization/>
+        </author>
+        <author initials="L" surname="Muscariello" fullname="L. Muscariello">
+        <organization/>
+        </author>
+        <author initials="P" surname="Camarillo" fullname="P. Camarillo">
+        <organization/>
+        </author>
+        <author initials="S" surname="Homma" fullname="S. Homma">
+        <organization/>
+        </author>
+        <date month="June" day="29" year="2018"/>
+        </front>
+        <seriesInfo name="Internet-Draft" value="draft-bogineni-dmm-optimized-mobile-user-plane-01　(work in progress)"/>
+        <format type="TXT" target="http://www.ietf.org/internet-drafts/draft-bogineni-dmm-optimized-mobile-user-plane-01.txt"/>
+      </reference>
+         
       <reference anchor='TR.29.891-3GPP' target="http://www.3gpp.org/FTP/Specs/2017-12/Rel-15/29_series/29891-f00.zip">
         <front>
         <title>3GPP TR 29.891 (V15.0.0): 5G System Phase 1, CT WG4 Aspects</title>
