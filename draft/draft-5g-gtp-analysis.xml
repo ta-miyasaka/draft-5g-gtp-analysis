@@ -1081,20 +1081,23 @@ User Plane           /     |           |         \
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-            Supporting IP connectivity over N3, N6, and N9 interfaces 
+            Supporting IP connectivity for N3, N6, and N9 interfaces 
           </t>
         </list>
       </t>
       
       <t>
-        The 5G system provides IP connectivity over N3, N6, and N9 interfaces. 
+        The 5G system requires IP connectivity for N3, N6, and N9 interfaces. 
+        The IP connectivity is assumed that it comprises of IP routing and L1/L2
+        transport networks which are outside of 3GPP specifications.
       </t>
       
       <t>
-         On N6 interface, point-to-point 
-         tunneling based on UDP/IPv6 may be used to deliver unstructured PDU type data. Then, the content information
-         of the PDU may be mapped into UDP port number, and the UDP port numbers is pre-configured in the UPF and DN.
-         This is described in the section 9.2 of <xref target="TS.29.561-3GPP"/>.
+         On N6 interface, point-to-point tunneling based on UDP/IPv6 may be used
+         to deliver unstructured PDU type data. Then, the content information of
+         the PDU may be mapped into UDP port number, and the UDP port numbers is
+         pre-configured in the UPF and DN. This is described in the section 9.2
+         of <xref target="TS.29.561-3GPP"/>.
       </t>
            
            
@@ -1579,8 +1582,8 @@ User Plane           /     |           |         \
             put slice identifier for the slice, or the forwarding policy within
             the slice. Since 5G control plane is not designed to handle
             transport resources, such as VLAN, MPLS Label, Tunnel ID except
-            GTP-U, less impact to the control plane protocol and the APIs are
-            much preferable.
+            GTP-U, less impact to the control plane protocol and the APIs should
+            be much preferable.
           </t>
           
           
