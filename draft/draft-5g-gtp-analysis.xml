@@ -1146,7 +1146,7 @@ User Plane           /     |           |         \
         However, P2P tunneling could increase explosively the number of states
         in UPF as the anchor UPF/DN incremented to the PDU session. Thereby
         single PDU session multihoming with MP2P path should be a better option
-        for multihoming in case of reducing total number of tunnel states.
+        for multihoming in terms of reducing total number of tunnel states.
       </t>
 
       <t>
@@ -1507,9 +1507,9 @@ User Plane           /     |           |         \
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
         
           <t>
-            It is expected that various means should be available in case by
-            case, operator by operator, to embody network slicing for their 5G
-            systems unless it follows the fundamental slicing concept, as
+            To embody network slicing, it is expected that various means should
+            be available in case by case, or operator by operator, for their 5G
+            systems while it follows the fundamental slicing concept, as
             described in <xref target="archi-overview"/>.
           </t>
           
@@ -1574,7 +1574,7 @@ User Plane           /     |           |         \
             The expected evaluation points from this aspect should be whether
             the candidate protocols can support to indicate a network slice in
             the UP packets that could be enough bits space on stable ID space to
-            put slice identifier to indicate a slice, or a forwarding policy
+            put slice identifier for the slice, or the forwarding policy
             within the slice.
           </t>
           
