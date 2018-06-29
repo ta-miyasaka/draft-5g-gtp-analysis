@@ -412,15 +412,18 @@
           </list>
         </t>
         <t>
-          <xref target="fig_Protocol-Stack-ul"/> and <xref target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack for uplink and downlink traffic respectively.
-          Sender tunnel endpoint node encapsulates the IP packet from UE with GTP-U header, IPv4 or IPv6, and UDP.
-          GTP-U tunnel is a uni-directional tunnel and in these two examples there are following four GTP-U tunnels:
-          <list style="numbers">
-            <t>
-              A GTP-U Tunnel from RAN to UPF1 (TEID=1), UPF1 to UPF2 (TEID=2) in the uplink
+          <xref target="fig_Protocol-Stack-ul"/> and <xref
+          target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack
+          for uplink (UL) and downlink (DL) traffic respectively. Sender tunnel
+          endpoint node encapsulates the IP packet from UE with GTP-U header,
+          IPv4 or IPv6, and UDP. GTP-U tunnel is a uni-directional tunnel so
+          that two directions comprise one bi-directional tunnel:
+          <list style="hanging">
+            <t hangText="UL:">
+              From RAN to UPF1 (TEID=1), and from UPF1 to UPF2 (TEID=2)
             </t>
-            <t>
-              A GTP-U Tunnel from UPF2 to UPF1 (TEID=3), UPF1 to RAN (TEID=4) in the downlink
+            <t hangText="DL:">
+              From UPF2 to UPF1 (TEID=3), and from UPF1 to RAN (TEID=4)
             </t>
           </list>
         </t>
@@ -1629,8 +1632,8 @@ User Plane           /     |           |         \
     <section title="Acknowledgement">
     <t>
       The authors would like to thank Tom Harbert, Takashi Ito, John Leddy,
-      Pablo Camarillo, Daisuke Yokota, Satoshi Watanabe, and Koji Tsubouchi for 
-      their detailed reviews, comments, and contributions.
+      Pablo Camarillo, Daisuke Yokota, Satoshi Watanabe, Koji Tsubouchi and
+      Miya Kohno for their detailed reviews, comments, and contributions.
     </t>
     
     <t>
