@@ -934,8 +934,8 @@ Payload
       
       <t>
       Network slicing, one of the fundamental concepts of the 5G system, provides logical 
-      network separation. In terms of user plane, multiple network slices can be established
-      with UPFs on top of same physical network resources. Allocated resources and structures
+      network separation. In terms of user plane, multiple network slices can be comprised
+      of UPFs on top of same physical network resources. Allocated resources and structures
       may be differentiated among the slices by which the required features or capabilities.
       </t>
       
@@ -1518,17 +1518,19 @@ User Plane           /     |           |         \
             underlay transport networks and UPFs are shared by network slices.
             The data model defined in <xref target="TS.29.510-3GPP"/> allows
             that a Network Instance, a UPF and its interfaces can belong to
-            multiple slices as same as other type of NFs as the model doesn't
-            make them slice unique.
+            multiple slices as same as other type of NFs. UP endpoint IP
+            prefix/address of an interface can also be shared with multiple
+            interfaces on the UPF as the model doesn't make them slice unique.
           </t>
 
           <t> 
-            As long as those slices share the resources in the networks, IP
-            routing and transport system underneath the user plane have to be
-            shared. It could mean that the assumed slice operation, UPFs connect
-            each other through direct (virtual) link while it can be shared by
-            multiple slices, need to indicate a slice in the user plane packets
-            over the wire.
+            The assumed slice operation in 5G architecture is that UPFs connect
+            to each other through direct (virtual) link as <xref
+            target="archi-overview"/> describes that UPFs compose a network
+            slice on an UP. So IP routing and transport system underneath the UP
+            are not visible from the 5G sytem. However some means need to
+            indicate a slice on the shared underlying networks of the UP over
+            the wire.
           </t>
           
           <t>
@@ -1545,7 +1547,7 @@ User Plane           /     |           |         \
             It could also make sense in case that each network slice requires
             different forwarding policies in the middle of the path. Some
             identifier in the packets for a slice could be a glue between UP
-            path and its underlying transport networks. For example, a slice
+            path and its underlying transport networks. For example, if a slice
             requires certain level of latency with dedicated route, traffic
             engineering (TE) embodies appropriate forwarding policy through the
             underlay transport network.
@@ -1574,8 +1576,11 @@ User Plane           /     |           |         \
             The expected evaluation points from this aspect should be whether
             the candidate protocols can support to indicate a network slice in
             the UP packets that could be enough bits space on stable ID space to
-            put slice identifier for the slice, or the forwarding policy
-            within the slice.
+            put slice identifier for the slice, or the forwarding policy within
+            the slice. Since 5G control plane is not designed to handle
+            transport resources, such as VLAN, MPLS Label, Tunnel ID except
+            GTP-U, less impact to the control plane protocol and the APIs are
+            much preferable.
           </t>
           
           
