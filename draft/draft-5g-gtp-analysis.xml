@@ -13,8 +13,8 @@
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
 <!ENTITY RFC8200 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
-<!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM
-"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
+<!ENTITY I-D.bogineni-dmm-optimized-mobile-user-plane SYSTEM
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.bogineni-dmm-optimized-mobile-user-plane.xml">
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -1634,8 +1634,8 @@ User Plane           /     |           |         \
     &RFC2460;
     &RFC6935;
     &RFC8200;
-    &I-D.draft-bogineni-dmm-optimized-mobile-user-plane;
-
+    &I-D.bogineni-dmm-optimized-mobile-user-plane;
+         
       <reference anchor='TR.29.891-3GPP' target="http://www.3gpp.org/FTP/Specs/2017-12/Rel-15/29_series/29891-f00.zip">
         <front>
         <title>3GPP TR 29.891 (V15.0.0): 5G System Phase 1, CT WG4 Aspects</title>
