@@ -7,10 +7,14 @@
      An alternate method (rfc include) is described in the references.
 -->
 
-<!ENTITY RFC2460 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
-<!ENTITY RFC6935 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
-<!ENTITY RFC8200 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
-<!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
+<!ENTITY RFC2460 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC6935 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
+<!ENTITY RFC8200 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
+<!ENTITY I-D.draft-bogineni-dmm-optimized-mobile-user-plane SYSTEM
+"http://xml.resource.org/public/rfc/bibxml3/reference.I-D.draft-bogineni-dmm-optimized-mobile-user-plane-00.xml">
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -411,6 +415,7 @@
             </t>
           </list>
         </t>
+        
         <t>
           <xref target="fig_Protocol-Stack-ul"/> and <xref
           target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack
@@ -483,58 +488,84 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports load balancing by using dynamic UDP source port allocation.
+              GTP-U supports load balancing by using dynamic UDP source port
+              allocation.
             </t>
           </list>
-          UDP is utilized for GTP-U encapsulation and UDP destination port is 2152 which is assigned by IANA.
-          Allocation of UDP source port depends on sender tunnel endpoint node and GTP-U supports dynamic allocation of UDP source port for load balancing objective.
-          The specification of this dynamic allocation is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />,
-          however specific procedure, e.g., 5-tuple hashing, is not described in the document and depends on the implementation of GTP-U tunnel endpoint node.
+          UDP is utilized for GTP-U encapsulation and UDP destination port is
+          2152 which is assigned by IANA. Allocation of UDP source port depends
+          on sender tunnel endpoint node and GTP-U supports dynamic allocation
+          of UDP source port for load balancing objective. The specification of
+          this dynamic allocation is described in section 4.4.2.0 of <xref
+          target="TS.29.281-3GPP" />, however specific procedure, e.g., 5-tuple
+          hashing, is not described in the document and depends on the
+          implementation of GTP-U tunnel endpoint node.
         </t>
+        
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
               UDP zero checksum is not available in case of IPv6 transport.
             </t>
           </list>
-          GTP-U supports both IPv4 and IPv6 as underlying transport layer protocol.
-          As for IPv6, GTP-U specification refers <xref target="RFC2460"/>, which is described in section 4.2.3 of <xref target="TS.29.281-3GPP" />.
-          As <xref target="RFC2460"/> does not allow the tunnel protocols on top of UDP to set the checksum value to zero,
-          the GTP-U specification inherits it while the IPv4 transport for GTP-U case allows UDP zero checksum.
-          It is noted that the IPv6 specification in IETF has been updated to <xref target="RFC8200"/> which allows UDP zero checksum for the tunnel.
-          <xref target="RFC6935"/> describes benefits of zero checksum for tunnel protocol over UDP.
-          If GTP-U support UFP zero checksum in future version, possible interoperability issue between previous generations which does not support zero checksum may raise.
+          GTP-U supports both IPv4 and IPv6 as underlying transport layer
+          protocol. As for IPv6, GTP-U specification refers <xref
+          target="RFC2460"/>, which is described in section 4.2.3 of <xref
+          target="TS.29.281-3GPP" />. As <xref target="RFC2460"/> does not allow
+          the tunnel protocols on top of UDP to set the checksum value to zero,
+          the GTP-U specification inherits it while the IPv4 transport for GTP-U
+          case allows UDP zero checksum. It is noted that the IPv6 specification
+          in IETF has been updated to <xref target="RFC8200"/> which allows UDP
+          zero checksum for the tunnel. <xref target="RFC6935"/> describes
+          benefits of zero checksum for tunnel protocol over UDP. If GTP-U
+          support UFP zero checksum in future version, possible interoperability
+          issue between previous generations which does not support zero
+          checksum may raise.
         </t>
+        
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
               GTP-U does not support to response ICMP PTB for Path MTU Discovery.
             </t>
           </list>
-          "Unnecessary fragmentation should be avoided" is recommended and to avoid the fragmentation operator should configure MTU size at UE <xref target="TS.29.281-3GPP" />.
-          However, there's no reference and specification of Path MTU Discovery for IPv6 transport.
-          If encapsulated IPv6 packet is too big on a network link between tunnel endpoint nodes,
-          UE may not receive ICMPv6 Packet Too Big message and causes Path MTU Discovery black hole.
+          "Unnecessary fragmentation should be avoided" is recommended and to
+          avoid the fragmentation operator should configure MTU size at UE <xref
+          target="TS.29.281-3GPP" />. However, there's no reference and
+          specification of Path MTU Discovery for IPv6 transport. If
+          encapsulated IPv6 packet is too big on a network link between tunnel
+          endpoint nodes, UE may not receive ICMPv6 Packet Too Big message and
+          causes Path MTU Discovery black hole.
         </t>
       </section>
+
       <section anchor="gtp-u-header" title="GTP-U Header Format">
         <t>
-          <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U header.
+          <xref target="fig_GTP-U_header" /> shows general and mandatory GTP-U
+          header and <xref target="fig_GTP-U_Ext_header"/> shows extension GTP-U
+          header.
         </t>
+
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports sequence number option in the header, but it is not recommended to be used by almost GTP-U entities.
+              GTP-U supports sequence number option in the header, but it is not
+              recommended to be used by almost GTP-U entities.
             </t>
           </list>
-          GTP-U header has Sequence Number field to reorder incoming packets based on the sequence number.
-          If Sequence Number Flag is set to '1' it indicates that Sequence Number Filed exists in GTP-U header and examined at receiving tunnel endpoint node to reorder incoming packets.
-          However, the sequence number flag is set to '1' only for RAT HO procedure and sequence number flag should be set to '0' in normal case.
-          Therefore, in normal case receiver tunnel endpoint node doesn't examine sequence number and can't reorder GTP-U packets based on the sequence number.
-          This specification is described in section 5.1 of <xref target="TS.29.281-3GPP" />.
+          GTP-U header has Sequence Number field to reorder incoming packets
+          based on the sequence number. If Sequence Number Flag is set to '1' it
+          indicates that Sequence Number Filed exists in GTP-U header and
+          examined at receiving tunnel endpoint node to reorder incoming
+          packets. However, the sequence number flag is set to '1' only for RAT
+          HO procedure and sequence number flag should be set to '0' in normal
+          case. Therefore, in normal case receiver tunnel endpoint node doesn't
+          examine sequence number and can't reorder GTP-U packets based on the
+          sequence number. This specification is described in section 5.1 of
+          <xref target="TS.29.281-3GPP" />.
         </t>
-          <figure anchor="fig_GTP-U_header" title="GTP-U Header">
-          <artwork align="center"><![CDATA[
+        <figure anchor="fig_GTP-U_header" title="GTP-U Header">
+        <artwork align="center"><![CDATA[
 0                   1                   2                   3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -546,6 +577,7 @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
         </figure>
+        
         <t>
           <list style="symbols">
             <t>Ver: Version field (Set to '1')</t>
@@ -580,16 +612,19 @@
         </figure>
         <t>
           <list style="symbols">
-            <t>Ext-Hdr Length: Represents the length of the Extension header in units of 4 octets</t>
+            <t>Ext-Hdr Length: Represents the length of the Extension header in
+            units of 4 octets</t>
             <t>Extension Header Content: Contains 3GPP related information</t>
             <t>Next-Ext-Hdr: Indicates following extension header type</t>
           </list>
         </t>
 
         <t>
-          The extension GTP-U header is a variable-length and extendable header and contains 3GPP specific information.
-          Following list summarizes every extension header which is used for user plane protocol. These extension headers are defined in <xref target="TS.29.281-3GPP" />.
-          In this list Next-Ext-Hdr is represented in binary.
+          The extension GTP-U header is a variable-length and extendable header
+          and contains 3GPP specific information. Following list summarizes
+          every extension header which is used for user plane protocol. These
+          extension headers are defined in <xref target="TS.29.281-3GPP" />. In
+          this list Next-Ext-Hdr is represented in binary.
 
           <list style="symbols">
             <t>
@@ -624,12 +659,14 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports carrying QoS Identifiers transparently for Access Networks in an extension header.
+              GTP-U supports carrying QoS Identifiers transparently for Access
+              Networks in an extension header.
             </t>
           </list>
-          GTP-U is designed to carry 3GPP specific information with extension headers.
-          3GPP creates PDU Session Container extension header for NGRAN of 5G to carry QFI.
-          It is described in section 5.2.2.7 of <xref target="TS.29.281-3GPP" />.
+          GTP-U is designed to carry 3GPP specific information with extension
+          headers. 3GPP creates PDU Session Container extension header for NGRAN
+          of 5G to carry QFI. It is described in section 5.2.2.7 of <xref
+          target="TS.29.281-3GPP" />.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -637,10 +674,13 @@
               GTP-U supports DSCP marking based on the QFI.
             </t>
           </list>
-          DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel endpoint node based on the QFI.
-          This specification is described in section 4.4.1 of <xref target="TS.29.281-3GPP" />.
-          However in <xref target="TS.29.281-3GPP" /> "DSCP marking based on QCI" is specified but "DSCP marking based on QFI" has not been noted.
-          To support QFI of 5G QoS framework, it seems to need to update <xref target="TS.29.281-3GPP" />.
+          DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel
+          endpoint node based on the QFI. This specification is described in
+          section 4.4.1 of <xref target="TS.29.281-3GPP" />. However in <xref
+          target="TS.29.281-3GPP" /> "DSCP marking based on QCI" is specified
+          but "DSCP marking based on QFI" has not been noted. To support QFI of
+          5G QoS framework, it seems to need to update <xref
+          target="TS.29.281-3GPP" />.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -648,9 +688,11 @@
               GTP-U does not specify extension header order.
             </t>
           </list>
-          Multiple GTP-U extension headers are able to contained in one GTP-U packet, however the order of extension header order is not specified in this document.
-          Thereby the receiving endpoint can't predict exact position where the target extension headers are.
-          This could impact on header lookup performance on the node.
+          Multiple GTP-U extension headers are able to contained in one GTP-U
+          packet, however the order of extension header order is not specified
+          in this document. Thereby the receiving endpoint can't predict exact
+          position where the target extension headers are. This could impact on
+          header lookup performance on the node.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -658,26 +700,31 @@
               GTP-U does not support to indicate next protocol type.
             </t>
           </list>
-          When Next-Ext-Hdr is set to 0x00 it indicates that no more extension headers follow.
-          As GTP is designed to indicate protocol types for T-PDU by control-plane signaling,
-          GTP-U doesn't have Next-Protocol-Header field to indicate the T-PDU type in the header.
+          When Next-Ext-Hdr is set to 0x00 it indicates that no more extension
+          headers follow. As GTP is designed to indicate protocol types for
+          T-PDU by control-plane signaling, GTP-U doesn't have
+          Next-Protocol-Header field to indicate the T-PDU type in the header.
         </t>
       </section>
 
 
       <section title="Control Plane Protocol for GTP-U">
         <t>
-          Control plane protocol for GTP-U signals TEID between tunnel endpoint nodes.
-          GTPv2-C <xref target="TS.29.274-3GPP" /> is the original control plane protocol tied with GTP-U
-          in previous generation architectures before CUPS (Control and User Plane Separation).
+          Control plane protocol for GTP-U signals TEID between tunnel endpoint
+          nodes. GTPv2-C <xref target="TS.29.274-3GPP" /> is the original
+          control plane protocol tied with GTP-U in previous generation
+          architectures before CUPS (Control and User Plane Separation).
         </t>
         <t>
-          3GPP decided to use extended PFCP (Packet Forwarding Control Protocol) <xref target="TS.29.244-3GPP" /> for N4 interface <xref target="TR.29.891-3GPP" /> to signal tunnel states from SMF to UPF.
+          3GPP decided to use extended PFCP (Packet Forwarding Control Protocol)
+          <xref target="TS.29.244-3GPP" /> for N4 interface <xref
+          target="TR.29.891-3GPP" /> to signal tunnel states from SMF to UPF.
         </t>
       </section>
       <section title="GTP-U message">
         <t>
-          GTP-U supports in-band messaging to signal OAM. Currently GTP-U supports following messages <xref target="TS.29.281-3GPP" />.
+          GTP-U supports in-band messaging to signal OAM. Currently GTP-U
+          supports following messages <xref target="TS.29.281-3GPP" />.
           <list style="symbols">
             <t>
               Echo Request
@@ -699,16 +746,23 @@
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports active OAM as a path management message "Echo Request/Response".
+              GTP-U supports active OAM as a path management message "Echo
+              Request/Response".
             </t>
           </list>
-          A GTP-U tunnel endpoint node sends a Echo Request message to another nodes for keep-alive and received node sends a Echo Response message to sender node as acknowledgment.
-          Echo Request message and Echo Response message are described in section 7.2.1 and section 7.2.2 of <xref target="TS.29.281-3GPP" /> respectively.
-          <xref target="TR.29.891-3GPP" /> recommends not to send Echo Request message more often than 60s on each path.
+          A GTP-U tunnel endpoint node sends a Echo Request message to another
+          nodes for keep-alive and received node sends a Echo Response message
+          to sender node as acknowledgment. Echo Request message and Echo
+          Response message are described in section 7.2.1 and section 7.2.2 of
+          <xref target="TS.29.281-3GPP" /> respectively. <xref
+          target="TR.29.891-3GPP" /> recommends not to send Echo Request message
+          more often than 60s on each path.
         </t>
         <t>
-          Supported Extension Headers Notification message indicates a list of supported that tunnel endpoint node can support.
-          This message is sent only in case a tunnel endpoint node receives GTP-U packet with unsupported extension header.
+          Supported Extension Headers Notification message indicates a list of
+          supported that tunnel endpoint node can support. This message is sent
+          only in case a tunnel endpoint node receives GTP-U packet with
+          unsupported extension header.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -716,8 +770,10 @@
               GTP-U supports tunnel management messages "Error Indication".
             </t>
           </list>
-          GTP-U has Error Indication message to notify that the receiving endpoint discard packets of which no session exist to the sending endpoint.
-          Error Indication message is described in section 7.3.1 of <xref target="TS.29.281-3GPP" />.
+          GTP-U has Error Indication message to notify that the receiving
+          endpoint discard packets of which no session exist to the sending
+          endpoint. Error Indication message is described in section 7.3.1 of
+          <xref target="TS.29.281-3GPP" />.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -725,17 +781,18 @@
               GTP-U supports tunnel management messages "End Marker".
             </t>
           </list>
-          GTP-U has End Marker message to indicate the end of the payload stream that needs to be sent on a GTP-U tunnel.
-          End Marker message is described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
+          GTP-U has End Marker message to indicate the end of the payload stream
+          that needs to be sent on a GTP-U tunnel. End Marker message is
+          described in section 7.3.2 of <xref target="TS.29.281-3GPP" />.
         </t>
       </section>
       <section title="Packet Format">
         <t>
-          <xref target="fig_GTP_stack_example" /> shows a packet format
-          example of GTP-U over IPv6 that carries an extension header for QFI
-          and an IPv6 PDU. All values in the example are illustration purpose
-          only.
-          The encoding of PDU Session Container for QFI refers to <xref target="TS.38.415-3GPP" />.
+          <xref target="fig_GTP_stack_example" /> shows a packet format example
+          of GTP-U over IPv6 that carries an extension header for QFI and an
+          IPv6 PDU. All values in the example are illustration purpose only. The
+          encoding of PDU Session Container for QFI refers to <xref
+          target="TS.38.415-3GPP" />.
         </t>
         <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
           <artwork align="center"><![CDATA[
@@ -860,14 +917,17 @@ Payload
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
-              Supports sequence number option and sequence number flag in the header, but it is not recommended to be used by almost GTP-U entities.
+              Supports sequence number option and sequence number flag in the
+              header, but it is not recommended to be used by almost GTP-U
+              entities.
             </t>
           </list>
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
-              Supports carrying QoS Identifiers transparently for Access Networks in extension headers.
+              Supports carrying QoS Identifiers transparently for Access
+              Networks in extension headers.
             </t>
           </list>
         </t>
@@ -895,7 +955,8 @@ Payload
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
-              Supports active OAM as a path management message "Echo Request/Response".
+              Supports active OAM as a path management message "Echo
+              Request/Response".
             </t>
           </list>
         </t>
@@ -921,38 +982,37 @@ Payload
 
       <section anchor="archi-overview" title="Overview of 5G System Architecture">
       <t>
-      The 5G system is designed for applying to diverse devices and services such, and the UP protocol is 
-      required to have capabilities for satisfying their requirements. 
-<!--
-      For example, a 5G system is expected to 
-      provide the feasibility includes network slicing, network capability exposure, etc. (Ref. 
-      <xref target="TS.22.261-3GPP"/>)
--->
+        The 5G system is designed for applying to diverse devices and services
+        such, and the UP protocol is required to have capabilities for
+        satisfying their requirements. 
       </t>
       
       <t>
-      As a principle of the 5G system, User Plane (UP) functions are separated from the Control Plane (CP) 
-      functions for allowing independent scalability, evolution and flexible deployments.
+        As a principle of the 5G system, User Plane (UP) functions are separated
+        from the Control Plane (CP) functions for allowing independent
+        scalability, evolution and flexible deployments.
       </t>
       
       <t>
-      Network slicing, one of the fundamental concepts of the 5G system, provides logical 
-      network separation. In terms of user plane, multiple network slices can be comprised
-      of UPFs on top of same physical network resources. Allocated resources and structures
-      may be differentiated among the slices by which the required features or capabilities.
+        Network slicing, one of the fundamental concepts of the 5G system,
+        provides logical network separation. In terms of user plane, multiple
+        network slices can be comprised of UPFs on top of same physical network
+        resources. Allocated resources and structures may be differentiated
+        among the slices by which the required features or capabilities.
       </t>
       
       <t>
-      The architecture overview is shown in <xref target="fig_3GPP-5GS-ARCH"/>. The details of 
-      functions are described in <xref target="TS.23.501-3GPP"/>. User plane path and applied 
-      functions for a tunnel will be manipulated based on application requirements that the 
-      PDU session corresponding to the tunnel is available to be handled by other authorized 
-      functions through the control plane.
+        The architecture overview is shown in <xref
+        target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in
+        <xref target="TS.23.501-3GPP"/>. User plane path and applied functions
+        for a tunnel will be manipulated based on application requirements that
+        the PDU session corresponding to the tunnel is available to be handled
+        by other authorized functions through the control plane.
       </t>
 
-<figure anchor="fig_3GPP-5GS-ARCH"
-        title="5GS Architecture and Service-based Interfaces">
-  <artwork><![CDATA[
+      <figure anchor="fig_3GPP-5GS-ARCH" title="5GS Architecture and
+      Service-based Interfaces">
+        <artwork><![CDATA[
 
 
 
@@ -977,14 +1037,12 @@ User Plane           /     |           |         \
                                     | DN  |
                                     +-----+
 
- ]]></artwork>
-</figure>
-
-<!-- Should we add a figure of protocol stacks? -->
-
+       ]]></artwork>
+      </figure>
 
       <t>
-      This document mainly focuses on requirements for N9 interface as relevant to UP protocol of 5G system.
+        This document mainly focuses on requirements for N9 interface as
+        relevant to UP protocol of 5G system.
       </t>
          
       <section anchor="UPF-Func" title="UPF Functionalities">
@@ -995,73 +1053,88 @@ User Plane           /     |           |         \
         
         <t>
           The followings are defined as UPF functionalities for traffic handling:
-        <list style="symbols">
-          <t>User Plane part of policy rule enforcement, e.g. Gating, Redirection, Traffic steering)</t>
-          <t>QoS handling for user plane, e.g. UL/DL rate enforcement, Reflective QoS marking in DL</t>
-          <t>Transport level packet marking in the uplink and downlink</t>
-        </list>
+          <list style="symbols">
+            <t>User Plane part of policy rule enforcement, e.g. Gating,
+            Redirection, Traffic steering)</t>
+            <t>QoS handling for user plane, e.g. UL/DL rate enforcement,
+            Reflective QoS marking in DL</t>
+            <t>Transport level packet marking in the uplink and downlink</t>
+          </list>
         </t>
         
         <t> 
-          Other functionalities are described in the section 6.2.3 of <xref target="TS.23.501-3GPP"/>
+          Other functionalities are described in the section 6.2.3 of <xref
+          target="TS.23.501-3GPP"/>
         </t>
         
         <t>
-          UPF shall detect user plane traffic flow depending on information indicated by SMF.
-          User data traffic is detected with combination of the following information:
+          UPF shall detect user plane traffic flow depending on information
+          indicated by SMF. User data traffic is detected with combination of
+          the following information:
         </t>
-        <t>
-        <list style="symbols">
-          <t>For IPv4 or IPv6 PDU Session type
-            <list style="symbols">
-              <t>PDU Session</t>
-              <t>QFI</t>
-              <t>Application Identifier: The Application ID is an index to a set of application detection rules configured in UPF</t>
-            </list>
-          </t>
-          <t>For Ethernet PDU Session type
-            <list style="symbols">
-              <t>PDU Session</t>
-              <t>QFI</t>
-              <t>Ethernet Packet Filter Set:
-                <list style="symbols">
-                  <t>Source/destination MAC address</t>
-                  <t>Ethertype as defined in IEEE 802.3</t>
-                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) VID fields as defined in IEEE 802.1Q</t>
-                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) PCP/DEI fields as defined in IEEE 802.1Q</t>
-                  <t>IP Packet Filter Set, in case Ethertype indicates IPv4/IPv6 payload</t>
-                  <t>Packet filter direction</t>
-                </list>
-              </t>
-            </list>
-          </t>
-          </list>
-          </t>
-          <t>
-           Such information for traffic detection (Traffic Detection Information)
-           is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
-          </t>
-        </section>
-      </section>
-       
         
+        <t>
+          <list style="symbols">
+            <t>For IPv4 or IPv6 PDU Session type
+              <list style="symbols">
+                <t>PDU Session</t>
+                <t>QFI</t>
+                <t>Application Identifier: The Application ID is an index to a
+                set of application detection rules configured in UPF</t>
+              </list>
+            </t>
 
-      <section anchor="archi-req" title="Architectural Requirements for User Plane Protocols">
+            <t>For Ethernet PDU Session type
+              <list style="symbols">
+                <t>PDU Session</t>
+                <t>QFI</t>
+                <t>Ethernet Packet Filter Set:
+                  <list style="symbols">
+                    <t>Source/destination MAC address</t>
+                    <t>Ethertype as defined in IEEE 802.3</t>
+                    <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
+                    VID fields as defined in IEEE 802.1Q</t>
+                    <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
+                    PCP/DEI fields as defined in IEEE 802.1Q</t>
+                    <t>IP Packet Filter Set, in case Ethertype indicates
+                    IPv4/IPv6 payload</t>
+                    <t>Packet filter direction</t>
+                  </list>
+                </t>
+              </list>
+            </t>
+          </list>
+        </t>
+
+        <t>
+         Such information for traffic detection (Traffic Detection Information)
+         is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
+        </t>
+      </section>
+    </section>
+
+    <section anchor="archi-req" title="Architectural Requirements for User Plane
+    Protocols">
       <t>
-      This section lists the requirements for the UP protocol on the 5G system. The requirements are picked 
-      up from <xref target="TS.23.501-3GPP"/>. In addition, some of service requirements described in 
-      <xref target="TS.22.261-3GPP"/> are referred to clarify the originations of architectural requirements.
+        This section lists the requirements for the UP protocol on the 5G
+        system. The requirements are picked up from <xref
+        target="TS.23.501-3GPP"/>. In addition, some of service requirements
+        described in <xref target="TS.22.261-3GPP"/> are referred to clarify the
+        originations of architectural requirements.
       </t>
     
       <t>
-      According to <xref target="TS.23.501-3GPP"/>, the specifications potentially have assumptions that the user 
-      plane protocol is a tunnel representing a single TEID between a pair of UPFs and it is corresponding to a 
-      single PDU session. In short, the UP protocol is a tunnel and it is assumed to be managed under per 
-      PDU session handling. Also, it should be a stateful tunnel in the UPFs along with the PDU session.
+        According to <xref target="TS.23.501-3GPP"/>, the specifications
+        potentially have assumptions that the user plane protocol is a tunnel
+        representing a single TEID between a pair of UPFs and it is
+        corresponding to a single PDU session. In short, the UP protocol is a
+        tunnel and it is assumed to be managed under per PDU session handling.
+        Also, it should be a stateful tunnel in the UPFs along with the PDU
+        session.
       </t>
     
       <t>
-      The requirements for UP protocols are described below:
+        The requirements for UP protocols are described below:
       </t>
         
       <t>
@@ -1071,10 +1144,12 @@ User Plane           /     |           |         \
           </t>
         </list>
       </t>
+
       <t> 
-        The 5G system defines four types of PDU session as IPv4, IPv6, Ethernet, 
-        and Unstructured. Therefore, UP protocol must support to convey all of 
-        these PDU session types.  This is described in <xref target="TS.23.501-3GPP"/>.
+        The 5G system defines four types of PDU session as IPv4, IPv6, Ethernet,
+        and Unstructured. Therefore, UP protocol must support to convey all of
+        these PDU session types.  This is described in <xref
+        target="TS.23.501-3GPP"/>.
       </t>
       
       <t>
@@ -1103,11 +1178,11 @@ User Plane           /     |           |         \
          of <xref target="TS.29.561-3GPP"/>.
       </t>
            
-           
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
-             Supporting deployment of multiple UPFs as anchors for a single PDU session 
+             Supporting deployment of multiple UPFs as anchors for a single PDU
+             session 
           </t>
         </list>
       </t>
@@ -1119,11 +1194,11 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        Multihoming is provided with Branching Point (BP) or Uplink Classifier (UL CL) 
-        which are functionalities of UPF. 
-        BP provides forwarding of UL traffic towards the different PDU Session Anchors 
-        based on the source IPv6 prefixes and merge of DL traffic to the UE. 
-        UL CL provides destination based multihoming for load balancing.
+        Multihoming is provided with Branching Point (BP) or Uplink Classifier
+        (UL CL) which are functionalities of UPF. BP provides forwarding of UL
+        traffic towards the different PDU Session Anchors based on the source
+        IPv6 prefixes and merge of DL traffic to the UE. UL CL provides
+        destination based multihoming for load balancing.
       </t>
    
       <t>
@@ -1156,29 +1231,20 @@ User Plane           /     |           |         \
       </t>
 
       <t>
-        SSC mode 3 for session continuity in hand-over case uses a single PDU multihoming 
-        with BP to make sure make-before-break. It is
-        described in the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
-<!--
-        Corresponding to specifications of SSC Mode 1 and 2, multi-homing for Ethernet type PDU session.
--->
+        SSC mode 3 for session continuity in hand-over case uses a single PDU
+        multihoming with BP to make sure make-before-break. It is described in
+        the section 5.6.4 and 5.6.9 of <xref target="TS.23.501-3GPP"/>. 
       </t>
       
       <t>
-        Multihoming is also assumed to be used for edge computing scenario. Edge computing enables some services
-        to be hosted close to the UE's access point of attachment, and achieves an efficient service delivery 
-        through the reduced end-to-end latency and load on the transport network. In edge computing, local 
-        user's traffic is routed or steered to application in the local DN by UPF. This refers the section
-        5.13 of <xref target="TS.23.501-3GPP"/>.
+        Multihoming is also assumed to be used for edge computing scenario. Edge
+        computing enables some services to be hosted close to the UE's access
+        point of attachment, and achieves an efficient service delivery through
+        the reduced end-to-end latency and load on the transport network. In
+        edge computing, local user's traffic is routed or steered to application
+        in the local DN by UPF. This refers the section 5.13 of <xref
+        target="TS.23.501-3GPP"/>.
       </t>
-        
-<!-- (Multiple tunnels for multihomed PDU session may satisfy the above requirement)     
-      <t>
-        Thus, UP protocol would be required to support multihoming of a single PDU sesssion.
-        Especially, UP protocol would be required to support P2MP and M2TP tunneling for reducing 
-        managed tunnels.
-      </t>
--->
       
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
@@ -1187,6 +1253,7 @@ User Plane           /     |           |         \
           </t>
         </list>
       </t>
+      
       <t>
         The appropriate UPFs are selected for a PDU session based on parameters
         and information such as UPF's dynamic load or UE location information.
@@ -1202,38 +1269,30 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        The number of UPF in the data path is not constrained by 3GPP specifications.
-        This specification is described in the section 8.3.1 of <xref target="TS.23.501-3GPP"/>.
+        The number of UPF in the data path is not constrained by 3GPP
+        specifications. This specification is described in the section 8.3.1 of
+        <xref target="TS.23.501-3GPP"/>.
       </t>
         
       <t>
-        Putting multiple UPFs, which provides specific function, in a data path enables 
-        flexible function deployment to make sure load distribution optimizations, etc.
+        Putting multiple UPFs, which provides specific function, in a data path
+        enables flexible function deployment to make sure load distribution
+        optimizations, etc.
       </t>
         
       <t>
-        In addition, deployment of multiple UPFs as anchors closed to UEs' site and 
-        connecting them without extra anchor points
-        enable to make data path more efficient.  This usage is described in
-        the section 6.5 of <xref target="TS.22.261-3GPP"/>. 
+        In addition, deployment of multiple UPFs as anchors closed to UEs' site
+        and connecting them without extra anchor points enable to make data path
+        more efficient.  This usage is described in the section 6.5 of <xref
+        target="TS.22.261-3GPP"/>. 
       </t>
         
       <t>
-        It is expected that multiple
-        UPFs with per session tunnel handling for a PDU session becomes
-        complicated task more and more for a SMF by increasing number of UPFs,
-        and UP protocol shall support to aggregate several PDU sessions into a tunnel or
-        shall be a session-less tunnel.
+        It is expected that multiple UPFs with per session tunnel handling for a
+        PDU session becomes complicated task more and more for a SMF by
+        increasing number of UPFs, and UP protocol shall support to aggregate
+        several PDU sessions into a tunnel or shall be a session-less tunnel.
       </t>
-<!--   (This paragraph seems to be leaping requirements which can be obtained from 23501)  
-      <t>
-        Moreover, in cases that a PDU session traverses multiple UPFs and is enforced
-        some processes at each UPF, each UPF is required to
-        identify the same PDU session and looks up the poilcy rules. For
-        avoiding this redandant identifications, UPP might be required to convey
-        identifiers represeinting subscription or allocated policy information. 
-      </t>
--->           
       
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
@@ -1243,6 +1302,7 @@ User Plane           /     |           |         \
           </t>
         </list>
       </t>
+
       <t>
         Against to the previous generation, 5G enables UPF to multiplex QoS
         Flows, equivalent with IP-CAN bearers in  the previous generation, into
@@ -1251,67 +1311,6 @@ User Plane           /     |           |         \
         before 5G. This specification is described in 5.7.1 of <xref
         target="TS.23.501-3GPP"/>.
       </t>
-<!--
-      <t>
-        <list style="format ARCH-Req-%d:" counter="arch-req">
-          <t>
-            UPF supports several functionalities for handling PDU sessions, and
-            some of them potentially have requiremts for UPP.
-          </t>
-        </list>
-      </t>
-      <t>
-        For example, UPF supports packet routing and forwarding includes support
-        of multi-homed PDU session. Also, UPF support QoS handling for user
-        plane, e.g., UL/DL rate enforcement or QoS marking in DL, and UPP should
-        be able to present QoS class with DSCP or CoS in the outer most header.
-        The functionalities of UPF is described in the section 6.2.3 of <xref
-        target="TS.23.501-3GPP"/>.
-      </t>
-      <t>
-        <list style="format ARCH-Req-%d:" counter="arch-req">
-          <t>
-            UPF shall detect user plane depending on information indecated by
-            SMF.
-          </t>
-        </list>
-      </t>
-      <t>
-        User data traffic is detected with combination of the following
-        information:
-      </t>
-      <t>
-        <list style="symbols">
-          <t>For IPv4 or IPv6 PDU Session type
-            <list style="symbols">
-              <t>PDU Session</t>
-              <t>QFI</t>
-              <t>Application Identifier: The Application ID is an index to a set of application detection rules configured in UPF</t>
-            </list>
-          </t>
-          <t>For Ethernet PDU Session type
-            <list style="symbols">
-              <t>PDU Session</t>
-              <t>QFI</t>
-              <t>Ethernet Packet Filter Set:
-                <list style="symbols">
-                  <t>Source/destination MAC address</t>
-                  <t>Ethertype as defined in IEEE 802.3</t>
-                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) VID fields as defined in IEEE 802.1Q</t>
-                  <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG) PCP/DEI fields as defined in IEEE 802.1Q</t>
-                  <t>IP Packet Filter Set, in case Ethertype indicates IPv4/IPv6 payload</t>
-                  <t>Packet filter direction</t>
-                </list>
-              </t>
-            </list>
-          </t>
-        </list>
-      </t>
-      <t>
-        Such information for traffic detection (Traffic Detection Information)
-        is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
-      </t>
--->
         
 <!-- Any more requirements? -->
                                                                         
@@ -1322,21 +1321,21 @@ User Plane           /     |           |         \
       <t>
         This section provides UP protocol evaluation aspects that are mainly we
         derived from the architectural requirements described in <xref
-        target="arch"/>. Those aspects are not prioritized by the order here. 
-        Expected deployment scenarios explain the evaluations purpose in the 
+        target="arch"/>. Those aspects are not prioritized by the order here.
+        Expected deployment scenarios explain the evaluations purpose in the
         corresponding aspects. 
       </t>
       
       <t>
         As we were noticed that the gaps between GTP-U specifications and 5G
-        architectural requirements through the analysis, those each gap are briefly
-        described in the evaluation aspect associated to it.
+        architectural requirements through the analysis, those each gap are
+        briefly described in the evaluation aspect associated to it.
       </t>
       
       <t>
          Since it is obvious that 5G system should be able to interwork with
          existing previous generation based systems, any aspects from coexisting
-         and interworking point of view are not particularly articulated here. 
+         and interworking point of view are not particularly articulated here.
          It may be described in a next version.
       </t>
 
@@ -1352,12 +1351,12 @@ User Plane           /     |           |         \
           </t>
             
           <t>
-            For this, the expected evaluation points from this aspect should be whether
-            there is substitutional means to cover other PDU session types. And how much
-            it makes simple the system than deploying original PDU session types.
+            For this, the expected evaluation points from this aspect should be
+            whether there is substitutional means to cover other PDU session
+            types. And how much it makes simple the system than deploying
+            original PDU session types.
           </t>
         </section>
-
 
         <section anchor="eval-nature" title="Nature of Data Path">
           <t>
@@ -1385,21 +1384,22 @@ User Plane           /     |           |         \
 
         <section anchor="eval-transport" title="Supporting Transport Variations">
           <t>
-            5G system will be expected that the new radio spectrums in high frequency 
-            bands require operators to deploy their base stations much dense for much
-            wider areas compare to previous generation footprints. To make sure that
-            density and coverage, all available types of transport in the field
-            must be employed between RAN to UPF, or UPF to UPF.
+            5G system will be expected that the new radio spectrums in high
+            frequency bands require operators to deploy their base stations much
+            dense for much wider areas compare to previous generation
+            footprints. To make sure that density and coverage, all available
+            types of transport in the field must be employed between RAN to UPF,
+            or UPF to UPF.
           </t>
           
           <t>
             It is also expected that MTU size of each transport could be varied.
             Because one could be own fiber which the operator configure the MTU
             size as they like while others are third-party provided L2/L3 VPN
-            lines which MTU size can't be controlled by the operators. So it is 
-            recommended MTU size discovery for each data path 
-            and dynamic MTU size adjustment mechanisms, while GTP-U does not 
-            support those mechanisms.
+            lines which MTU size can't be controlled by the operators. So it is
+            recommended MTU size discovery for each data path and dynamic MTU
+            size adjustment mechanisms, while GTP-U does not support those
+            mechanisms.
           </t>
           
           <t>
@@ -1408,18 +1408,18 @@ User Plane           /     |           |         \
             size of available address space to support dense and wide footprint
             of base stations. However it increases header size from 20bytes to
             40bytes compare to IPv4. It could be a problem if the MTU size is
-            uncontrollable, or only limited MTU size available to carry committed
-            PDU size on the user plane.
+            uncontrollable, or only limited MTU size available to carry
+            committed PDU size on the user plane.
           </t>
           
           <t>
-            The expected evaluation points from this aspect should be that the candidate
-            protocols are able to dynamically adjust path MTU size with appropriate
-            MTU size discovery mechanism. It also should be that how the candidate 
-            protocols leverage IPv6 to deal with header size increasing.
+            The expected evaluation points from this aspect should be that the
+            candidate protocols are able to dynamically adjust path MTU size
+            with appropriate MTU size discovery mechanism. It also should be
+            that how the candidate protocols leverage IPv6 to deal with header
+            size increasing.
           </t>
         </section>
-
 
         <section anchor="eval-datapath" title="Data Path Management">
           <t>
@@ -1435,8 +1435,8 @@ User Plane           /     |           |         \
             That powerful user plane capability could affect data path
             management complicated and difficult to be managed through the
             control plane, or operation support systems (OSS). Perhaps it could
-            be the case where the UP protocol nature is P2P and it only supports per
-            session base data path handling.
+            be the case where the UP protocol nature is P2P and it only supports
+            per session base data path handling.
           </t>
           
           <t>
@@ -1449,12 +1449,12 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-            The expected evaluation points from this aspect should be that how much the
-            candidate protocols can reduce data path management loads both on
-            the control plane NFs and UPFs compare to the per session based
-            handling for P2P paths. It could possibly include N3 and N6 in addition to N9
-            while it supports flexible user plane data path optimizations for
-            some example scenarios.
+            The expected evaluation points from this aspect should be that how
+            much the candidate protocols can reduce data path management loads
+            both on the control plane NFs and UPFs compare to the per session
+            based handling for P2P paths. It could possibly include N3 and N6 in
+            addition to N9 while it supports flexible user plane data path
+            optimizations for some example scenarios.
           </t>
         </section>
   
@@ -1558,26 +1558,7 @@ User Plane           /     |           |         \
             engineering (TE) embodies appropriate forwarding policy through the
             underlay transport network.
           </t>
-          
-<!--          
-          <t>
-            Moreover, for more efficient usage of network resources, UPF and its (virtual) ports would be required 
-            to allow multiple slices to use it simultaniously. If the a (virtual) port must be assigned to per slice, 
-            the number of slices can be deployed is limited by the number of ports. In case that a port is shared with 
-            multiple slices, a way to detect slices allocated to each PDU session would be required for executing the 
-            appropriate processes to each slice. For example, UP protocol 
-            might be required to convey some information for slice detection.
-          </t>
-            
-          <t>
-          Moreover, for monitoring traffic state of each network slice, UP protocol would be required to convey an identifier of slice 
-          that the PDU session is allocated as visble to the operator. For example, UP protocol may be required to convey identifier 
-          representing its allocated network slice as optional information. In network slicing 
-          scenario, some UPFs may be shared with multiple network slices, and such identifier can be also used for reducing 
-          loads of relay UPFs on slice detection. 
-          </t>
--->      
-          
+
           <t>
             The expected evaluation points from this aspect should be whether
             the candidate protocols can support to indicate a network slice in
@@ -1588,13 +1569,7 @@ User Plane           /     |           |         \
             GTP-U, less impact to the control plane protocol and the APIs should
             be much preferable.
           </t>
-          
-          
-          
         </section>
-               
-
-          
     </section>
 
 
@@ -1615,13 +1590,13 @@ User Plane           /     |           |         \
       </t>
         
       <t>
-        As we identified some potential gaps between the current UP protocol and the
-        architectural requirements even for Release 15, it is worth to study possible candidate UP
-        protocols for the 5G system including current one. Our conclusion here
-        is that we suggest the UP protocol study work in 3GPP takes into account
-        the evaluation aspects described in <xref target="eval_aspects"/>. 
+        As we identified some potential gaps between the current UP protocol and
+        the architectural requirements even for Release 15, it is worth to study
+        possible candidate UP protocols for the 5G system including current one.
+        Our conclusion here is that we suggest the UP protocol study work in
+        3GPP takes into account the evaluation aspects described in <xref
+        target="eval_aspects"/>. 
       </t>
-      
     </section>
 
     <section title="Security Consideration">
