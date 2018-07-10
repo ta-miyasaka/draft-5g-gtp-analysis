@@ -9,6 +9,10 @@
 
 <!ENTITY RFC2460 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC6437 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.6437.xml">
+<!ENTITY RFC6438 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.6438.xml">
 <!ENTITY RFC6935 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
 <!ENTITY RFC8200 SYSTEM 
@@ -1632,6 +1636,8 @@ User Plane           /     |           |         \
     <references title="Informative References">
 
     &RFC2460;
+    &RFC6437;
+    &RFC6438;
     &RFC6935;
     &RFC8200;
     &I-D.bogineni-dmm-optimized-mobile-user-plane;
