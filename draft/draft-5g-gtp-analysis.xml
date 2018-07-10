@@ -507,7 +507,10 @@ PDU->|  +---------+         +---------+         +---------+
         </t>
         <t>
           IPv6 flow label <xref target="RFC6437"/> is also candidatae method for 
-          load balancing especially for IP-in-IPv6 tunnel like GTP-U<xref target="RFC6438"/>.
+          load balancing especially for IP-in-IPv6 tunnel like GTP-U <xref target="RFC6438"/>.
+          However, how to use IPv6 flow label of GTP-U is not described in <xref
+          target="TS.29.281-3GPP" />. Though this method is limited to a case of IPv6 
+          encapsulated GTP-U tunnel, it is worth to study usage of IPv6 flow label in 3GPP.
         </t>
         
         <t>
