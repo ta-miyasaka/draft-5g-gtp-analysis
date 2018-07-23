@@ -1389,16 +1389,16 @@ User Plane           /     |           |         \
             protocol as it is described in <xref target="gtp-u"/>. However, in 
             some cases, GTP-U allows some source UPFs of the same PDU session 
             to use the same F-TEID. 
-            For example, the section 5.3.3.1 A of <xref target=“TS.23.401-3GPP”/>
+            For example, the section 5.3.3.1 A of <xref target="TS.23.401-3GPP"/>
             describes such case where the same F-TEID is used for a PDU session 
-            and it would be also applied for the 5G system.
+            in the 4G system, and it would be also applied for the 5G system.
           </t>             
              
         </section>
 
         <section anchor="eval-transport" title="Supporting Transport Variations">
           <t>
-            5G system will be expected that the new radio spectrums in high
+            The 5G system will be expected that the new radio spectrums in high
             frequency bands require operators to deploy their base stations much
             dense for much wider areas compare to previous generation
             footprints. To make sure that density and coverage, all available
@@ -1583,8 +1583,8 @@ User Plane           /     |           |         \
     
           <t>
             By the way, the 3GPP specifications for slice lifecycle managements is 
-            described in the relevant documents: <xref target=“TS.28.531-3GPP”/>, 
-            <xref target=“TS.28.532-3GPP”/>, and <xref target=“TS.28.533-3GPP”/>. 
+            described in the relevant documents: <xref target="TS.28.531-3GPP"/>, 
+            <xref target="TS.28.532-3GPP"/>, and <xref target="TS.28.533-3GPP"/>. 
           </t>
           
           <t>
@@ -1613,10 +1613,10 @@ User Plane           /     |           |         \
 
     <section anchor="conclusion" title="Conclusion">
       <t>
-        We analyzed the 3GPP specifications of 5G architecture in terms of user
+        We analyzed the 3GPP specifications of the 5G architecture in terms of user
         plane and the current protocol adopted to the user plane. After the
         analysis work, we believe that the results described in this document
-        shows that we reach at certain level of understanding on 5G systems and
+        shows that we reach at certain level of understanding on the 5G systems and
         ready to provide our inputs to 3GPP.
       </t>
       
@@ -1845,7 +1845,7 @@ User Plane           /     |           |         \
         </front>
       </reference>
          
-      <reference anchor=‘TS.28.531-3GPP’ target=“http://ftp.3gpp.org//Specs/archive/28_series/28.531/28531-100.zip”>
+      <reference anchor='TS.28.531-3GPP' target="http://ftp.3gpp.org//Specs/archive/28_series/28.531/28531-100.zip">
         <front>
         <title>3GPP TS 28.531 (V1.0.0): Management and orchestration of networks and network slicing; Provisioning; Stage 1 (Release 15)</title>
         <author>
@@ -1853,11 +1853,11 @@ User Plane           /     |           |         \
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <data month=“June” year=“2018”/>
+        <date month="June" year="2018"/>
         </front>
       </reference>
 
-      <reference anchor=‘TS.28.532-3GPP’ target=“http://www.3gpp.org/ftp//Specs/archive/28_series/28.532/28532-030.zip”>
+      <reference anchor='TS.28.532-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/28_series/28.532/28532-030.zip">
         <front>
         <title>3GPP TS 28.532 (V0.3.0): Management and orchestration of networks and network slicing; Provisioning; Stage 2 and stage 3 (Release 15)</title>
         <author>
@@ -1865,11 +1865,11 @@ User Plane           /     |           |         \
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <data month=“June” year=“2018”/>
+        <date month="June" year="2018"/>
         </front>
       </reference>
 
-      <reference anchor=‘TS.28.533-3GPP’ target=“”>
+      <reference anchor='TS.28.533-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/28_series/28.533/28533-030.zip">
         <front>
         <title>3GPP TS 28.533 (V0.3.0): Management and orchestration of networks and network slicing; Management and orchestration architecture (Release 15)</title>
         <author>
@@ -1877,7 +1877,7 @@ User Plane           /     |           |         \
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <data month=“June” year=“2018”/>
+        <date month="June" year="2018"/>
         </front>
       </reference>
          
