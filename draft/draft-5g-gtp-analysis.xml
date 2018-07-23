@@ -175,7 +175,7 @@
         technologies, such as TDM circuit, or ATM virtual circuit. That GTP-U
         success seems based on IP overlay technique that is dramatically scaled
         compare to the previous ones because it successfully isolates mobile
-        session states from the user plane transport network.
+        session states from the user plane transport network.　
       </t>
       
       <t>
@@ -1286,7 +1286,15 @@ User Plane           /     |           |         \
         more efficient.  This usage is described in the section 6.5 of <xref
         target="TS.22.261-3GPP"/>. 
       </t>
-        
+
+      <t>
+        Meanwhile, each UPF in a data path shall be controlled by an SMF via 
+        N4 interface. Thus putting an excess of UPF for data paths might cause 
+        increase of load of an SMF. Pragmatically, the number of UPF put in a 
+        data path is one or two (e.g., for MEC or roaming cases), and, at most,
+        it would be three (e.g., for case where UE moves during a session).
+      </t>         
+      
       <t>
         It is expected that multiple UPFs with per session tunnel handling for a
         PDU session becomes complicated task more and more for a SMF by
@@ -1368,18 +1376,24 @@ User Plane           /     |           |         \
             (P2P) protocol requires same number of states in each UPF throughout
             the path. 
           </t>
-          
-          <t>
-            Supporting MP2P data path by GTP-U could be a gap in terms of single
-            PDU session multi-homing, since GTP-U is a point-to-point tunneling
-            protocol as it is described in <xref target="gtp-u"/>. 
-          </t>
-          
+                   
           <t>
             Therefore the expected evaluation points from this aspect is whether
             the nature of candidate UP protocols are to utilize MP2P data
             path.
           </t>
+             
+          <t>
+            Supporting MP2P data path by GTP-U could be a gap in terms of single
+            PDU session multi-homing, since GTP-U is a point-to-point tunneling
+            protocol as it is described in <xref target="gtp-u"/>. However, in 
+            some cases, GTP-U allows some source UPFs of the same PDU session 
+            to use the same F-TEID. 
+            For example, the section 5.3.3.1 A of <xref target=“TS.23.401-3GPP”/>
+            describes such case where the same F-TEID is used for a PDU session 
+            and it would be also applied for the 5G system.
+          </t>             
+             
         </section>
 
         <section anchor="eval-transport" title="Supporting Transport Variations">
@@ -1396,8 +1410,20 @@ User Plane           /     |           |         \
             It is also expected that MTU size of each transport could be varied.
             Because one could be own fiber which the operator configure the MTU
             size as they like while others are third-party provided L2/L3 VPN
-            lines which MTU size can't be controlled by the operators. So it is
-            recommended MTU size discovery for each data path and dynamic MTU
+            lines which MTU size can't be controlled by the operators. 
+          </t>
+     
+          <t>
+            The MTU between RAN and UPF can be discovered by offline means and 
+            the operator takes into account the MTU that is transferable on the 
+            radio interface and based on this the operator configures the right 
+            MTU to be used. That is then signaled to the UE either via PCO (for 
+            IPv4 case) or the IPv6 RA message (for IPv6 case).
+          </t>
+     
+          <t>
+            In addition, for cases that third-parties provide VPN lines, it would 
+            be recommended MTU size discovery for each data path and dynamic MTU
             size adjustment mechanisms, while GTP-U does not support those
             mechanisms.
           </t>
@@ -1467,7 +1493,13 @@ User Plane           /     |           |         \
             sure that reflects QoS policy in the 5G system to corresponding
             forwarding policy in the user plane IP transports.
           </t>
-          
+             
+          <t>
+            The expected evaluation points from this aspect should be whether
+            the candidate protocols can provide stable ID space for QFI which
+            shouldn't be a big deal since QFI just requires 6-bits space.
+          </t>
+             
           <t>
             As we pointed out in <xref target="gtp-u-header"/>, the lookup
             process could impact UPF performance if the QFI container position
@@ -1476,12 +1508,14 @@ User Plane           /     |           |         \
             various different QoS policies are deployed in the networks under
             the UP as we discussed in <xref target="eval-transport"/>.
           </t>
-          
+             
           <t>
-            The expected evaluation points from this aspect should be whether
-            the candidate protocols can provide stable ID space for QFI which
-            shouldn't be a big deal since QFI just requires 6-bits space.
-          </t>
+            Although the recent specification document (ver. 15.3.0 published 
+            in June, 2018) describes a note recommending to put QFI in the first 
+            extension header, it is still not mandatory and blind processing may 
+            cause unexpected problems.
+          </t>          
+
         </section>
         
         
@@ -1540,13 +1574,17 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-            That's just one way for network slicing, but it helps to reduce the
-            operational burden while there's no 3GPP specification for slice
-            lifecycle managements, such as create, update, and delete operations
-            for slices. Even it depends on each operator's policy, sharing
-            Network Instance, UPFs and the interfaces among slices makes
+            That's just one way for network slicing, but it would help to reduce the
+            operational burden. Even it depends on each operator's policy, sharing
+            network instances, UPFs, and the interfaces among slices makes
             operators relax and not to be much hustled on slice lifecycle
-            management.
+            management., such as create, update, and delete operations for slices.
+          </t>
+    
+          <t>
+            By the way, the 3GPP specifications for slice lifecycle managements is 
+            described in the relevant documents: <xref target=“TS.28.531-3GPP”/>, 
+            <xref target=“TS.28.532-3GPP”/>, and <xref target=“TS.28.533-3GPP”/>. 
           </t>
           
           <t>
@@ -1686,6 +1724,18 @@ User Plane           /     |           |         \
       </reference>
 -->
 
+      <reference anchor='TS.23.401-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.401/23401-e80.zip">
+        <front>
+        <title>3GPP TS 23.401 (V14.8.0): General Packet Radio Service (GPRS) enhancement for Evolved Universal Terrestrial Radio Access Network (E-UTRAN) access (Release 14</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="March" year="2018"/>
+        </front>
+      </reference>
+         
       <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23501-f10.zip">
         <front>
         <title>3GPP TS 23.501 (V15.1.0): System Architecture for 5G System; Stage 2</title>
@@ -1794,7 +1844,43 @@ User Plane           /     |           |         \
         <date month="June" year="2018"/>
         </front>
       </reference>
+         
+      <reference anchor=‘TS.28.531-3GPP’ target=“http://ftp.3gpp.org//Specs/archive/28_series/28.531/28531-100.zip”>
+        <front>
+        <title>3GPP TS 28.531 (V1.0.0): Management and orchestration of networks and network slicing; Provisioning; Stage 1 (Release 15)</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <data month=“June” year=“2018”/>
+        </front>
+      </reference>
 
+      <reference anchor=‘TS.28.532-3GPP’ target=“http://www.3gpp.org/ftp//Specs/archive/28_series/28.532/28532-030.zip”>
+        <front>
+        <title>3GPP TS 28.532 (V0.3.0): Management and orchestration of networks and network slicing; Provisioning; Stage 2 and stage 3 (Release 15)</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <data month=“June” year=“2018”/>
+        </front>
+      </reference>
+
+      <reference anchor=‘TS.28.533-3GPP’ target=“”>
+        <front>
+        <title>3GPP TS 28.533 (V0.3.0): Management and orchestration of networks and network slicing; Management and orchestration architecture (Release 15)</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <data month=“June” year=“2018”/>
+        </front>
+      </reference>
+         
        <reference anchor='TS.29.510-3GPP'  target="http://www.3gpp.org/FTP/Specs/2018-06/Rel-15/29_series/29510-f00.zip">
         <front>
         <title>3GPP TS 29.510 (V15.0.0): 5G System; Network Function Repository Services; Stage 3</title>
