@@ -1686,15 +1686,15 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/29_series/29281-f20.zip">
+      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f30.zip">
         <front>
-        <title>3GPP TS 29.281 (V15.2.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
+        <title>3GPP TS 29.281 (V15.3.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="March" year="2018"/>
+        <date month="June" year="2018"/>
         </front>
       </reference>
 
