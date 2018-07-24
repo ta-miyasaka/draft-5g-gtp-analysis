@@ -1512,8 +1512,8 @@ User Plane           /     |           |         \
           <t>
             Although the recent specification document (ver. 15.3.0 published 
             in June, 2018) describes a note recommending to put QFI in the first 
-            extension header, it is still not mandatory and blind processing may 
-            cause unexpected problems.
+            extension header, it is still not mandatory and some implementation may 
+            not follow this.
           </t>          
 
         </section>
