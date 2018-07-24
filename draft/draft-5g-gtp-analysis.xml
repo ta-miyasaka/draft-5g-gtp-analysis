@@ -585,7 +585,8 @@ PDU->|  +---------+         +---------+         +---------+
           case. Therefore, in normal case receiver tunnel endpoint node doesn't
           examine sequence number and can't reorder GTP-U packets based on the
           sequence number. This specification is described in section 5.1 of
-          <xref target="TS.29.281-3GPP" />.
+          <xref target="TS.29.281-3GPP" />. In 3GPP, sequential delivery is required 
+          only during handover procedure and is used by only RAN entities.
         </t>
         <figure anchor="fig_GTP-U_header" title="GTP-U Header">
         <artwork align="center"><![CDATA[
