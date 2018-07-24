@@ -9,6 +9,8 @@
 
 <!ENTITY RFC2460 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC4861 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.4861.xml">
 <!ENTITY RFC6437 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6437.xml">
 <!ENTITY RFC6438 SYSTEM 
@@ -547,6 +549,16 @@ PDU->|  +---------+         +---------+         +---------+
           encapsulated IPv6 packet is too big on a network link between tunnel
           endpoint nodes, UE may not receive ICMPv6 Packet Too Big message and
           causes Path MTU Discovery black hole.
+        </t>
+        <t>
+          Section 9.3 of <xref target="TS.23.060-3GPP"/> specifies advertisement of 
+          inner IPv6 link MTU size for UE by IPv6 RA message <xref target="RFC4861"/>.
+          However, this document doesn't specify a procedure to measure MTU size 
+          in mobile network system and mobile network operator need to calculate MTU size 
+          for UE like Annex C of <xref target="TS.23.060-3GPP"/>. If link MTU of a router 
+          in a transport network is accedentally modified, UE cannot detect the event and 
+          send packet with initial MTU size, which may cause service disruption due to MTU 
+          exceed in the router link.
         </t>
       </section>
 
@@ -1643,6 +1655,7 @@ User Plane           /     |           |         \
     <references title="Informative References">
 
     &RFC2460;
+    &RFC4861;
     &RFC6437;
     &RFC6438;
     &RFC6935;
@@ -1823,6 +1836,18 @@ User Plane           /     |           |         \
        <reference anchor='TS.29.274-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.274/29274-f40.zip">
         <front>
         <title>3GPP TS 29.274 (V15.4.0): 3GPP Evolved Packet System (EPS); Evolved General Packet Radio Service (GPRS) Tunneling Protocol for Control plane (GTPv2-C); Stage 3</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+      
+      <reference anchor='TS.23.060-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.060/23060-f30.zip">
+        <front>
+        <title>3GPP TS 23.060 (V15.3.0): General Packet Radio Service (GPRS); Service description; Stage 2</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
