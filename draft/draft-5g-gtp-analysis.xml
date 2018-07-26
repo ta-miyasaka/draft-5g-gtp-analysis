@@ -175,7 +175,7 @@
         technologies, such as TDM circuit, or ATM virtual circuit. That GTP-U
         success seems based on IP overlay technique that is dramatically scaled
         compare to the previous ones because it successfully isolates mobile
-        session states from the user plane transport network.　
+        session states from the user plane transport network.
       </t>
       
       <t>
