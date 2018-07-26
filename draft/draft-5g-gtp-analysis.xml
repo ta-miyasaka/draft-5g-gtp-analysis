@@ -9,6 +9,12 @@
 
 <!ENTITY RFC2460 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2460.xml">
+<!ENTITY RFC4861 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.4861.xml">
+<!ENTITY RFC6437 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.6437.xml">
+<!ENTITY RFC6438 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.6438.xml">
 <!ENTITY RFC6935 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6935.xml">
 <!ENTITY RFC8200 SYSTEM 
@@ -501,6 +507,13 @@ PDU->|  +---------+         +---------+         +---------+
           hashing, is not described in the document and depends on the
           implementation of GTP-U tunnel endpoint node.
         </t>
+        <t>
+          IPv6 flow label <xref target="RFC6437"/> is also candidatae method for 
+          load balancing especially for IP-in-IPv6 tunnel <xref target="RFC6438"/> like GTP-U.
+          However, how to use IPv6 flow label of GTP-U is not described in <xref
+          target="TS.29.281-3GPP" />. Though this method is limited to a case of IPv6 
+          encapsulated GTP-U tunnel, it is worth to study usage of IPv6 flow label in 3GPP.
+        </t>
         
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -537,6 +550,16 @@ PDU->|  +---------+         +---------+         +---------+
           endpoint nodes, UE may not receive ICMPv6 Packet Too Big message and
           causes Path MTU Discovery black hole.
         </t>
+        <t>
+          Section 9.3 of <xref target="TS.23.060-3GPP"/> specifies advertisement of 
+          inner IPv6 link MTU size for UE by IPv6 RA message <xref target="RFC4861"/>.
+          However, this document doesn't specify a procedure to measure MTU size 
+          in mobile network system and mobile network operator need to calculate MTU size 
+          for UE like Annex C of <xref target="TS.23.060-3GPP"/>. If link MTU of a router 
+          in a transport network is accedentally modified, UE cannot detect the event and 
+          send packet with initial MTU size, which may cause service disruption due to MTU 
+          exceed in the router link.
+        </t>
       </section>
 
       <section anchor="gtp-u-header" title="GTP-U Header Format">
@@ -562,7 +585,8 @@ PDU->|  +---------+         +---------+         +---------+
           case. Therefore, in normal case receiver tunnel endpoint node doesn't
           examine sequence number and can't reorder GTP-U packets based on the
           sequence number. This specification is described in section 5.1 of
-          <xref target="TS.29.281-3GPP" />.
+          <xref target="TS.29.281-3GPP" />. In 3GPP, sequential delivery is required 
+          only during handover procedure and is used by only RAN entities.
         </t>
         <figure anchor="fig_GTP-U_header" title="GTP-U Header">
         <artwork align="center"><![CDATA[
@@ -693,6 +717,13 @@ PDU->|  +---------+         +---------+         +---------+
           in this document. Thereby the receiving endpoint can't predict exact
           position where the target extension headers are. This could impact on
           header lookup performance on the node.
+        </t>
+        <t>
+          As for PDU Session Container extension header, there is a note in 
+          <xref target="TS.29.281-3GPP" /> as "For a G-PDU with several Extension 
+          Headers, the PDU Session Container should be the first Extension Header".
+          However, this note only specifies one extension header's rule of order 
+          and it seems to need to define more general rule of order on extension header.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -1632,6 +1663,9 @@ User Plane           /     |           |         \
     <references title="Informative References">
 
     &RFC2460;
+    &RFC4861;
+    &RFC6437;
+    &RFC6438;
     &RFC6935;
     &RFC8200;
     &I-D.bogineni-dmm-optimized-mobile-user-plane;
@@ -1660,15 +1694,15 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/29_series/29281-f20.zip">
+      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f30.zip">
         <front>
-        <title>3GPP TS 29.281 (V15.2.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
+        <title>3GPP TS 29.281 (V15.3.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="March" year="2018"/>
+        <date month="June" year="2018"/>
         </front>
       </reference>
 
@@ -1810,6 +1844,18 @@ User Plane           /     |           |         \
        <reference anchor='TS.29.274-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.274/29274-f40.zip">
         <front>
         <title>3GPP TS 29.274 (V15.4.0): 3GPP Evolved Packet System (EPS); Evolved General Packet Radio Service (GPRS) Tunneling Protocol for Control plane (GTPv2-C); Stage 3</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="June" year="2018"/>
+        </front>
+      </reference>
+
+      <reference anchor='TS.23.060-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.060/23060-f30.zip">
+        <front>
+        <title>3GPP TS 23.060 (V15.3.0): General Packet Radio Service (GPRS); Service description; Stage 2</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
