@@ -1409,20 +1409,25 @@ User Plane           /     |           |         \
           </t>
                    
           <t>
-            Therefore the expected evaluation points from this aspect is whether
-            the nature of candidate UP protocols are to utilize MP2P data
-            path.
+            From this point of view, the expected evaluation points from this aspect is 
+            whether the nature of candidate UP protocols are to utilize MP2P data path.
           </t>
              
           <t>
             Supporting MP2P data path by GTP-U could be a gap in terms of single
             PDU session multi-homing, since GTP-U is a point-to-point tunneling
-            protocol as it is described in <xref target="gtp-u"/>. However, in 
-            some cases, GTP-U allows some source UPFs of the same PDU session 
-            to use the same F-TEID. 
-            For example, the section 5.3.3.1 A of <xref target="TS.23.401-3GPP"/>
-            describes such case where the same F-TEID is used for a PDU session 
-            in the 4G system, and it would be also applied for the 5G system.
+            protocol as it is described in <xref target="gtp-u"/>. 
+          </t>
+          
+          <t>
+            However, in some cases, GTP-U allows some source UPFs of the same PDU session 
+            to use the same F-TEID. For example, the section 5.3.3.1 A of <xref target="TS.23.401-3GPP"/>
+            describes such case where the same F-TEID is used for a PDU session in the 4G system. 
+            This means that even the 4G system might have a requirement to reduce the load on tunnel 
+            management and GTP-U practically support MP2P tunneling.  
+            The 5G system must support interconnection with previous generation networks, 
+            and such behavior of GTP-U might be supported even in the 5G system to communicate with 
+            these networks.
           </t>             
              
         </section>
