@@ -1409,26 +1409,21 @@ User Plane           /     |           |         \
           </t>
                    
           <t>
-            From this point of view, the expected evaluation points from this aspect is 
-            whether the nature of candidate UP protocols are to utilize MP2P data path.
-          </t>
-             
-          <t>
-            Supporting MP2P data path by GTP-U could be a gap in terms of single
-            PDU session multi-homing, since GTP-U is a point-to-point tunneling
-            protocol as it is described in <xref target="gtp-u"/>. 
+            From this point of view, the expected evaluation points from this
+            aspect is whether the nature of candidate UP protocols are to
+            utilize MP2P data path. Supporting MP2P data path by GTP-U could be
+            a gap since GTP-U is a point-to-point tunneling protocol as it is
+            described in <xref target="gtp-u"/>. 
           </t>
           
           <t>
-            However, in some cases, GTP-U allows some source UPFs of the same PDU session 
-            to use the same F-TEID. For example, the section 5.3.3.1 A of <xref target="TS.23.401-3GPP"/>
-            describes such case where the same F-TEID is used for a PDU session in the 4G system. 
-            This means that even the 4G system might have a requirement to reduce the load on tunnel 
-            management and GTP-U practically support MP2P tunneling.  
-            The 5G system must support interconnection with previous generation networks, 
-            and such behavior of GTP-U might be supported even in the 5G system to communicate with 
-            these networks.
-          </t>             
+            Noted that 3GPP CT4 WG pointed out that GTP-U was already required
+            to support that one single tunnel endpoint of GTP-U allows multiple
+            source endpoints to receive packets belong to the tunnel <xref
+            target="C4-185491-3GPP"/>. It was an architectural requirement of
+            3GPP system from a previous generation. It means that MP2P data path
+            requirement for UP protocol has been existed before the 5G system.
+          </t>
              
         </section>
 
@@ -1761,7 +1756,6 @@ User Plane           /     |           |         \
         <date month="December" year="2017"/>
         </front>
       </reference>
--->
 
       <reference anchor='TS.23.401-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.401/23401-e80.zip">
         <front>
@@ -1774,6 +1768,7 @@ User Plane           /     |           |         \
         <date month="March" year="2018"/>
         </front>
       </reference>
+-->
          
       <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23501-f10.zip">
         <front>
@@ -1977,6 +1972,18 @@ User Plane           /     |           |         \
         </organization>
         </author>
         <date month="December" year="2017"/>
+        </front>
+      </reference>
+
+      <reference anchor='C4-185491-3GPP'  target="http://www.3gpp.org/ftp/tsg_ct/WG4_protocollars_ex-CN4/TSGCT4_85bis_Sophia_Antipolis/Docs/C4-185491.zip">
+        <front>
+        <title>LS OUT on User Plane Analysis</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="July" year="2018"/>
         </front>
       </reference>
 
