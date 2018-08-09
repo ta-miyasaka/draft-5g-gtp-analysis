@@ -570,7 +570,7 @@ PDU->|  +---------+         +---------+         +---------+
           However, this document doesn't specify a procedure to measure MTU size 
           in mobile network system and mobile network operator need to calculate MTU size 
           for UE like Annex C of <xref target="TS.23.060-3GPP"/>. If link MTU of a router 
-          in a transport network is accedentally modified, UE cannot detect the event and 
+          in a transport network is accidentally modified, UE cannot detect the event and 
           send packet with initial MTU size, which may cause service disruption due to MTU 
           exceed in the router link.
         </t>
