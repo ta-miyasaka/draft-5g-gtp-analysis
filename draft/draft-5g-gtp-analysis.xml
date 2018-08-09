@@ -287,7 +287,7 @@
           GPRS Tunneling Protocol
         </t>
         
-        <t hangText="GTP-U">
+        <t hangText="GTP-U:">
           User Plane part of GTP
         </t>
 
