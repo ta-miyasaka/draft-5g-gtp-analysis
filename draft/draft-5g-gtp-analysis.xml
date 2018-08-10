@@ -736,7 +736,9 @@ PDU->|  +---------+         +---------+         +---------+
           As for PDU Session Container extension header, there is a note in 
           <xref target="TS.29.281-3GPP" /> as "For a G-PDU with several Extension 
           Headers, the PDU Session Container should be the first Extension Header".
-          This note is only one rule regarding the extension header order.
+          This note was added at the version 15.3.0 of <xref target="TS.29.281-3GPP" />
+          which is published on June 2018 in order to accelerate the proceccing of GTP-U packet at UPF and RAN.
+          It is only one rule regarding the extension header order.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
