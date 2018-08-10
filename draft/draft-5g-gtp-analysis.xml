@@ -1540,10 +1540,9 @@ User Plane           /     |           |         \
           </t>
              
           <t>
-            Although the recent GTP-U specifications document (<xref target"TS.29.281-3GPP"/> ver. 15.3.0 published 
-            in June, 2018) describes a note recommending to put QFI in the first 
-            extension header, it is still not mandatory and some implementation may 
-            not follow this.
+            As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is 
+            recommended that the first extension header is the PDU session container 
+            in which QFI is present.
           </t>          
 
         </section>
