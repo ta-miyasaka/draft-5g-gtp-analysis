@@ -1417,7 +1417,7 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-            Noted that 3GPP CT4 WG pointed out GTP-U was already required to allow 
+            Noted that 3GPP CT WG4 pointed out GTP-U was already required to allow 
             one single tunnel endpoint to receive packets from multiple source 
             endpoints (<xref target="C4-185491-3GPP"/>). It was an architectural requirement of
             3GPP system from a previous generation. It means that MP2P data path
