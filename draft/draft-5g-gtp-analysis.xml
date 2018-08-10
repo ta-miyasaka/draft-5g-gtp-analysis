@@ -416,9 +416,8 @@
         </t>
         
         <t>
-          <xref target="fig_Protocol-Stack-ul"/> and <xref
-          target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack
-          for uplink (UL) and downlink (DL) traffic respectively. Two GTP-U tunnels
+          <xref target="fig_Protocol-Stack"/> shows an example of GTP-U protocol stack
+          for uplink (UL) and downlink (DL) traffic flow. Two GTP-U tunnels
           are required to form one bi-directional tunnel.
         </t>
         <t>
@@ -431,67 +430,13 @@
             </t>
           </list>
         </t>
-        <figure anchor="fig_Protocol-Stack-ul" title="Protocol Stack by GTPv1-U for Uplink Traffic Flow">
-          <artwork align="center"><![CDATA[
-                  GTP-U Tunnel
-          (TEID=1)            (TEID=2)
-       ------------->      ------------->
- +-----+    N3      +------+     N9     +------+
- | RAN |------------| UPF1 |------------| UPF2 |
- +-----+            +------+            +------+
-        +---------+         +---------+
-        |   L1    |         |   L1    |
-        +---------+         +---------+
-        |   L2    |         |   L2    |
-        +---------+         +---------+
-        |IPv4/IPv6|         |IPv4/IPv6|
-        +---------+         +---------+
-        |   UDP   |         |   UDP   |         +---------+
-        +---------+         +---------+         |    L1   |
-        |GTP-U Hdr|         |GTP-U Hdr|         +---------+
-        |(TEID=1) |         |(TEID=2) |         |    L2   |
-    ~~~ +---------+         +---------+         +---------+
-     |  |IPv4/IPv6|         |IPv4/IPv6|         |IPv4/IPv6|
-PDU->|  +---------+         +---------+         +---------+
-     |  | Payload | ----->  | Payload | ----->  | Payload | ----->
-    ~~~ +---------+         +---------+         +---------+
-]]></artwork>
-        </figure>
-
-        <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
-          <artwork align="center"><![CDATA[
-                 GTP-U Tunnel
-         (TEID=4)            (TEID=3)
-      <-------------      <-------------
-+-----+    N3      +------+     N9     +------+
-| RAN |------------| UPF1 |------------| UPF2 |
-+-----+            +------+            +------+
-       +---------+         +---------+
-       |   L1    |         |   L1    |
-       +---------+         +---------+
-       |   L2    |         |   L2    |
-       +---------+         +---------+
-       |IPv4/IPv6|         |IPv4/IPv6|
-       +---------+         +---------+
-       |   UDP   |         |   UDP   |         +---------+
-       +---------+         +---------+         |    L1   |
-       |GTP-U Hdr|         |GTP-U Hdr|         +---------+
-       |(TEID=4) |         |(TEID=3) |         |    L2   |
-       +---------+         +---------+         +---------+ ~~~
-       |IPv4/IPv6|         |IPv4/IPv6|         |IPv4/IPv6|  |
-       +---------+         +---------+         +---------+  | <- PDU
-<----- | Payload |  <----- | Payload |  <----- | Payload |  |
-       +---------+         +---------+         +---------+ ~~~
-]]></artwork>
-        </figure>
-
         <t>
           GTP-U allows one tunnel endpoint node to send out a G-PDU to be
           received by multiple tunnel endpoints by utilizing IP multicast
           capability of underlay IP networks. That is described in section
-          4.2.6 of <xref target="TS.29.281-3GPP" />. It looks GTP-U has 
+          4.2.6 of <xref target="TS.29.281-3GPP" />. It looks GTP-U has
           Point-to-Multipoint (P2MP) tunneling capability. The P2MP tunneling
-          is used for MBMS (Multimedia Broadcast Multicast Service) through 
+          is used for MBMS (Multimedia Broadcast Multicast Service) through
           GTP-U tunnel.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
@@ -515,6 +460,55 @@ PDU->|  +---------+         +---------+         +---------+
             </t>
           </list>
         </t>
+
+        <figure anchor="fig_Protocol-Stack" title="Protocol Stack by GTPv1-U for Uplink and Downlink Traffic Flow">
+          <artwork align="center"><![CDATA[
+[Uplink]
+    .-     .-+--------+ - - - - +--------+ - - - - +--------+
+    |      | |Payload |         |Payload |         |Payload |
+    | PDU <  +--------+         +--------+         +--------+
+    |(3GPP)| |Inner IP|         |Inner IP|         |Inner IP|
+    |      '-+--------+ - - - - +--------+ - - - - +--------+
+    |        | GTP-U  |         | GTP-U  |
+    |        |(TEID=1)|         |(TEID=2)|
+GTP<         +--------+         +--------+
+Pkt |        |  UDP   |         |   UDP  |
+    |        +--------+         +--------+
+    |        |Outer IP|         |Outer IP|
+    |        +--------+         +--------+
+    |        |   L2   |         |   L2   |
+    |        +--------+         +--------+
+    |        |   L1   |         |   L1   |
+    '-       +--------+ - - - - +--------+
+
+================   Traffic Direction  =======================>
+
+
+[Downlink]
+    .-     .-+--------+ - - - - +--------+ - - - - +--------+
+    |      | |Payload |         |Payload |         |Payload |
+    | PDU <  +--------+         +--------+         +--------+
+    |(3GPP)| |Inner IP|         |Inner IP|         |Inner IP|
+    |      '-+--------+ - - - - +--------+ - - - - +--------+
+    |        | GTP-U  |         | GTP-U  |
+    |        |(TEID=4)|         |(TEID=3)|
+GTP<         +--------+         +--------+
+Pkt |        |  UDP   |         |   UDP  |
+    |        +--------+         +--------+
+    |        |Outer IP|         |Outer IP|
+    |        +--------+         +--------+
+    |        |   L2   |         |   L2   |
+    |        +--------+         +--------+
+    |        |   L1   |         |   L1   |
+    '-       +--------+ - - - - +--------+
+
+<===============   Traffic Direction  ========================
+
+      +-----+     N3    +------+     N9     +------+    N6
+ -----+ RAN +-----------+ UPF1 +------------+ UPF2 +----------
+      +-----+           +------+            +------+
+]]></artwork>
+        </figure>
         <t>
           IPv6 flow label <xref target="RFC6437"/> is also candidate method for 
           load balancing especially for IP-in-IPv6 tunnel <xref target="RFC6438"/> like GTP-U.
@@ -737,7 +731,7 @@ PDU->|  +---------+         +---------+         +---------+
           <xref target="TS.29.281-3GPP" /> as "For a G-PDU with several Extension 
           Headers, the PDU Session Container should be the first Extension Header".
           This note was added at the version 15.3.0 of <xref target="TS.29.281-3GPP" />
-          which is published on June 2018 in order to accelerate the proceccing of GTP-U packet at UPF and RAN.
+          which is published on June 2018 in order to accelerate the processing of GTP-U packet at UPF and RAN.
           It is only one rule regarding the extension header order.
         </t>
         <t>
