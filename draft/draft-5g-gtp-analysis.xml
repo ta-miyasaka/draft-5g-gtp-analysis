@@ -399,25 +399,18 @@
 
       <section title="GTP-U Tunnel">
         <t>
-          GTP-U is a tunneling protocol between GTP-U tunnel endpoint nodes and
-          encapsulates T-PDU from UE on top of IP/UDP. TEID value allocated on
-          each end point which tunnel indicates particular T-PDU belongs to.
-          That is described in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
-          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-            <t>
-              GTP-U is a Point-to-Point tunneling protocol.
-            </t>
-          </list>
+          GTP-U is a tunneling protocol between given a pair of GTP-U tunnel endpoint nodes and
+          encapsulates T-PDU from/to UE on top of IP/UDP. A Tunnel Endpoint Identifier (TEID) value allocated on
+          each end point indicates which tunnel a particular T-PDU belongs to.
         </t>
         <t>
-          Point-to-Multipoint (P2MP) tunneling enables one sender tunnel
-          endpoint node to multiple receiver tunnel endpoint nodes. The P2MP
-          tunneling is used for MBMS (Multimedia Broadcast Multicast Service)
-          through GTP-U described in section 4.2.6 of <xref
-          target="TS.29.281-3GPP" />.
+          The receiving endpoint individually allocate a TEID and the sender tunnel
+          endpoint node encapsulates the IP packet from/to UE with the TEID which is 
+          present in GTP-U header on top of IPv4 or IPv6, and UDP. That is described 
+          in section 4.2.1 of <xref target="TS.29.281-3GPP" />.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports Point-to-Multipoint tunneling.
+              GTP-U is an unidirectional Point-to-Point tunneling protocol.
             </t>
           </list>
         </t>
@@ -425,10 +418,10 @@
         <t>
           <xref target="fig_Protocol-Stack-ul"/> and <xref
           target="fig_Protocol-Stack-dl"/> show examples of GTP-U protocol stack
-          for uplink (UL) and downlink (DL) traffic respectively. Sender tunnel
-          endpoint node encapsulates the IP packet from UE with GTP-U header,
-          IPv4 or IPv6, and UDP. GTP-U tunnel is a uni-directional tunnel so
-          that two directions comprise one bi-directional tunnel:
+          for uplink (UL) and downlink (DL) traffic respectively. Two GTP-U tunnels
+          are required to form one bi-directional tunnel.
+        </t>
+        <t>
           <list style="hanging">
             <t hangText="UL:">
               From RAN to UPF1 (TEID=1), and from UPF1 to UPF2 (TEID=2)
@@ -491,13 +484,22 @@ PDU->|  +---------+         +---------+         +---------+
        +---------+         +---------+         +---------+ ~~~
 ]]></artwork>
         </figure>
+
         <t>
+          GTP-U allows one tunnel endpoint node to send out a G-PDU to be
+          received by multiple tunnel endpoints by utilizing IP multicast
+          capability of underlay IP networks. That is described in section
+          4.2.6 of <xref target="TS.29.281-3GPP" />. It looks GTP-U has 
+          Point-to-Multipoint (P2MP) tunneling capability. The P2MP tunneling
+          is used for MBMS (Multimedia Broadcast Multicast Service) through 
+          GTP-U tunnel.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U supports load balancing by using dynamic UDP source port
-              allocation.
+              GTP-U supports Point-to-Multipoint tunneling.
             </t>
           </list>
+        </t>
+        <t>
           UDP is utilized for GTP-U encapsulation and UDP destination port is
           2152 which is assigned by IANA. Allocation of UDP source port depends
           on sender tunnel endpoint node and GTP-U supports dynamic allocation
@@ -506,21 +508,28 @@ PDU->|  +---------+         +---------+         +---------+
           target="TS.29.281-3GPP" />, however specific procedure, e.g., 5-tuple
           hashing, is not described in the document and depends on the
           implementation of GTP-U tunnel endpoint node.
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U supports load balancing by using dynamic UDP source port
+              allocation.
+            </t>
+          </list>
         </t>
         <t>
-          IPv6 flow label <xref target="RFC6437"/> is also candidatae method for 
+          IPv6 flow label <xref target="RFC6437"/> is also candidate method for 
           load balancing especially for IP-in-IPv6 tunnel <xref target="RFC6438"/> like GTP-U.
           However, how to use IPv6 flow label of GTP-U is not described in <xref
           target="TS.29.281-3GPP" />. Though this method is limited to a case of IPv6 
           encapsulated GTP-U tunnel, it is worth to study usage of IPv6 flow label in 3GPP.
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U does not support IPv6 flow label for load balancing in case of 
+              IPv6 transport.
+            </t>
+          </list>
         </t>
         
         <t>
-          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-            <t>
-              UDP zero checksum is not available in case of IPv6 transport.
-            </t>
-          </list>
           GTP-U supports both IPv4 and IPv6 as underlying transport layer
           protocol. As for IPv6, GTP-U specification refers <xref
           target="RFC2460"/>, which is described in section 4.2.3 of <xref
@@ -534,14 +543,14 @@ PDU->|  +---------+         +---------+         +---------+
           support UFP zero checksum in future version, possible interoperability
           issue between previous generations which does not support zero
           checksum may raise.
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              UDP zero checksum is not available in case of IPv6 transport.
+            </t>
+          </list>
         </t>
         
         <t>
-          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
-            <t>
-              GTP-U does not support to response ICMP PTB for Path MTU Discovery.
-            </t>
-          </list>
           "Unnecessary fragmentation should be avoided" is recommended and to
           avoid the fragmentation operator should configure MTU size at UE <xref
           target="TS.29.281-3GPP" />. However, there's no reference and
@@ -549,6 +558,11 @@ PDU->|  +---------+         +---------+         +---------+
           encapsulated IPv6 packet is too big on a network link between tunnel
           endpoint nodes, UE may not receive ICMPv6 Packet Too Big message and
           causes Path MTU Discovery black hole.
+          <list style="format [GTP-U-%d]:" counter="gtp-u-2">
+            <t>
+              GTP-U does not support to response ICMP PTB for Path MTU Discovery.
+            </t>
+          </list>
         </t>
         <t>
           Section 9.3 of <xref target="TS.23.060-3GPP"/> specifies advertisement of 
@@ -556,7 +570,7 @@ PDU->|  +---------+         +---------+         +---------+
           However, this document doesn't specify a procedure to measure MTU size 
           in mobile network system and mobile network operator need to calculate MTU size 
           for UE like Annex C of <xref target="TS.23.060-3GPP"/>. If link MTU of a router 
-          in a transport network is accedentally modified, UE cannot detect the event and 
+          in a transport network is accidentally modified, UE cannot detect the event and 
           send packet with initial MTU size, which may cause service disruption due to MTU 
           exceed in the router link.
         </t>
@@ -712,9 +726,9 @@ PDU->|  +---------+         +---------+         +---------+
               GTP-U does not specify extension header order.
             </t>
           </list>
-          Multiple GTP-U extension headers are able to contained in one GTP-U
-          packet, however the order of extension header order is not specified
-          in this document. Thereby the receiving endpoint can't predict exact
+          In general, multiple GTP-U extension headers are able to contained in one GTP-U
+          packet and the order of those extension headers is not specified by 
+          <xref target="TS.29.281-3GPP" />. Thereby the receiving endpoint can't predict exact
           position where the target extension headers are. This could impact on
           header lookup performance on the node.
         </t>
@@ -722,8 +736,9 @@ PDU->|  +---------+         +---------+         +---------+
           As for PDU Session Container extension header, there is a note in 
           <xref target="TS.29.281-3GPP" /> as "For a G-PDU with several Extension 
           Headers, the PDU Session Container should be the first Extension Header".
-          However, this note only specifies one extension header's rule of order 
-          and it seems to need to define more general rule of order on extension header.
+          This note was added at the version 15.3.0 of <xref target="TS.29.281-3GPP" />
+          which is published on June 2018 in order to accelerate the proceccing of GTP-U packet at UPF and RAN.
+          It is only one rule regarding the extension header order.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -913,7 +928,7 @@ Payload
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
-              A Point-to-Point tunneling protocol.
+              An unidirectional Point-to-Point tunneling protocol.
             </t>
           </list>
         </t>
@@ -928,6 +943,14 @@ Payload
           <list style="format [GTP-U-%d]:" counter="gtp-u">
             <t>
               Supports load balancing by using dynamic UDP port allocation.
+            </t>
+          </list>
+        </t>
+        <t>
+          <list style="format [GTP-U-%d]:" counter="gtp-u">
+            <t>
+              Does not support IPv6 flow label for load balancing in case of
+              IPv6 transport.
             </t>
           </list>
         </t>
