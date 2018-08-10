@@ -1036,9 +1036,9 @@ Payload
 
       <section anchor="archi-overview" title="Overview of 5G System Architecture">
       <t>
-        The 5G system is designed for applying to diverse devices and services
-        such, and the UP protocol is required to have capabilities for
-        satisfying their requirements. 
+        The 5G system is designed for applying to diverse devices and services due to factors 
+        such as the diffusion of IoT devices, and the UP protocol is required to have capabilities for
+        satisfying their requirements.  
       </t>
       
       <t>
@@ -1048,8 +1048,8 @@ Payload
       </t>
       
       <t>
-        Network slicing, one of the fundamental concepts of the 5G system,
-        provides logical network separation. In terms of user plane, multiple
+        Network slicing is also one of the fundamental concepts of the 5G system,
+        and it provides logical network separation. In terms of user plane, multiple
         network slices can be comprised of UPFs on top of same physical network
         resources. Allocated resources and structures may be differentiated
         among the slices by which the required features or capabilities.
@@ -1060,7 +1060,7 @@ Payload
         target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in
         <xref target="TS.23.501-3GPP"/>. User plane path and applied functions
         for a tunnel will be manipulated based on application requirements that
-        the PDU session corresponding to the tunnel is available to be handled
+        the PDU session corresponding to the tunnel. These tunnels are available to be handled
         by other authorized functions through the control plane.
       </t>
 
@@ -1179,7 +1179,7 @@ User Plane           /     |           |         \
     
       <t>
         According to <xref target="TS.23.501-3GPP"/>, the specifications
-        potentially have assumptions that the user plane protocol is a tunnel
+        potentially have assumptions that the UP protocol is a tunnel
         representing a single TEID between a pair of UPFs and it is
         corresponding to a single PDU session. In short, the UP protocol is a
         tunnel and it is assumed to be managed under per PDU session handling.
@@ -1432,21 +1432,20 @@ User Plane           /     |           |         \
           </t>
                    
           <t>
-            Therefore the expected evaluation points from this aspect is whether
-            the nature of candidate UP protocols are to utilize MP2P data
-            path.
+            From this point of view, the expected evaluation points from this
+            aspect is whether the nature of candidate UP protocols are to
+            utilize MP2P data path. Supporting MP2P data path by GTP-U could be
+            a gap since GTP-U is a point-to-point tunneling protocol as it is
+            described in <xref target="gtp-u"/>. 
           </t>
-             
+          
           <t>
-            Supporting MP2P data path by GTP-U could be a gap in terms of single
-            PDU session multi-homing, since GTP-U is a point-to-point tunneling
-            protocol as it is described in <xref target="gtp-u"/>. However, in 
-            some cases, GTP-U allows some source UPFs of the same PDU session 
-            to use the same F-TEID. 
-            For example, the section 5.3.3.1 A of <xref target="TS.23.401-3GPP"/>
-            describes such case where the same F-TEID is used for a PDU session 
-            in the 4G system, and it would be also applied for the 5G system.
-          </t>             
+            Noted that 3GPP CT WG4 pointed out GTP-U was already required to allow 
+            one single tunnel endpoint to receive packets from multiple source 
+            endpoints (<xref target="C4-185491-3GPP"/>). It was an architectural requirement of
+            3GPP system from a previous generation. It means that MP2P data path
+            requirement for UP protocol has been existed before the 5G system.
+          </t>
              
         </section>
 
@@ -1564,10 +1563,9 @@ User Plane           /     |           |         \
           </t>
              
           <t>
-            Although the recent specification document (ver. 15.3.0 published 
-            in June, 2018) describes a note recommending to put QFI in the first 
-            extension header, it is still not mandatory and some implementation may 
-            not follow this.
+            As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is 
+            recommended that the first extension header is the PDU session container 
+            in which QFI is present.
           </t>          
 
         </section>
@@ -1779,7 +1777,6 @@ User Plane           /     |           |         \
         <date month="December" year="2017"/>
         </front>
       </reference>
--->
 
       <reference anchor='TS.23.401-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.401/23401-e80.zip">
         <front>
@@ -1792,6 +1789,7 @@ User Plane           /     |           |         \
         <date month="March" year="2018"/>
         </front>
       </reference>
+-->
          
       <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23501-f10.zip">
         <front>
@@ -1995,6 +1993,18 @@ User Plane           /     |           |         \
         </organization>
         </author>
         <date month="December" year="2017"/>
+        </front>
+      </reference>
+
+      <reference anchor='C4-185491-3GPP'  target="http://www.3gpp.org/ftp/tsg_ct/WG4_protocollars_ex-CN4/TSGCT4_85bis_Sophia_Antipolis/Docs/C4-185491.zip">
+        <front>
+        <title>LS OUT on User Plane Analysis</title>
+        <author>
+        <organization>
+        3rd Generation Partnership Project (3GPP)
+        </organization>
+        </author>
+        <date month="July" year="2018"/>
         </front>
       </reference>
 
