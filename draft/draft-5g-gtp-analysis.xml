@@ -726,9 +726,9 @@ PDU->|  +---------+         +---------+         +---------+
               GTP-U does not specify extension header order.
             </t>
           </list>
-          Multiple GTP-U extension headers are able to contained in one GTP-U
-          packet, however the order of extension header order is not specified
-          in this document. Thereby the receiving endpoint can't predict exact
+          In general, multiple GTP-U extension headers are able to contained in one GTP-U
+          packet and the order of those extension headers is not specified by 
+          <xref target="TS.29.281-3GPP" />. Thereby the receiving endpoint can't predict exact
           position where the target extension headers are. This could impact on
           header lookup performance on the node.
         </t>
@@ -736,8 +736,7 @@ PDU->|  +---------+         +---------+         +---------+
           As for PDU Session Container extension header, there is a note in 
           <xref target="TS.29.281-3GPP" /> as "For a G-PDU with several Extension 
           Headers, the PDU Session Container should be the first Extension Header".
-          However, this note only specifies one extension header's rule of order 
-          and it seems to need to define more general rule of order on extension header.
+          This note is only one rule regarding the extension header order.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
