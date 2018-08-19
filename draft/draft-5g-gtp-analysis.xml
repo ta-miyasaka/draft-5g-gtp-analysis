@@ -51,14 +51,14 @@
 <!-- end of list of popular I-D processing instructions --> 
 
 
-<rfc category="info" docName="draft-hmm-dmm-5g-uplane-analysis-01">
+<rfc category="info" docName="draft-hmm-dmm-5g-uplane-analysis-02">
   <!-- ***** FRONT MATTER ***** --> 
 
 
 
 
   <front>
-    <title abbrev="draft-hmm-dmm-5g-uplane-analysis-01">
+    <title abbrev="draft-hmm-dmm-5g-uplane-analysis-02">
     User Plane Protocol and Architectural Analysis on 3GPP 5G System
     </title>
 
@@ -601,11 +601,11 @@ Pkt |        |  UDP   |         |   UDP  |
 0                   1                   2                   3
 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-| Ver |P|R|E|S|N| Message Type|             Length              |
+| Ver |P|R|E|S|N| Message Type  |           Length              |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                Tunnel Endpoint Identifier                     |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|      Sequence Number        |   N-PDU Number  |  Next-Ext-Hdr |
+|      Sequence Number          | N-PDU Number  |  Next-Ext-Hdr |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 ]]></artwork>
         </figure>
