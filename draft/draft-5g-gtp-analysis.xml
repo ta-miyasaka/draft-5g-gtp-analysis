@@ -433,7 +433,7 @@
         </t>
         <figure anchor="fig_Protocol-Stack-ul" title="Protocol Stack by GTPv1-U for Uplink Traffic Flow">
           <artwork align="center"><![CDATA[
-                  GTP-U Tunnel
+        GTP-U Tunnel        GTP-U Tunnel
           (TEID=1)            (TEID=2)
        ------------->      ------------->
  +-----+    N3      +------+     N9     +------+
@@ -460,7 +460,7 @@ PDU->|  +---------+         +---------+         +---------+
 
         <figure anchor="fig_Protocol-Stack-dl" title="Protocol Stack by GTPv1-U for Downlink Traffic Flow">
           <artwork align="center"><![CDATA[
-                 GTP-U Tunnel
+        GTP-U Tunnel        GTP-U Tunnel
          (TEID=4)            (TEID=3)
       <-------------      <-------------
 +-----+    N3      +------+     N9     +------+
@@ -484,7 +484,17 @@ PDU->|  +---------+         +---------+         +---------+
        +---------+         +---------+         +---------+ ~~~
 ]]></artwork>
         </figure>
-
+        <t>
+          In 5GS, GTP-U tunnel is established at following interfaces to provide PDU Session between UE and 5GC.
+          <list style="hanging">
+            <t hangText="UL:">
+              N3: Between RAN and UPF
+            </t>
+            <t hangText="DL:">
+              N9: Between different UPFs
+            </t>
+          </list>
+        </t>
         <t>
           GTP-U allows one tunnel endpoint node to send out a G-PDU to be
           received by multiple tunnel endpoints by utilizing IP multicast
@@ -1565,7 +1575,7 @@ User Plane           /     |           |         \
           </t>
              
           <t>
-            As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is 
+            As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is
             recommended that the first extension header is the PDU session container 
             in which QFI is present.
           </t>          
@@ -1793,15 +1803,15 @@ User Plane           /     |           |         \
       </reference>
 -->
          
-      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23501-f10.zip">
+      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.501/23501-f30.zip">
         <front>
-        <title>3GPP TS 23.501 (V15.1.0): System Architecture for 5G System; Stage 2</title>
+        <title>3GPP TS 23.501 (V15.3.0): System Architecture for 5G System; Stage 2</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="March" year="2018"/>
+        <date month="September" year="2018"/>
         </front>
       </reference>
 
