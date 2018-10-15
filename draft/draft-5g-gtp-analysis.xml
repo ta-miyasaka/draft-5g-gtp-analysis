@@ -846,6 +846,11 @@ PDU->|  +---------+         +---------+         +---------+
           encoding of PDU Session Container for QFI refers to <xref
           target="TS.38.415-3GPP" />.
         </t>
+        <t>
+          Outer IPv6 Header's DSCP value(EF) in <xref target="fig_GTP_stack_example" />
+          is marked at sender tunnel endpoint node based on QFI value which is contained
+          in GTP-U Extension Header (PDU Session Container).
+        </t>
         <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
           <artwork align="center"><![CDATA[
 0                   1                   2                   3
