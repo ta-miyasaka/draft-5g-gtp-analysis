@@ -1565,7 +1565,7 @@ User Plane           /     |           |         \
           </t>
              
           <t>
-              As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is
+            As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is
             recommended that the first extension header is the PDU session container 
             in which QFI is present.
           </t>          
