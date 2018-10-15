@@ -885,7 +885,9 @@ GTP-U header
 
 GTP-U Extension Header (PDU Session Container)
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  ExtHdrLen=1  |Type=0 | Spare   |0|    QFI    |NextExtHdr=0x0 |
+|  ExtHdrLen=2  |Type=0 | Spare |0|0|   QFI     | PPI |  Spare  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Padding                    |NextExtHdr=0x0 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Inner IPv6 Header
@@ -1563,7 +1565,7 @@ User Plane           /     |           |         \
           </t>
              
           <t>
-            As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is 
+              As <xref target="TS.29.281-3GPP"/> updated in version 15.3.0, it is
             recommended that the first extension header is the PDU session container 
             in which QFI is present.
           </t>          
@@ -1753,15 +1755,15 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f30.zip">
+      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f40.zip">
         <front>
-        <title>3GPP TS 29.281 (V15.3.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
+        <title>3GPP TS 29.281 (V15.4.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="June" year="2018"/>
+        <date month="September" year="2018"/>
         </front>
       </reference>
 
@@ -1851,15 +1853,15 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-      <reference anchor='TS.38.415-3GPP'  target="http://ftp.3gpp.org//Specs/archive/38_series/38.415/38415-100.zip">
+      <reference anchor='TS.38.415-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/38_series/38.415/38415-f10.zip">
         <front>
-        <title>3GPP TS 38.415 (v1.0.0): NG-RAN; PDU Session User Plane protocol (work in progress)</title>
+        <title>3GPP TS 38.415 (v15.1.0): NG-RAN; PDU Session User Plane protocol</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="June" year="2018"/>
+        <date month="September" year="2018"/>
         </front>
       </reference>
 
