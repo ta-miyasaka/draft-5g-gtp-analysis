@@ -431,6 +431,17 @@
           </list>
         </t>
         <t>
+          In 5GS, GTP-U tunnel is established at following interfaces to provide PDU Session between UE and 5GC.
+          <list style="hanging">
+            <t hangText="N3:">
+              Between RAN and UPF
+            </t>
+            <t hangText="N9:">
+              Between different UPFs
+            </t>
+          </list>
+        </t>
+        <t>
           GTP-U allows one tunnel endpoint node to send out a G-PDU to be
           received by multiple tunnel endpoints by utilizing IP multicast
           capability of underlay IP networks. That is described in section
@@ -509,17 +520,6 @@ Pkt |        |  UDP   |         |   UDP  |         +--------+
       +-----+           +------+            +------+
 ]]></artwork>
         </figure>
-        <t>
-          In 5GS, GTP-U tunnel is established at following interfaces to provide PDU Session between UE and 5GC.
-          <list style="hanging">
-            <t hangText="UL:">
-              N3: Between RAN and UPF
-            </t>
-            <t hangText="DL:">
-              N9: Between different UPFs
-            </t>
-          </list>
-        </t>
         <t>
           IPv6 flow label <xref target="RFC6437"/> is also candidate method for 
           load balancing especially for IP-in-IPv6 tunnel <xref target="RFC6438"/> like GTP-U.
