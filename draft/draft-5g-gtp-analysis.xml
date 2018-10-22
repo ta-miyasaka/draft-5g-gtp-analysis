@@ -1233,7 +1233,7 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        IP based networks potentially have some considerable points. For example, 
+        IP based networks potentially have some points which should be considered. For example, 
         configuration of the appropriate MTU size is needed to each network domains 
         for providing efficient transmission. Also, on usage of IPv4, the user 
         plane should be capable to be logically separated for allowing address 
