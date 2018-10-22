@@ -1219,7 +1219,7 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        IP based networks potentially have some considerable points. For example, 
+        IP based networks potentially have some points which should be considered. For example, 
         configuration of the appropriate MTU size is needed to each network domains 
         for providing efficient transmission. Also, on usage of IPv4, the user 
         plane should be capable to be logically separated for allowing address 
@@ -1417,7 +1417,7 @@ User Plane           /     |           |         \
       <t>
         The 5GS fundamentally supports network slicing for provision the appropriate 
         end-to-end communication to various services. In the relevant documents 
-        (e.g., <xref target="TS.23.501-3GPP"/>, <xref target="TS.28.521-3GPP"/>), a 
+        (e.g., <xref target="TS.23.501-3GPP"/>, <xref target="TS.28.531-3GPP"/>), a 
         network slice is defined as virtual network and it is structured with SMF, RANs, 
         UPFs and DNs. Each network slice is independent and its user plane (including 
         network functions and links) should be noninteractive against the others.
