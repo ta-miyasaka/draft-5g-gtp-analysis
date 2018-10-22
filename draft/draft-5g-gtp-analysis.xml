@@ -1233,7 +1233,15 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-         On N6 interface, point-to-point tunneling based on UDP/IPv6 may be used
+        IP based networks potentially have some considerable points. For example, 
+        configuration of the appropriate MTU size is needed to each network domains 
+        for providing efficient transmission. Also, on usage of IPv4, the user 
+        plane should be capable to be logically separated for allowing address 
+        duplication among UEs.
+      </t>
+
+      <t>
+         Furthermore, on N6 interface, point-to-point tunneling based on UDP/IPv6 may be used
          to deliver unstructured PDU type data. Then, the content information of
          the PDU may be mapped into UDP port number, and the UDP port numbers is
          pre-configured in the UPF and DN. This is described in the section 9.2
@@ -1322,6 +1330,20 @@ User Plane           /     |           |         \
         Examples of parameters and information are described in the section
         6.3.3 of <xref target="TS.23.501-3GPP"/>.
       </t>
+      
+      <t>
+        This means that its possible to make routing on user plane more efficient in the 5GS. 
+        For example, in case that UPFs are distributed geographically, decision 
+        of the destination UPF based on locations of end hosts (e.g., UE or NF in DN) 
+        enables to forward PDUs with a route connecting between UPFs nearby the hosts directly.  
+      </t>
+
+      <t>
+        The 5GS allows operators to select parameters used for UPF selection. 
+        (In other words, any specific schems on UPF selection are not defined 
+        in the current 3GPP documents.)
+      </t>
+
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -1378,10 +1400,49 @@ User Plane           /     |           |         \
         Flows, equivalent with IP-CAN bearers in  the previous generation, into
         one single PDU session. That means that a single tunnel includes
         multiple QFIs contrast to just one QoS Flow (a bearer) to one tunnel
-        before 5G. This specification is described in 5.7.1 of <xref
+        before 5G.
+      </t>
+      
+      <t>
+        In even the 5GS, each flow is forwarded based on the appropriate QoS rules. 
+        QoS rules are configured by SMF as QoS profiles to UP compoents and these 
+        components perform QoS controls to PDUs based on rules. In downlink, a UPF 
+        pushes QFI into an extension header, and transmits the PDU to RAN or another 
+        UPF. Then, such UPF may perform transport level QoS packet marking (e.g.,  
+        DSCP marking in the outer header). In uplink, each UE obtains the QoS rule 
+        from SMF, and transmit PDUs with QFI containing the QoS rules to the RAN. 
+        The following RAN and UPFs perform enforcement of QoS control and charging 
+        based on the QFI.
+      </t>
+
+      <t>
+        This specification is described in 5.7.1 of <xref
         target="TS.23.501-3GPP"/>.
       </t>
-        
+
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            Supporting network slicing
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        The 5GS fundamentally supports network slicing for provision the appropriate 
+        end-to-end communication to various services. In the relevant documents 
+        (e.g., <xref target="TS.23.501-3GPP"/>, <xref target="TS.28.521-3GPP"/>), a 
+        network slice is defined as virtual network and it is structured with SMF, RANs, 
+        UPFs and DNs. Each network slice is independent and its user plane (including 
+        network functions and links) should be noninteractive against the others.
+      </t> 
+
+      <t>
+      Note that 3GPP focuses on only mobility management and specifications to synchronize with other 
+      networks including transport networks is not clearly defined. 
+      </t>
+
+
 <!-- Any more requirements? -->
                                                                         
       </section>
@@ -1716,7 +1777,7 @@ User Plane           /     |           |         \
     <t>
       Lastly, the authors would like to thank 3GPP CT WG4 folks for their review and feedback.
     </t>
-         
+
     </section>
 
   </middle>
