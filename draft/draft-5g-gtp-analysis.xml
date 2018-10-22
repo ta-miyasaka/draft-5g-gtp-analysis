@@ -1233,11 +1233,10 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        IP based networks potentially have some points which should be considered. For example, 
-        configuration of the appropriate MTU size is needed to each network domains 
-        for providing efficient transmission. Also, on usage of IPv4, the user 
-        plane should be capable to be logically separated for allowing address 
-        duplication among UEs.
+        It is desirable that the IP connectivity built on IPv6 networks when it comes to address space 
+        for end-to-end user plane coverage. But it is expected to take certain time.  During the IPv6 
+        networks are not deployed for all the coverage, UP protocol should support RANs and DNs 
+        running on IPv4 transport connect to UPF running on IPv6 transport.
       </t>
 
       <t>
