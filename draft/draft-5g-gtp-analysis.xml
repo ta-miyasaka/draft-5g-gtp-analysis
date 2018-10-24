@@ -431,6 +431,17 @@
           </list>
         </t>
         <t>
+          In 5GS, GTP-U tunnel is established at following interfaces to provide PDU Session between UE and 5GC.
+          <list style="hanging">
+            <t hangText="N3:">
+              Between RAN and UPF
+            </t>
+            <t hangText="N9:">
+              Between different UPFs
+            </t>
+          </list>
+        </t>
+        <t>
           GTP-U allows one tunnel endpoint node to send out a G-PDU to be
           received by multiple tunnel endpoints by utilizing IP multicast
           capability of underlay IP networks. That is described in section
@@ -469,10 +480,10 @@
     | PDU <  +--------+         +--------+         +--------+
     |(3GPP)| |Inner IP|         |Inner IP|         |Inner IP|
     |      '-+--------+ - - - - +--------+ - - - - +--------+
-    |        | GTP-U  |         | GTP-U  |
-    |        |(TEID=1)|         |(TEID=2)|
-GTP<         +--------+         +--------+
-Pkt |        |  UDP   |         |   UDP  |
+    |        | GTP-U  |         | GTP-U  |         |   L2   |
+    |        |(TEID=1)|         |(TEID=2)|         +--------+
+GTP<         +--------+         +--------+         |   L1   |
+Pkt |        |  UDP   |         |   UDP  |         +--------+
     |        +--------+         +--------+
     |        |Outer IP|         |Outer IP|
     |        +--------+         +--------+
@@ -490,10 +501,10 @@ Pkt |        |  UDP   |         |   UDP  |
     | PDU <  +--------+         +--------+         +--------+
     |(3GPP)| |Inner IP|         |Inner IP|         |Inner IP|
     |      '-+--------+ - - - - +--------+ - - - - +--------+
-    |        | GTP-U  |         | GTP-U  |
-    |        |(TEID=4)|         |(TEID=3)|
-GTP<         +--------+         +--------+
-Pkt |        |  UDP   |         |   UDP  |
+    |        | GTP-U  |         | GTP-U  |         |   L2   |
+    |        |(TEID=4)|         |(TEID=3)|         +--------+
+GTP<         +--------+         +--------+         |   L1   |
+Pkt |        |  UDP   |         |   UDP  |         +--------+
     |        +--------+         +--------+
     |        |Outer IP|         |Outer IP|
     |        +--------+         +--------+
@@ -708,11 +719,7 @@ Pkt |        |  UDP   |         |   UDP  |
           </list>
           DSCP marking on outer IPv4 or IPv6 shall be set by sender tunnel
           endpoint node based on the QFI. This specification is described in
-          section 4.4.1 of <xref target="TS.29.281-3GPP" />. However in <xref
-          target="TS.29.281-3GPP" /> "DSCP marking based on QCI" is specified
-          but "DSCP marking based on QFI" has not been noted. To support QFI of
-          5G QoS framework, it seems to need to update <xref
-          target="TS.29.281-3GPP" />.
+          section 4.4.1 of <xref target="TS.29.281-3GPP" />.
         </t>
         <t>
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
@@ -834,6 +841,11 @@ Pkt |        |  UDP   |         |   UDP  |
           encoding of PDU Session Container for QFI refers to <xref
           target="TS.38.415-3GPP" />.
         </t>
+        <t>
+          Outer IPv6 Header's DSCP value(EF) in <xref target="fig_GTP_stack_example" />
+          is marked at sender tunnel endpoint node based on QFI value which is contained
+          in GTP-U Extension Header (PDU Session Container).
+        </t>
         <figure anchor="fig_GTP_stack_example" title="GTP-U Protocol Stack Example">
           <artwork align="center"><![CDATA[
 0                   1                   2                   3
@@ -879,7 +891,9 @@ GTP-U header
 
 GTP-U Extension Header (PDU Session Container)
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  ExtHdrLen=1  |Type=0 | Spare   |0|    QFI    |NextExtHdr=0x0 |
+|  ExtHdrLen=2  |Type=0 | Spare |0|0|   QFI     | PPI |  Spare  |
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
+|                    Padding                    |NextExtHdr=0x0 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 
 Inner IPv6 Header
@@ -1219,7 +1233,14 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-         On N6 interface, point-to-point tunneling based on UDP/IPv6 may be used
+        It is desirable that the IP connectivity built on IPv6 networks when it comes to address space 
+        for end-to-end user plane coverage. But it is expected to take certain time.  During the IPv6 
+        networks are not deployed for all the coverage, UP protocol should support RANs and DNs 
+        running on IPv4 transport connect to UPF running on IPv6 transport.
+      </t>
+
+      <t>
+         Furthermore, on N6 interface, point-to-point tunneling based on UDP/IPv6 may be used
          to deliver unstructured PDU type data. Then, the content information of
          the PDU may be mapped into UDP port number, and the UDP port numbers is
          pre-configured in the UPF and DN. This is described in the section 9.2
@@ -1308,6 +1329,20 @@ User Plane           /     |           |         \
         Examples of parameters and information are described in the section
         6.3.3 of <xref target="TS.23.501-3GPP"/>.
       </t>
+      
+      <t>
+        This means that its possible to make routing on user plane more efficient in the 5GS. 
+        For example, in case that UPFs are distributed geographically, decision 
+        of the destination UPF based on locations of end hosts (e.g., UE or NF in DN) 
+        enables to forward PDUs with a route connecting between UPFs nearby the hosts directly.  
+      </t>
+
+      <t>
+        The 5GS allows operators to select parameters used for UPF selection. 
+        (In other words, any specific schems on UPF selection are not defined 
+        in the current 3GPP documents.)
+      </t>
+
       <t>
         <list style="format ARCH-Req-%d:" counter="arch-req">
           <t>
@@ -1364,10 +1399,49 @@ User Plane           /     |           |         \
         Flows, equivalent with IP-CAN bearers in  the previous generation, into
         one single PDU session. That means that a single tunnel includes
         multiple QFIs contrast to just one QoS Flow (a bearer) to one tunnel
-        before 5G. This specification is described in 5.7.1 of <xref
+        before 5G.
+      </t>
+      
+      <t>
+        In even the 5GS, each flow is forwarded based on the appropriate QoS rules. 
+        QoS rules are configured by SMF as QoS profiles to UP compoents and these 
+        components perform QoS controls to PDUs based on rules. In downlink, a UPF 
+        pushes QFI into an extension header, and transmits the PDU to RAN or another 
+        UPF. Then, such UPF may perform transport level QoS packet marking (e.g.,  
+        DSCP marking in the outer header). In uplink, each UE obtains the QoS rule 
+        from SMF, and transmit PDUs with QFI containing the QoS rules to the RAN. 
+        The following RAN and UPFs perform enforcement of QoS control and charging 
+        based on the QFI.
+      </t>
+
+      <t>
+        This specification is described in 5.7.1 of <xref
         target="TS.23.501-3GPP"/>.
       </t>
-        
+
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            Supporting network slicing
+          </t>
+        </list>
+      </t>
+      
+      <t>
+        The 5GS fundamentally supports network slicing for provision the appropriate 
+        end-to-end communication to various services. In the relevant documents 
+        (e.g., <xref target="TS.23.501-3GPP"/>, <xref target="TS.28.531-3GPP"/>), a
+        network slice is defined as virtual network and it is structured with SMF, RANs, 
+        UPFs and DNs. Each network slice is independent and its user plane (including 
+        network functions and links) should be noninteractive against the others.
+      </t> 
+
+      <t>
+      Note that 3GPP focuses on only mobility management and specifications to synchronize with other 
+      networks including transport networks is not clearly defined. 
+      </t>
+
+
 <!-- Any more requirements? -->
                                                                         
       </section>
@@ -1702,7 +1776,7 @@ User Plane           /     |           |         \
     <t>
       Lastly, the authors would like to thank 3GPP CT WG4 folks for their review and feedback.
     </t>
-         
+
     </section>
 
   </middle>
@@ -1752,15 +1826,15 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f30.zip">
+      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f40.zip">
         <front>
-        <title>3GPP TS 29.281 (V15.3.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
+        <title>3GPP TS 29.281 (V15.4.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="June" year="2018"/>
+        <date month="September" year="2018"/>
         </front>
       </reference>
 
@@ -1790,15 +1864,15 @@ User Plane           /     |           |         \
       </reference>
 -->
          
-      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/FTP/Specs/2018-03/Rel-15/23_series/23501-f10.zip">
+      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.501/23501-f30.zip">
         <front>
-        <title>3GPP TS 23.501 (V15.1.0): System Architecture for 5G System; Stage 2</title>
+        <title>3GPP TS 23.501 (V15.3.0): System Architecture for 5G System; Stage 2</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="March" year="2018"/>
+        <date month="September" year="2018"/>
         </front>
       </reference>
 
@@ -1850,15 +1924,15 @@ User Plane           /     |           |         \
         </front>
       </reference>
 
-      <reference anchor='TS.38.415-3GPP'  target="http://ftp.3gpp.org//Specs/archive/38_series/38.415/38415-100.zip">
+      <reference anchor='TS.38.415-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/38_series/38.415/38415-f10.zip">
         <front>
-        <title>3GPP TS 38.415 (v1.0.0): NG-RAN; PDU Session User Plane protocol (work in progress)</title>
+        <title>3GPP TS 38.415 (v15.1.0): NG-RAN; PDU Session User Plane protocol</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="June" year="2018"/>
+        <date month="September" year="2018"/>
         </front>
       </reference>
 
