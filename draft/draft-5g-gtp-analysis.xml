@@ -1352,11 +1352,17 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        Multihoming is provided with Branching Point (BP) or Uplink Classifier
-        (UL CL) which are functionalities of UPF. BP provides forwarding of UL
+        Multihoming is provided with Branching Point (BP). BP provides forwarding of UL
         traffic towards the different PDU Session Anchors based on the source
         IPv6 prefixes and merge of DL traffic to the UE. UL CL provides
         destination based multihoming for load balancing.
+      </t>
+
+      <t>
+        Noted that, in 3GPP definition, IPv6 multihoming indicates only cases where "multiple" 
+        source IPv6 prefixes are used, and it is different from IETF definition. Actually, in the 5GS, 
+        Up link classifier (UL CL) is capable to provide forwarding to multiple anchor for a PDU session 
+        with a single source IPv6 prefix, but it is distinguished from IPv6 multihoming.
       </t>
    
       <t>
@@ -1368,7 +1374,7 @@ User Plane           /     |           |         \
       
       <t>
         On DL side, one single multipoint-to-point (MP2P) path exists from the
-        anchor UPFs to the source gNB or UPF for the PDU session in this
+        anchor UPFs to the destination gNB or UPF for the PDU session in this
         multihoming case. It means that the paths from the anchor UPFs are
         merged into just one tunnel state at the source gNB or UPF for the PDU
         session.
@@ -1378,7 +1384,9 @@ User Plane           /     |           |         \
         Multiple P2P paths on DL could also be used for multihoming. However it
         should be the multiple PDU sessions multihoming case where the
         destination gNB or UPF needs to maintain multiple tunnel states under
-        the one PDU session to one UP tunnel architectural principle.
+        the one PDU session to one UP tunnel architectural principle. It causes increase of 
+        load on tunnel states management in UPF due to increment of the anchor UPF
+        for the PDU session.
       </t>
 
       <t>
