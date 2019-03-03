@@ -1401,15 +1401,17 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        This means that its possible to make routing on user plane more efficient in the 5GS. 
+        This means that it is possible to make routing on user plane more efficient in the 5GS. 
         For example, in case that UPFs are distributed geographically, decision 
         of the destination UPF based on locations of end hosts (e.g., UE or NF in DN) 
         enables to forward PDUs with a route connecting between UPFs nearby the hosts directly.  
+        This would be useful UE-to-UE or UE-to-local_DN communication, and such usage is described 
+        in the section 6.5 of <xref target="TS.22.261-3GPP"/>. 
       </t>
 
       <t>
         The 5GS allows operators to select parameters used for UPF selection. 
-        (In other words, any specific schems on UPF selection are not defined 
+        (In other words, any specific schemes on UPF selection are not defined 
         in the current 3GPP documents.)
       </t>
 
@@ -1432,14 +1434,14 @@ User Plane           /     |           |         \
         enables flexible function deployment to make sure load distribution
         optimizations, etc.
       </t>
-        
+<!-->        
       <t>
         In addition, deployment of multiple UPFs as anchors closed to UEs' site
         and connecting them without extra anchor points enable to make data path
         more efficient.  This usage is described in the section 6.5 of <xref
         target="TS.22.261-3GPP"/>. 
       </t>
-
+-->
       <t>
         Meanwhile, each UPF in a data path shall be controlled by an SMF via 
         N4 interface. Thus putting an excess of UPF for data paths might cause 
@@ -1451,8 +1453,11 @@ User Plane           /     |           |         \
       <t>
         It is expected that multiple UPFs with per session tunnel handling for a
         PDU session becomes complicated task more and more for a SMF by
-        increasing number of UPFs, and UP protocol shall support to aggregate
+        increasing number of UPFs.
+<!--
+        , and UP protocol shall support to aggregate
         several PDU sessions into a tunnel or shall be a session-less tunnel.
+-->
       </t>
       
       <t>
@@ -1474,7 +1479,7 @@ User Plane           /     |           |         \
       
       <t>
         In even the 5GS, each flow is forwarded based on the appropriate QoS rules. 
-        QoS rules are configured by SMF as QoS profiles to UP compoents and these 
+        QoS rules are configured by SMF as QoS profiles to UP components and these 
         components perform QoS controls to PDUs based on rules. In downlink, a UPF 
         pushes QFI into an extension header, and transmits the PDU to RAN or another 
         UPF. Then, such UPF may perform transport level QoS packet marking (e.g.,  
@@ -1566,7 +1571,8 @@ User Plane           /     |           |         \
             sessions because number of required path states in the UPFs are
             reduced as closed to egress endpoint. Against that point-to-point
             (P2P) protocol requires same number of states in each UPF throughout
-            the path. 
+            the path, and it could increase explosively the load on management of 
+            tunnel states. 
           </t>
                    
           <t>
@@ -1649,11 +1655,11 @@ User Plane           /     |           |         \
           </t>
           
           <t>
-            That powerful user plane capability could affect data path
-            management complicated and difficult to be managed through the
-            control plane, or operation support systems (OSS). Perhaps it could
+            That powerful user plane capability could make data path management through 
+            the control plane, or operation support systems (OSS) be complicated and difficult. Perhaps it could
             be the case where the UP protocol nature is P2P and it only supports
-            per session base data path handling.
+            per session base data path handling. Therefore it would be better that UP protocol could support to 
+            aggregate several PDU sessions into a tunnel or shall be a session-less tunnel.
           </t>
           
           <t>
