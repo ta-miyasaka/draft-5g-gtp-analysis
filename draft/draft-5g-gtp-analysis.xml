@@ -330,7 +330,23 @@
           Association between the UE and a Data Network that provides a PDU
           connectivity service.
         </t>
-        
+
+        <t hangText="PFCP:">
+          Packet Forwarding Control Protocol
+        </t>
+
+        <t>
+        PFCP is used on the interface between control and user planes for informing rules to manipulate PDU sessions.
+        </t>
+
+        <t hangText="PDR:">
+        Packet Detection Rule
+        </t>
+
+        <t hangText="FAR">
+        Fowarding Action Rule
+        </t>
+
         <t hangText="Data Network (DN):">
           The network of operator services, Internet access or 3rd party services.
         </t>
@@ -1066,11 +1082,20 @@ Payload
       <t>
         The architecture overview is shown in <xref
         target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in
-        <xref target="TS.23.501-3GPP"/>. User plane path and applied functions
+        <xref target="TS.23.501-3GPP"/>.  A UPF handles UP paths on N9 interface, 
+        and the setup is controlled by SMF via N4 interface. A UP path will be manipulated 
+        based on application requirements for the PDU session corresponding to the path.  
+        An SMF is also capable to receive information regarding routing path with API from 
+        AF via NEF, PCF, and SMF.
+      </t>
+        
+<!--
+        User plane path and applied functions
         for a tunnel will be manipulated based on application requirements that
         the PDU session corresponding to the tunnel. These tunnels are available to be handled
         by other authorized functions through the control plane.
       </t>
+-->
 
       <figure anchor="fig_3GPP-5GS-ARCH" title="5GS Architecture and
       Service-based Interfaces">
@@ -1129,6 +1154,8 @@ User Plane           /     |           |         \
           target="TS.23.501-3GPP"/>
         </t>
         
+        <section title="UP Traffic Detection">
+
         <t>
           In 3GPP UP packet forwarding model, UPF detects UP traffic flow which 
           belong to N4 session configured by SMF. Combination of the following 
@@ -1148,6 +1175,18 @@ User Plane           /     |           |         \
                     The Application ID is an index to a set of application 
                     detection rules configured in UPF</t>
               </list>
+            </t>
+            
+            <t>The IP Packet Filter Set defined in clause 5.7.6.2 of 
+               <xref target="TS.23.501-3GPP"/> is following:
+            <list style="symbols">
+                <t>Source/destination IP address or IPv6 prefix</t>
+                <t>Source/destination port number</t>
+                <t>Protocol ID of the protocol above IP/Next header type</t>
+                <t>Flow Label (IPv6)</t>
+                <t>Security parameter index</t>
+                <t>Packet filter direction</t>
+            </list>
             </t>
 
             <t>For Ethernet PDU Session type
@@ -1176,7 +1215,32 @@ User Plane           /     |           |         \
         <t>
          Such information for traffic detection (Traffic Detection Information)
          is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
+         In addition, information elements (IE) for packet detection rule (PDR) of PFCP are 
+         described in table 7.5.2.2-1 and 7.5.2.2-1 in <xref target="TS.29.244-3GPP"/>.
         </t>
+      </section>
+
+      <section title="UPF Manipulation">
+        <t>
+          Packet Forwarding Control Protocol (PFCP) is used on the interface between control plane 
+          and user plane, i.e., N4 interface in the 5GS, for manipulating UPFs. PDR and traffic handling rules 
+          such as PCC (Policy Charging and Control) rule shall be indicated to a UPF from an SMF with PFCP. 
+        </t>
+
+        <t>
+           PFCP is also capable to include information element (IE), and IE expresses attribution or meta 
+           information of UP traffic. For example, Network Instance which is one of IEs describes information 
+           of network instance that UP traffic allocated, and a UPF could detect UP traffic uniquely by 
+           combining Network Instance even if UE address or F-TEID are duplicated. Network Instance is 
+           described as OctetString and capable to content any information.
+         </t>
+         
+         <t>
+           The specifications of PFCP and IE are described in <xref target="TS.29.244-3GPP"/>.
+         </t>
+      </section>
+
+
       </section>
     </section>
 
