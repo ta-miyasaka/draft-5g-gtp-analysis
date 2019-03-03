@@ -1680,6 +1680,42 @@ User Plane           /     |           |         \
             optimizations for some example scenarios.
           </t>
         </section>
+
+        <section anchor="eval-SSC" title="Seamless UE Mobility Support">
+        <t>
+          In mobile networks, UE may moves to another area where is covered by another 
+          anchor UPF (or IP anchor) during sessions/services are running. The 5GS would 
+          support mechanisms called Session and Service Continuity (SSC) modes for 
+          maintaining the sessions or services even for such cases. The overview of SSC 
+          modes are described below:
+          <list style="hanging">
+            <t hangText="o SSC mode 1:">
+            does never change the anchor UPF during sessions/services are running.
+            </t>
+            <t hangText="o SSC mode 2:">
+             allows to relocate the IP anchor but continues providing the same service when UE moves. 
+             The old session is broken before establishment of the new session (break-before-make).
+             </t>
+             <t hangText="o SSC mode 3:">
+             allows to relocate the IP anchor but continues providing the same service when UE moves. 
+             The old session is broken after establishment of the new session (make-before-break).
+             </t>
+            </list>
+          </t>
+
+          <t>
+          UE protocol would be required to have capabilities to support the above SSC modes in 
+          addition to UP path switching associated with UE movement. For example, GTP-U implements 
+          end marker functions to support SSC mode3.
+          </t>
+          
+         <t>
+          The expected evaluation point from this aspect should be whether the candidate protocols 
+          can support functionalities, such as end marker transmission, to keep sessions or services 
+          continuities when UEs move to under another anchor point.
+         </t>
+        </section>
+
   
         <section anchor="eval-qos" title="QoS Control">
           <t>
