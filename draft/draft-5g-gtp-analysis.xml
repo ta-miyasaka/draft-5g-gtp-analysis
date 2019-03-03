@@ -1714,24 +1714,55 @@ User Plane           /     |           |         \
           
           <t>
             It could also make sense in case that each network slice requires
-            different forwarding policies in the middle of the path. Some
-            identifier in the packets for a slice could be a glue between UP
-            path and its underlying transport networks. For example, if a slice
-            requires certain level of latency with dedicated route, traffic
-            engineering (TE) embodies appropriate forwarding policy through the
-            underlay transport network.
+            different forwarding policies in the middle of the path. Then, means to glue a 
+            slice and the associated forwarding policy within underlay network would be 
+            required. 
+          </t>
+
+          <t>
+            3GPP has an assumption to use Network Instance in FAR/PDR of PFCP for setting 
+            PDU sessions on the appropriate network slices.  A UPF can determine the interface 
+            connected to the slice for forwarding of the traffic based on combination of Network 
+            Instance and any others of FAR/PDR. This usage is described in the section 5.6.12 of 
+            <xref target="TS.23.501-3GPP"/>.
+          </t>
+
+          <t>
+            Meanwhile, Network Instance is originally used to decide separate IP domains for 
+            cases that UE IP addresses assigned by multiple DNs and etc.  Actually, the section 
+            describing use of Network Instance for network slicing was added in <xref target="TS.23.501-3GPP"/> 
+            from f02 version published June, 2018. This means that Network Instance was designed 
+            for decision of IP domain or transport network deployed in advance, and the current specifications 
+            might be deficient for networks instantiated dynamically such as network slices. For example, the 
+            sequence to connect an interface in UPF to a new deployed slice is not defined in any 3GPP documents, 
+            and it might be hindrance for making multi-vendor environment.
+          </t>
+
+          <t>
+            As another way, insertion of some identifier available to be recognized by underlay network into the 
+            UP packets could be used for gluing between UP path and its underlying transport networks.
+            For example, if a slice requires certain level of latency with dedicated route, traffic engineering (TE) 
+            embodies appropriate forwarding policy through the underlay transport network.
           </t>
 
           <t>
             The expected evaluation points from this aspect should be whether
-            the candidate protocols can support to indicate a network slice in
-            the UP packets that could be enough bits space on stable ID space to
-            put slice identifier for the slice, or the forwarding policy within
-            the slice. Since 5G control plane is not designed to handle
+            the candidate protocols can content forwarding information associated to the 
+            assigned slice as a form capable to be recognized within underlay transport network.
+            Since 5G control plane is not designed to handle
             transport resources, such as VLAN, MPLS Label, Tunnel ID except
             GTP-U, less impact to the control plane protocol and the APIs should
             be much preferable.
           </t>
+
+          <t>
+            Here, noted that the main role of 3GPP is defining specifications related to mobility 
+            management, and it is sometimes described in 3GPP documents that manipulation of P
+            DU traffic in external networks such as intermediate TNs and DN. If 3GPP won't standardize 
+            how to stitch between UPF and TN/DN/RAN in network slicing, it ought be done in any 
+            other SDO such as IETF.
+          </t>
+
         </section>
     </section>
 
