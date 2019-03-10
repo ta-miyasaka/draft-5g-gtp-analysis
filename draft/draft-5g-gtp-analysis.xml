@@ -325,26 +325,9 @@
           operations.
         </t>
 
-
         <t hangText="PDU session:">
           Association between the UE and a Data Network that provides a PDU
           connectivity service.
-        </t>
-
-        <t hangText="PFCP:">
-          Packet Forwarding Control Protocol
-        </t>
-
-        <t>
-        PFCP is used on the interface between control and user planes for informing rules to manipulate PDU sessions.
-        </t>
-
-        <t hangText="PDR:">
-        Packet Detection Rule
-        </t>
-
-        <t hangText="FAR">
-        Fowarding Action Rule
         </t>
 
         <t hangText="Data Network (DN):">
@@ -388,6 +371,24 @@
           service that handling PDU sessions in the control plane. SMF allocates
           tunnels corresponding to the PDU sessions and configure the tunnel to
           the UPF.
+        </t>
+
+        <t hangText="PFCP:">
+          Packet Forwarding Control Protocol
+        </t>
+
+        <t>
+          PFCP is used on N4 interface between SMF and UPF to configure the
+          rules of packet detection, forwarding action, QoS enforcement, usage
+          report and buffering for each PDU session.
+        </t>
+
+        <t hangText="PDR:">
+          Packet Detection Rule
+        </t>
+
+        <t hangText="FAR:">
+          Fowarding Action Rule
         </t>
 
         <t hangText="RAN:">
@@ -1082,13 +1083,13 @@ Payload
       <t>
         The architecture overview is shown in <xref
         target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in
-        <xref target="TS.23.501-3GPP"/>.  A UPF handles UP paths on N9 interface, 
+        <xref target="TS.23.501-3GPP"/>.  A UPF handles UP paths on N3, N9 and N6 interface, 
         and the setup is controlled by SMF via N4 interface. A UP path will be manipulated 
         based on application requirements for the PDU session corresponding to the path.  
         An SMF is also capable to receive information regarding routing path with API from 
         AF via NEF, PCF, and SMF.
       </t>
-        
+      
 <!--
         User plane path and applied functions
         for a tunnel will be manipulated based on application requirements that
@@ -1139,107 +1140,117 @@ User Plane           /     |           |         \
         </t>
         
         <t>
-          The followings are defined as UPF functionalities for traffic handling:
+          The followings are defined as UPF functionalities defined in the
+          section 6.2.3 of <xref target="TS.23.501-3GPP"/>
           <list style="symbols">
+            <t>Anchor point for Intra-/Inter-RAT mobility (when applicable).</t>
+            <t>External PDU Session point of interconnect to Data Network.</t>
+            <t>Packet routing and forwarding (e.g. support of Uplink classifier to
+               route traffic flows to an instance of a data network, support of
+               Branching point to support multi-homed PDU Session).</t>
+            <t>Packet inspection (e.g. Application detection based on service
+               data flow template and the optional PFDs received from the SMF in
+               addition).</t>
             <t>User Plane part of policy rule enforcement, e.g. Gating,
-            Redirection, Traffic steering)</t>
+               Redirection, Traffic steering).</t>
+            <t>Lawful intercept (UP collection).</t>
+            <t>Traffic usage reporting.</t>
             <t>QoS handling for user plane, e.g. UL/DL rate enforcement,
-            Reflective QoS marking in DL</t>
-            <t>Transport level packet marking in the uplink and downlink</t>
+               Reflective QoS marking in DL.</t>
+            <t>Uplink Traffic verification (SDF to QoS Flow mapping).</t>
+            <t>Transport level packet marking in the uplink and downlink.</t>
+            <t>Downlink packet buffering and downlink data notification triggering.</t>
+            <t>Sending and forwarding of one or more "end marker" to the source 
+               NG-RAN node.</t>
+            <t>ARP proxying and / or IPv6 Neighbour Solicitation Proxying for the 
+               Ethernet PDUs.</t>
           </list>
         </t>
+      </section>
         
-        <t> 
-          Other functionalities are described in the section 6.2.3 of <xref
-          target="TS.23.501-3GPP"/>
-        </t>
-        
-        <section title="UP Traffic Detection">
+      <section title="UP Traffic Detection">
 
         <t>
-          In 3GPP UP packet forwarding model, UPF detects UP traffic flow which 
-          belong to N4 session configured by SMF. Combination of the following 
-          information is used for the traffic detection:
+          The traffic detection is described in the section 5.8.2.4 of <xref
+          target="TS.23.501-3GPP"/>. In 3GPP UP packet forwarding model, UPF
+          detects UP traffic flow which belong to a N4 session configured by
+          SMF. 
         </t>
-        
+        <t>
+          The protocol of N4 interface, PFCP, brings a set of traffic
+          detection information from SMF to UPF as Packet Detection
+          Information (PDI) in a PDR to establish/modify the N4 PFCP session.
+          It is defined in section 7.5.2.2 of <xref target="TS.29.244-3GPP"/>.
+        </t>
+        <t>
+           Combination of the following information is used for the traffic detection:
+        </t>
+    
         <t>
           <list style="symbols">
             <t>For IPv4 or IPv6 PDU Session type
               <list style="symbols">
-                <t>CN tunnel info (Tunnel ID and the endpoint IP address of core network)</t>
+                <t>CN tunnel info (Tunnel ID and the endpoint IP address of 5G Core)</t>
                 <t>Network instance</t>
                 <t>QFI</t>
-                <t>IP Packet Filter Set (defined in clause 5.7.6.2 of 
-                    <xref target="TS.23.501-3GPP"/>)</t>
+                <t>IP Packet Filter Set</t>
                 <t>Application Identifier: 
                     The Application ID is an index to a set of application 
                     detection rules configured in UPF</t>
               </list>
             </t>
-            
-            <t>The IP Packet Filter Set defined in clause 5.7.6.2 of 
-               <xref target="TS.23.501-3GPP"/> is following:
-            <list style="symbols">
+
+            <t>For Ethernet PDU Session type
+              <list style="symbols">
+                <t>CN tunnel info(Tunnel ID and the endpoint IP address of 5G Core)</t>
+                <t>Network instance</t>
+                <t>QFI</t>
+                <t>Ethernet Packet Filter Set</t>
+              </list>
+            </t>
+          </list>
+        </t>
+
+        <t>
+          It is noted that Network Instance is encoded as Octet String in PFCP,
+          and is NOT appeared in UP packet over the wire. It is expected like an
+          attribute of the receiving IP interface of the UPF. It supports UPF to
+          be able to connect to different IP domains of N3, N9 or N6, which run
+          each independent policy in routing and addressing. The UPF detects
+          traffic flow with Network Instance which the receiving interface
+          attributed to. 
+        </t>
+
+        <t>The IP Packet Filter Set and Ethernet Packet Filter Set defined in
+        clause 5.7.6 of 
+           <xref target="TS.23.501-3GPP"/> are following:
+          <list style="symbols">
+            <t>IP Packet Filter Set:
+              <list style="symbols">
                 <t>Source/destination IP address or IPv6 prefix</t>
                 <t>Source/destination port number</t>
                 <t>Protocol ID of the protocol above IP/Next header type</t>
                 <t>Flow Label (IPv6)</t>
                 <t>Security parameter index</t>
                 <t>Packet filter direction</t>
-            </list>
+              </list>
             </t>
 
-            <t>For Ethernet PDU Session type
+            <t>Ethernet Packet Filter Set:
               <list style="symbols">
-                <t>CN tunnel info</t>
-                <t>Network instance</t>
-                <t>QFI</t>
-                <t>Ethernet Packet Filter Set:
-                  <list style="symbols">
-                    <t>Source/destination MAC address</t>
-                    <t>Ethertype as defined in IEEE 802.3</t>
-                    <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
-                    VID fields as defined in IEEE 802.1Q</t>
-                    <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
-                    PCP/DEI fields as defined in IEEE 802.1Q</t>
-                    <t>IP Packet Filter Set, in case Ethertype indicates
-                    IPv4/IPv6 payload</t>
-                    <t>Packet filter direction</t>
-                  </list>
-                </t>
+                <t>Source/destination MAC address</t>
+                <t>Ethertype as defined in IEEE 802.3</t>
+                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
+                VID fields as defined in IEEE 802.1Q</t>
+                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
+                PCP/DEI fields as defined in IEEE 802.1Q</t>
+                <t>IP Packet Filter Set, in case Ethertype indicates
+                IPv4/IPv6 payload</t>
+                <t>Packet filter direction</t>
               </list>
             </t>
           </list>
         </t>
-
-        <t>
-         Such information for traffic detection (Traffic Detection Information)
-         is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
-         In addition, information elements (IE) for packet detection rule (PDR) of PFCP are 
-         described in table 7.5.2.2-1 and 7.5.2.2-1 in <xref target="TS.29.244-3GPP"/>.
-        </t>
-      </section>
-
-      <section title="UPF Manipulation">
-        <t>
-          Packet Forwarding Control Protocol (PFCP) is used on the interface between control plane 
-          and user plane, i.e., N4 interface in the 5GS, for manipulating UPFs. PDR and traffic handling rules 
-          such as PCC (Policy Charging and Control) rule shall be indicated to a UPF from an SMF with PFCP. 
-        </t>
-
-        <t>
-           PFCP is also capable to include information element (IE), and IE expresses attribution or meta 
-           information of UP traffic. For example, Network Instance which is one of IEs describes information 
-           of network instance that UP traffic allocated, and a UPF could detect UP traffic uniquely by 
-           combining Network Instance even if UE address or F-TEID are duplicated. Network Instance is 
-           described as OctetString and capable to content any information.
-         </t>
-         
-         <t>
-           The specifications of PFCP and IE are described in <xref target="TS.29.244-3GPP"/>.
-         </t>
-      </section>
-
 
       </section>
     </section>
