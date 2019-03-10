@@ -1748,12 +1748,10 @@ User Plane           /     |           |         \
       </t>
         
       <t>
-        As we identified some potential gaps between the current UP protocol and
-        the architectural requirements even for Release 15, it is worth to study
-        possible candidate UP protocols for the 5G system including current one.
-        Our conclusion here is that we suggest the UP protocol study work in
-        3GPP takes into account the evaluation aspects described in <xref
-        target="eval_aspects"/>. 
+        Our conclusion here is that it is hopefull if the evaluation aspects 
+        described in <xref target="eval_aspects"/> help for the study progress.
+        It is worth to study possible candidate UP protocols for the 5G system 
+        including current one based from the aspects.
       </t>
     </section>
 
