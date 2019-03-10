@@ -1130,25 +1130,30 @@ User Plane           /     |           |         \
         </t>
         
         <t>
-          UPF shall detect user plane traffic flow depending on information
-          indicated by SMF. User data traffic is detected with combination of
-          the following information:
+          In 3GPP UP packet forwarding model, UPF detects UP traffic flow which 
+          belong to N4 session configured by SMF. Combination of the following 
+          information is used for the traffic detection:
         </t>
         
         <t>
           <list style="symbols">
             <t>For IPv4 or IPv6 PDU Session type
               <list style="symbols">
-                <t>PDU Session</t>
+                <t>CN tunnel info (Tunnel ID and the endpoint IP address of core network)</t>
+                <t>Network instance</t>
                 <t>QFI</t>
-                <t>Application Identifier: The Application ID is an index to a
-                set of application detection rules configured in UPF</t>
+                <t>IP Packet Filter Set (defined in clause 5.7.6.2 of 
+                    <xref target="TS.23.501-3GPP"/>)</t>
+                <t>Application Identifier: 
+                    The Application ID is an index to a set of application 
+                    detection rules configured in UPF</t>
               </list>
             </t>
 
             <t>For Ethernet PDU Session type
               <list style="symbols">
-                <t>PDU Session</t>
+                <t>CN tunnel info</t>
+                <t>Network instance</t>
                 <t>QFI</t>
                 <t>Ethernet Packet Filter Set:
                   <list style="symbols">
