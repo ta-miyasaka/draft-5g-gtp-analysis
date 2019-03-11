@@ -1569,6 +1569,23 @@ User Plane           /     |           |         \
         <xref target="TS.28.533-3GPP"/>. 
       </t>
 
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            End Marker support
+          </t>
+        </list>
+      </t>
+
+      <t>
+        The construction of End Marker packets specified in <xref
+        target="TS.23.501-3GPP"/>  may either be done in the CP/UP functions for
+        indicating the end of the payload stream on a given UP tunnel. PDU
+        packets arrive after an End Marker message on the tunnel may be silently
+        discarded. For example, End Maker is used for handover procedures, and
+        it can prevent reordering of arriving packets due to switch of anchor
+        UPFs.
+      </t>
 
 <!-- Any more requirements? -->
                                                                         
@@ -1835,7 +1852,7 @@ User Plane           /     |           |         \
           </t>
             
           <t>
-            Option 1 looks promising since all legacy MPLS or Segment Routing
+            Option 1 could work since all legacy MPLS or Segment Routing
             <xref target="RFC8402"/> based solution are available for both VPN
             and transport slicing at the UPF integrated PE router. However it is
             hard to expect it in multi-vendor deployment case, where the PE
