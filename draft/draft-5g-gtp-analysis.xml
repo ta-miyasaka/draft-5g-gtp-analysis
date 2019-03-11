@@ -1516,6 +1516,22 @@ User Plane           /     |           |         \
       networks including transport networks is not clearly defined. 
       </t>
 
+      <t>
+        <list style="format ARCH-Req-%d:" counter="arch-req">
+          <t>
+            ARCH-Req-8: End Marker support
+          </t>
+        </list>
+      </t>
+
+      <t>
+      The construction of End Marker packets specified in <xref target=“TS.23.401-3GPP”/>  may either 
+      be done in the CP/UP functions for indicating the end of the payload stream on a given UP tunnel. 
+      PDU packets arrive after an End Marker message on the tunnel may be silently discarded. For example, 
+      End Maker is used for handover procedures, and it can prevent reordering of arriving packets due to 
+      switch of anchor UPFs.
+      </t>
+
 
 <!-- Any more requirements? -->
                                                                         
@@ -1680,7 +1696,7 @@ User Plane           /     |           |         \
             optimizations for some example scenarios.
           </t>
         </section>
-
+<!--
         <section anchor="eval-SSC" title="Seamless UE Mobility Support">
         <t>
           In mobile networks, UE may moves to another area where is covered by another 
@@ -1714,6 +1730,8 @@ User Plane           /     |           |         \
           can support functionalities, such as end marker transmission, to keep sessions or services 
           continuities when UEs move to under another anchor point.
          </t>
+-->
+
         </section>
 
   
