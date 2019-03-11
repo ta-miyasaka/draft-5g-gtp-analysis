@@ -1525,7 +1525,7 @@ User Plane           /     |           |         \
       </t>
 
       <t>
-      The construction of End Marker packets specified in <xref target=“TS.23.401-3GPP”/>  may either 
+      The construction of End Marker packets specified in <xref target=“TS.23.501-3GPP”/>  may either 
       be done in the CP/UP functions for indicating the end of the payload stream on a given UP tunnel. 
       PDU packets arrive after an End Marker message on the tunnel may be silently discarded. For example, 
       End Maker is used for handover procedures, and it can prevent reordering of arriving packets due to 
