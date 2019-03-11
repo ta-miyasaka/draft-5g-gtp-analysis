@@ -21,6 +21,12 @@
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8200.xml">
 <!ENTITY I-D.bogineni-dmm-optimized-mobile-user-plane SYSTEM
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.bogineni-dmm-optimized-mobile-user-plane.xml">
+<!ENTITY RFC4364 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.4364.xml">
+<!ENTITY RFC4664 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.4664.xml">
+<!ENTITY RFC8402 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml">
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -1168,7 +1174,7 @@ User Plane           /     |           |         \
         </t>
       </section>
         
-      <section title="UP Traffic Detection">
+      <section anchor="traffic-detection" title="UP Traffic Detection">
 
         <t>
           The traffic detection is described in the section 5.8.2.4 of <xref
@@ -1230,6 +1236,7 @@ User Plane           /     |           |         \
                 <t>Source/destination IP address or IPv6 prefix</t>
                 <t>Source/destination port number</t>
                 <t>Protocol ID of the protocol above IP/Next header type</t>
+                <t>Type of Service (TOS) (IPv4) / Traffic class (IPv6) and Mask.</t>
                 <t>Flow Label (IPv6)</t>
                 <t>Security parameter index</t>
                 <t>Packet filter direction</t>
@@ -1508,17 +1515,43 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        The 5GS fundamentally supports network slicing for provision the appropriate 
-        end-to-end communication to various services. In the relevant documents 
-        (e.g., <xref target="TS.23.501-3GPP"/>, <xref target="TS.28.531-3GPP"/>), a
-        network slice is defined as virtual network and it is structured with SMF, RANs, 
-        UPFs and DNs. Each network slice is independent and its user plane (including 
-        network functions and links) should be noninteractive against the others.
+        The 5GS fundamentally supports network slicing for provision the
+        appropriate end-to-end communication to various services. In the
+        relevant documents (e.g., <xref target="TS.23.501-3GPP"/>, <xref
+        target="TS.28.530-3GPP"/>), a network slice is defined as virtual
+        network and it is structured with 5GS NF instances, such as SMF, UPF
+        including IP transport connectivity between RANs and DNS. Each network
+        slice is independent and its user plane (including network functions and
+        links) should be noninteractive against the others.
       </t> 
 
       <t>
-      Note that 3GPP focuses on only mobility management and specifications to synchronize with other 
-      networks including transport networks is not clearly defined. 
+        The 5G architecture specification has been updated with that Network
+        Instance is defined as the glue of network slice between 5G slice and
+        corresponding IP transport slice in addition to the original role of
+        separating IP domains, which is described in <xref
+        target="traffic-detection"/>.
+      </t>
+      
+      <t>
+         It has been appeared from version 15.2.0 of <xref target="TS.23.501-3GPP"/> 
+         in section 5.6.12.
+      </t>
+      
+      <t>
+        UP underlay transport networks and UPFs may be shared by 5G slices, as
+        described in section 4 of <xref target="TS.28.530-3GPP"/>. The data
+        model defined in <xref target="TS.29.510-3GPP"/> allows that a Network
+        Instance, a UPF and its interfaces can belong to multiple slices as same
+        as other type of NFs. UP endpoint IP prefix/address of an interface can
+        also be shared with multiple interfaces on the UPF as the model doesn't
+        make them slice unique.
+      </t>
+      
+      <t>
+        The slice lifecycle managements is described in the relevant documents:
+        <xref target="TS.28.531-3GPP"/>, <xref target="TS.28.532-3GPP"/>, and
+        <xref target="TS.28.533-3GPP"/>. 
       </t>
 
 
@@ -1745,97 +1778,67 @@ User Plane           /     |           |         \
         </section>
 
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
-        
+
           <t>
-            To embody network slicing, it is expected that various means should
-            be available in case by case, or operator by operator, for their 5G
-            systems while it follows the fundamental slicing concept, as
-            described in <xref target="archi-overview"/>.
+            Network Instance has been defined as the glue of network slice
+            between 5G and IP transport in addition to IP domain separation, as
+            described in <xref target="traffic-detection"/>. It is expected that
+            SMF is able to configure UPF to send UP packet to corresponding
+            transport slice by indicating Network Instance in FAR so that UPF
+            can determine outgoing interface for the UP packet.
           </t>
           
           <t>
-            As <xref target="TS.28.530-3GPP"/> described in section 4, UP
-            underlay transport networks and UPFs are shared by network slices.
-            The data model defined in <xref target="TS.29.510-3GPP"/> allows
-            that a Network Instance, a UPF and its interfaces can belong to
-            multiple slices as same as other type of NFs. UP endpoint IP
-            prefix/address of an interface can also be shared with multiple
-            interfaces on the UPF as the model doesn't make them slice unique.
+            It is assumed that IP transport networks are Network Instance
+            agnostic, i.e., transport slices are independently instantiated and
+            not bound to specific IP address space in the 5GC, for preventing
+            increase of  routing table size.
           </t>
 
-          <t> 
-            The assumed slice operation in 5G architecture is that UPFs connect
-            to each other through direct (virtual) link as <xref
-            target="archi-overview"/> describes that UPFs compose a network
-            slice on an UP. So IP routing and transport system underneath the UP
-            are not visible from the 5G system. However some means need to
-            indicate a slice on the shared underlying networks of the UP over
-            the wire.
+          <t>
+            As a transport slice may be shared with multiple IP domains, Network
+            Instance could be instantiated for all combination of IP domains and
+            transport slice. To indicate those combination in UP packet over the
+            wire, the 5G architecture expects VPN solutions as described in
+            section 5.6.12 of <xref target="TS.23.501-3GPP"/>.
           </t>
           
           <t>
-            That's just one way for network slicing, but it would help to reduce the
-            operational burden. Even it depends on each operator's policy, sharing
-            network instances, UPFs, and the interfaces among slices makes
-            operators relax and not to be much hustled on slice lifecycle
-            management., such as create, update, and delete operations for slices.
-          </t>
-    
-          <t>
-            By the way, the 3GPP specifications for slice lifecycle managements is 
-            described in the relevant documents: <xref target="TS.28.531-3GPP"/>, 
-            <xref target="TS.28.532-3GPP"/>, and <xref target="TS.28.533-3GPP"/>. 
+            Binding Network Instance with corresponding VPN would be varied per
+            VPN solutions and FAR is not able to do. Hence it is out of
+            scope of 3GPP and it may be covered by IETF, or other SDOs.
           </t>
           
           <t>
-            It could also make sense in case that each network slice requires
-            different forwarding policies in the middle of the path. Then, means to glue a 
-            slice and the associated forwarding policy within underlay network would be 
-            required. 
+            Apart from binding, if it is the case where MPLS based VPNs, such as
+            <xref target="RFC4364"/> and <xref target="RFC4664"/> are expected
+            as the existing VPN solution which bound to Network Instance, there
+            are some avaiable deployment options, such as 1). PE router
+            integrates UPF, 2). CE router integrates UPF, 3). UPF connects to
+            the VPN behind the CE router.
           </t>
-
+            
           <t>
-            3GPP has an assumption to use Network Instance in FAR/PDR of PFCP for setting 
-            PDU sessions on the appropriate network slices.  A UPF can determine the interface 
-            connected to the slice for forwarding of the traffic based on combination of Network 
-            Instance and any others of FAR/PDR. This usage is described in the section 5.6.12 of 
-            <xref target="TS.23.501-3GPP"/>.
+            Option 1 looks promising since all legacy MPLS or Segment Routing
+            <xref target="RFC8402"/> based solution are available for both VPN
+            and transport slicing at the UPF integrated PE router. However it is
+            hard to expect it in multi-vendor deployment case, where the PE
+            routers providing vendor is different from the vendor who provides
+            UPFs, for example.
           </t>
-
+          
           <t>
-            Meanwhile, Network Instance is originally used to decide separate IP domains for 
-            cases that UE IP addresses assigned by multiple DNs and etc.  Actually, the section 
-            describing use of Network Instance for network slicing was added in <xref target="TS.23.501-3GPP"/> 
-            from f02 version published June, 2018. This means that Network Instance was designed 
-            for decision of IP domain or transport network deployed in advance, and the current specifications 
-            might be deficient for networks instantiated dynamically such as network slices. For example, the 
-            sequence to connect an interface in UPF to a new deployed slice is not defined in any 3GPP documents, 
-            and it might be hindrance for making multi-vendor environment.
-          </t>
-
-          <t>
-            As another way, insertion of some identifier available to be recognized by underlay network into the 
-            UP packets could be used for gluing between UP path and its underlying transport networks.
-            For example, if a slice requires certain level of latency with dedicated route, traffic engineering (TE) 
-            embodies appropriate forwarding policy through the underlay transport network.
+            Option 2 and 3 are expected as IP domain separation, but it
+            is hard to see that it is able to indicate transport slice in
+            addition to the IP domain. Other L2 and tunneling solutions should
+            be same with those options.
           </t>
 
           <t>
             The expected evaluation points from this aspect should be whether
-            the candidate protocols can content forwarding information associated to the 
-            assigned slice as a form capable to be recognized within underlay transport network.
-            Since 5G control plane is not designed to handle
-            transport resources, such as VLAN, MPLS Label, Tunnel ID except
-            GTP-U, less impact to the control plane protocol and the APIs should
-            be much preferable.
-          </t>
-
-          <t>
-            Here, noted that the main role of 3GPP is defining specifications related to mobility 
-            management, and it is sometimes described in 3GPP documents that manipulation of P
-            DU traffic in external networks such as intermediate TNs and DN. If 3GPP won't standardize 
-            how to stitch between UPF and TN/DN/RAN in network slicing, it ought be done in any 
-            other SDO such as IETF.
+            the candidate protocols can contain forwarding information
+            associated to the assigned IP domain and transport slice for all
+            possible deployment cases.
           </t>
 
         </section>
@@ -1904,11 +1907,14 @@ User Plane           /     |           |         \
     <references title="Informative References">
 
     &RFC2460;
+    &RFC4364;
+    &RFC4664;
     &RFC4861;
     &RFC6437;
     &RFC6438;
     &RFC6935;
     &RFC8200;
+    &RFC8402;
     &I-D.bogineni-dmm-optimized-mobile-user-plane;
          
       <reference anchor='TR.29.891-3GPP' target="http://www.3gpp.org/FTP/Specs/2017-12/Rel-15/29_series/29891-f00.zip">
