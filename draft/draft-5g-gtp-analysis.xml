@@ -22,6 +22,12 @@
 <!-- <!ENTITY I-D.bogineni-dmm-optimized-mobile-user-plane SYSTEM
 "http://xml.resource.org/public/rfc/bibxml3/reference.I-D.bogineni-dmm-optimized-mobile-user-plane.xml">
 -->
+<!ENTITY RFC4364 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.4364.xml">
+<!ENTITY RFC4664 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.4664.xml">
+<!ENTITY RFC8402 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml">
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -52,14 +58,14 @@
 <!-- end of list of popular I-D processing instructions --> 
 
 
-<rfc category="info" docName="draft-hmm-dmm-5g-uplane-analysis-03">
+<rfc category="info" docName="draft-ietf-dmm-5g-uplane-analysis-01">
   <!-- ***** FRONT MATTER ***** --> 
 
 
 
 
   <front>
-    <title abbrev="draft-hmm-dmm-5g-uplane-analysis-03">
+    <title abbrev="draft-ietf-dmm-5g-uplane-analysis-01">
     User Plane Protocol and Architectural Analysis on 3GPP 5G System
     </title>
 
@@ -144,7 +150,7 @@
     </author>
 
     
-    <date year="2018"/>
+    <date/>
 
     <area>Internet Area</area>
 
@@ -327,12 +333,11 @@
           operations.
         </t>
 
-
         <t hangText="PDU session:">
           Association between the UE and a Data Network that provides a PDU
           connectivity service.
         </t>
-        
+
         <t hangText="Data Network (DN):">
           The network of operator services, Internet access or 3rd party services.
         </t>
@@ -374,6 +379,24 @@
           service that handling PDU sessions in the control plane. SMF allocates
           tunnels corresponding to the PDU sessions and configure the tunnel to
           the UPF.
+        </t>
+
+        <t hangText="PFCP:">
+          Packet Forwarding Control Protocol
+        </t>
+
+        <t>
+          PFCP is used on N4 interface between SMF and UPF to configure the
+          rules of packet detection, forwarding action, QoS enforcement, usage
+          report and buffering for each PDU session.
+        </t>
+
+        <t hangText="PDR:">
+          Packet Detection Rule
+        </t>
+
+        <t hangText="FAR:">
+          Fowarding Action Rule
         </t>
 
         <t hangText="RAN:">
@@ -1068,11 +1091,20 @@ Payload
       <t>
         The architecture overview is shown in <xref
         target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in
-        <xref target="TS.23.501-3GPP"/>. User plane path and applied functions
+        <xref target="TS.23.501-3GPP"/>.  A UPF handles UP paths on N3, N9 and N6 interface, 
+        and the setup is controlled by SMF via N4 interface. A UP path will be manipulated 
+        based on application requirements for the PDU session corresponding to the path.  
+        An SMF is also capable to receive information regarding routing path with API from 
+        AF via NEF, PCF, and SMF.
+      </t>
+      
+<!--
+        User plane path and applied functions
         for a tunnel will be manipulated based on application requirements that
         the PDU session corresponding to the tunnel. These tunnels are available to be handled
         by other authorized functions through the control plane.
       </t>
+-->
 
       <figure anchor="fig_3GPP-5GS-ARCH" title="5GS Architecture and
       Service-based Interfaces">
@@ -1116,64 +1148,119 @@ User Plane           /     |           |         \
         </t>
         
         <t>
-          The followings are defined as UPF functionalities for traffic handling:
+          The followings are defined as UPF functionalities defined in the
+          section 6.2.3 of <xref target="TS.23.501-3GPP"/>
           <list style="symbols">
+            <t>Anchor point for Intra-/Inter-RAT mobility (when applicable).</t>
+            <t>External PDU Session point of interconnect to Data Network.</t>
+            <t>Packet routing and forwarding (e.g. support of Uplink classifier to
+               route traffic flows to an instance of a data network, support of
+               Branching point to support multi-homed PDU Session).</t>
+            <t>Packet inspection (e.g. Application detection based on service
+               data flow template and the optional PFDs received from the SMF in
+               addition).</t>
             <t>User Plane part of policy rule enforcement, e.g. Gating,
-            Redirection, Traffic steering)</t>
+               Redirection, Traffic steering).</t>
+            <t>Lawful intercept (UP collection).</t>
+            <t>Traffic usage reporting.</t>
             <t>QoS handling for user plane, e.g. UL/DL rate enforcement,
-            Reflective QoS marking in DL</t>
-            <t>Transport level packet marking in the uplink and downlink</t>
+               Reflective QoS marking in DL.</t>
+            <t>Uplink Traffic verification (SDF to QoS Flow mapping).</t>
+            <t>Transport level packet marking in the uplink and downlink.</t>
+            <t>Downlink packet buffering and downlink data notification triggering.</t>
+            <t>Sending and forwarding of one or more "end marker" to the source 
+               NG-RAN node.</t>
+            <t>ARP proxying and / or IPv6 Neighbour Solicitation Proxying for the 
+               Ethernet PDUs.</t>
           </list>
         </t>
+      </section>
         
-        <t> 
-          Other functionalities are described in the section 6.2.3 of <xref
-          target="TS.23.501-3GPP"/>
-        </t>
-        
+      <section anchor="traffic-detection" title="UP Traffic Detection">
+
         <t>
-          UPF shall detect user plane traffic flow depending on information
-          indicated by SMF. User data traffic is detected with combination of
-          the following information:
+          The traffic detection is described in the section 5.8.2.4 of <xref
+          target="TS.23.501-3GPP"/>. In 3GPP UP packet forwarding model, UPF
+          detects UP traffic flow which belong to a N4 session configured by
+          SMF. 
         </t>
-        
+        <t>
+          The protocol of N4 interface, PFCP, brings a set of traffic
+          detection information from SMF to UPF as Packet Detection
+          Information (PDI) in a PDR to establish/modify the N4 PFCP session.
+          It is defined in section 7.5.2.2 of <xref target="TS.29.244-3GPP"/>.
+        </t>
+        <t>
+           Combination of the following information is used for the traffic detection:
+        </t>
+    
         <t>
           <list style="symbols">
             <t>For IPv4 or IPv6 PDU Session type
               <list style="symbols">
-                <t>PDU Session</t>
+                <t>CN tunnel info (Tunnel ID and the endpoint IP address of 5G Core)</t>
+                <t>Network instance</t>
                 <t>QFI</t>
-                <t>Application Identifier: The Application ID is an index to a
-                set of application detection rules configured in UPF</t>
+                <t>IP Packet Filter Set</t>
+                <t>Application Identifier: 
+                    The Application ID is an index to a set of application 
+                    detection rules configured in UPF</t>
               </list>
             </t>
 
             <t>For Ethernet PDU Session type
               <list style="symbols">
-                <t>PDU Session</t>
+                <t>CN tunnel info(Tunnel ID and the endpoint IP address of 5G Core)</t>
+                <t>Network instance</t>
                 <t>QFI</t>
-                <t>Ethernet Packet Filter Set:
-                  <list style="symbols">
-                    <t>Source/destination MAC address</t>
-                    <t>Ethertype as defined in IEEE 802.3</t>
-                    <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
-                    VID fields as defined in IEEE 802.1Q</t>
-                    <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
-                    PCP/DEI fields as defined in IEEE 802.1Q</t>
-                    <t>IP Packet Filter Set, in case Ethertype indicates
-                    IPv4/IPv6 payload</t>
-                    <t>Packet filter direction</t>
-                  </list>
-                </t>
+                <t>Ethernet Packet Filter Set</t>
               </list>
             </t>
           </list>
         </t>
 
         <t>
-         Such information for traffic detection (Traffic Detection Information)
-         is described in the section 5.8.2.4 of <xref target="TS.23.501-3GPP"/>.
+          It is noted that Network Instance is encoded as Octet String in PFCP,
+          and is NOT appeared in UP packet over the wire. It is expected like an
+          attribute of the receiving IP interface of the UPF. It supports UPF to
+          be able to connect to different IP domains of N3, N9 or N6, which run
+          each independent policy in routing and addressing. The UPF detects
+          traffic flow with Network Instance which the receiving interface
+          attributed to. 
         </t>
+
+        <t>The IP Packet Filter Set and Ethernet Packet Filter Set defined in
+        clause 5.7.6 of 
+           <xref target="TS.23.501-3GPP"/> are following:
+          <list style="symbols">
+            <t>IP Packet Filter Set:
+              <list style="symbols">
+                <t>Source/destination IP address or IPv6 prefix</t>
+                <t>Source/destination port number</t>
+                <t>Protocol ID of the protocol above IP/Next header type</t>
+                <t>Type of Service (TOS) (IPv4) / Traffic class (IPv6) and Mask.</t>
+                <t>Flow Label (IPv6)</t>
+                <t>Security parameter index</t>
+                <t>Packet filter direction</t>
+              </list>
+            </t>
+
+            <t>Ethernet Packet Filter Set:
+              <list style="symbols">
+                <t>Source/destination MAC address</t>
+                <t>Ethertype as defined in IEEE 802.3</t>
+                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
+                VID fields as defined in IEEE 802.1Q</t>
+                <t>Customer-VLAN tag(C-TAG) and/or Service-VLAN tag(S-TAG)
+                PCP/DEI fields as defined in IEEE 802.1Q</t>
+                <t>IP Packet Filter Set, in case Ethertype indicates
+                IPv4/IPv6 payload</t>
+                <t>Packet filter direction</t>
+              </list>
+            </t>
+          </list>
+        </t>
+
       </section>
     </section>
 
@@ -1430,17 +1517,43 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        The 5GS fundamentally supports network slicing for provision the appropriate 
-        end-to-end communication to various services. In the relevant documents 
-        (e.g., <xref target="TS.23.501-3GPP"/>, <xref target="TS.28.531-3GPP"/>), a
-        network slice is defined as virtual network and it is structured with SMF, RANs, 
-        UPFs and DNs. Each network slice is independent and its user plane (including 
-        network functions and links) should be noninteractive against the others.
+        The 5GS fundamentally supports network slicing for provision the
+        appropriate end-to-end communication to various services. In the
+        relevant documents (e.g., <xref target="TS.23.501-3GPP"/>, <xref
+        target="TS.28.530-3GPP"/>), a network slice is defined as virtual
+        network and it is structured with 5GS NF instances, such as SMF, UPF
+        including IP transport connectivity between RANs and DNS. Each network
+        slice is independent and its user plane (including network functions and
+        links) should be noninteractive against the others.
       </t> 
 
       <t>
-      Note that 3GPP focuses on only mobility management and specifications to synchronize with other 
-      networks including transport networks is not clearly defined. 
+        The 5G architecture specification has been updated with that Network
+        Instance is defined as the glue of network slice between 5G slice and
+        corresponding IP transport slice in addition to the original role of
+        separating IP domains, which is described in <xref
+        target="traffic-detection"/>.
+      </t>
+      
+      <t>
+         It has been appeared from version 15.2.0 of <xref target="TS.23.501-3GPP"/> 
+         in section 5.6.12.
+      </t>
+      
+      <t>
+        UP underlay transport networks and UPFs may be shared by 5G slices, as
+        described in section 4 of <xref target="TS.28.530-3GPP"/>. The data
+        model defined in <xref target="TS.29.510-3GPP"/> allows that a Network
+        Instance, a UPF and its interfaces can belong to multiple slices as same
+        as other type of NFs. UP endpoint IP prefix/address of an interface can
+        also be shared with multiple interfaces on the UPF as the model doesn't
+        make them slice unique.
+      </t>
+      
+      <t>
+        The slice lifecycle managements is described in the relevant documents:
+        <xref target="TS.28.531-3GPP"/>, <xref target="TS.28.532-3GPP"/>, and
+        <xref target="TS.28.533-3GPP"/>. 
       </t>
 
 
@@ -1667,68 +1780,69 @@ User Plane           /     |           |         \
         </section>
 
         <section anchor="eval-slice" title="Supporting Network Slicing Diversity">
-        
+
           <t>
-            To embody network slicing, it is expected that various means should
-            be available in case by case, or operator by operator, for their 5G
-            systems while it follows the fundamental slicing concept, as
-            described in <xref target="archi-overview"/>.
+            Network Instance has been defined as the glue of network slice
+            between 5G and IP transport in addition to IP domain separation, as
+            described in <xref target="traffic-detection"/>. It is expected that
+            SMF is able to configure UPF to send UP packet to corresponding
+            transport slice by indicating Network Instance in FAR so that UPF
+            can determine outgoing interface for the UP packet.
           </t>
           
           <t>
-            As <xref target="TS.28.530-3GPP"/> described in section 4, UP
-            underlay transport networks and UPFs are shared by network slices.
-            The data model defined in <xref target="TS.29.510-3GPP"/> allows
-            that a Network Instance, a UPF and its interfaces can belong to
-            multiple slices as same as other type of NFs. UP endpoint IP
-            prefix/address of an interface can also be shared with multiple
-            interfaces on the UPF as the model doesn't make them slice unique.
+            It is assumed that IP transport networks are Network Instance
+            agnostic, i.e., transport slices are independently instantiated and
+            not bound to specific IP address space in the 5GC, for preventing
+            increase of  routing table size.
           </t>
 
-          <t> 
-            The assumed slice operation in 5G architecture is that UPFs connect
-            to each other through direct (virtual) link as <xref
-            target="archi-overview"/> describes that UPFs compose a network
-            slice on an UP. So IP routing and transport system underneath the UP
-            are not visible from the 5G system. However some means need to
-            indicate a slice on the shared underlying networks of the UP over
-            the wire.
+          <t>
+            As a transport slice may be shared with multiple IP domains, Network
+            Instance could be instantiated for all combination of IP domains and
+            transport slice. To indicate those combination in UP packet over the
+            wire, the 5G architecture expects VPN solutions as described in
+            section 5.6.12 of <xref target="TS.23.501-3GPP"/>.
           </t>
           
           <t>
-            That's just one way for network slicing, but it would help to reduce the
-            operational burden. Even it depends on each operator's policy, sharing
-            network instances, UPFs, and the interfaces among slices makes
-            operators relax and not to be much hustled on slice lifecycle
-            management., such as create, update, and delete operations for slices.
-          </t>
-    
-          <t>
-            By the way, the 3GPP specifications for slice lifecycle managements is 
-            described in the relevant documents: <xref target="TS.28.531-3GPP"/>, 
-            <xref target="TS.28.532-3GPP"/>, and <xref target="TS.28.533-3GPP"/>. 
+            Binding Network Instance with corresponding VPN would be varied per
+            VPN solutions and FAR is not able to do. Hence it is out of
+            scope of 3GPP and it may be covered by IETF, or other SDOs.
           </t>
           
           <t>
-            It could also make sense in case that each network slice requires
-            different forwarding policies in the middle of the path. Some
-            identifier in the packets for a slice could be a glue between UP
-            path and its underlying transport networks. For example, if a slice
-            requires certain level of latency with dedicated route, traffic
-            engineering (TE) embodies appropriate forwarding policy through the
-            underlay transport network.
+            Apart from binding, if it is the case where MPLS based VPNs, such as
+            <xref target="RFC4364"/> and <xref target="RFC4664"/> are expected
+            as the existing VPN solution which bound to Network Instance, there
+            are some avaiable deployment options, such as 1). PE router
+            integrates UPF, 2). CE router integrates UPF, 3). UPF connects to
+            the VPN behind the CE router.
+          </t>
+            
+          <t>
+            Option 1 looks promising since all legacy MPLS or Segment Routing
+            <xref target="RFC8402"/> based solution are available for both VPN
+            and transport slicing at the UPF integrated PE router. However it is
+            hard to expect it in multi-vendor deployment case, where the PE
+            routers providing vendor is different from the vendor who provides
+            UPFs, for example.
+          </t>
+          
+          <t>
+            Option 2 and 3 are expected as IP domain separation, but it
+            is hard to see that it is able to indicate transport slice in
+            addition to the IP domain. Other L2 and tunneling solutions should
+            be same with those options.
           </t>
 
           <t>
             The expected evaluation points from this aspect should be whether
-            the candidate protocols can support to indicate a network slice in
-            the UP packets that could be enough bits space on stable ID space to
-            put slice identifier for the slice, or the forwarding policy within
-            the slice. Since 5G control plane is not designed to handle
-            transport resources, such as VLAN, MPLS Label, Tunnel ID except
-            GTP-U, less impact to the control plane protocol and the APIs should
-            be much preferable.
+            the candidate protocols can contain forwarding information
+            associated to the assigned IP domain and transport slice for all
+            possible deployment cases.
           </t>
+
         </section>
     </section>
 
@@ -1750,12 +1864,10 @@ User Plane           /     |           |         \
       </t>
         
       <t>
-        As we identified some potential gaps between the current UP protocol and
-        the architectural requirements even for Release 15, it is worth to study
-        possible candidate UP protocols for the 5G system including current one.
-        Our conclusion here is that we suggest the UP protocol study work in
-        3GPP takes into account the evaluation aspects described in <xref
-        target="eval_aspects"/>. 
+        Our conclusion here is that it is hopefull if the evaluation aspects 
+        described in <xref target="eval_aspects"/> help for the study progress.
+        It is worth to study possible candidate UP protocols for the 5G system 
+        including current one based from the aspects.
       </t>
     </section>
 
@@ -1797,11 +1909,14 @@ User Plane           /     |           |         \
     <references title="Informative References">
 
     &RFC2460;
+    &RFC4364;
+    &RFC4664;
     &RFC4861;
     &RFC6437;
     &RFC6438;
     &RFC6935;
     &RFC8200;
+    &RFC8402;
 <!--    &I-D.bogineni-dmm-optimized-mobile-user-plane;
 -->
          
