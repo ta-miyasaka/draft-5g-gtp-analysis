@@ -58,14 +58,14 @@
 <!-- end of list of popular I-D processing instructions --> 
 
 
-<rfc category="info" docName="draft-ietf-dmm-5g-uplane-analysis-01">
+<rfc category="info" docName="draft-ietf-dmm-5g-uplane-analysis-02">
   <!-- ***** FRONT MATTER ***** --> 
 
 
 
 
   <front>
-    <title abbrev="draft-ietf-dmm-5g-uplane-analysis-01">
+    <title abbrev="draft-ietf-dmm-5g-uplane-analysis-02">
     User Plane Protocol and Architectural Analysis on 3GPP 5G System
     </title>
 
