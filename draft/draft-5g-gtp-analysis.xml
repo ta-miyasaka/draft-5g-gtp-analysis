@@ -28,6 +28,8 @@
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.4664.xml">
 <!ENTITY RFC8402 SYSTEM 
 "http://xml.resource.org/public/rfc/bibxml/reference.RFC.8402.xml">
+<!ENTITY RFC7157 SYSTEM 
+"http://xml.resource.org/public/rfc/bibxml/reference.RFC.7157.xml">
 
 ]> 
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?> 
@@ -1363,32 +1365,32 @@ User Plane           /     |           |         \
       </t>
       
       <t>
-        Multihoming is provided with Branching Point (BP). BP provides forwarding of UL
-        traffic towards the different PDU Session Anchors based on the source
-        IPv6 prefixes and merge of DL traffic to the UE. UL CL provides
-        destination based multihoming for load balancing.
-      </t>
-
-      <t>
-        Noted that, in 3GPP definition, IPv6 multihoming indicates only cases where "multiple" 
-        source IPv6 prefixes are used, and it is different from IETF definition. Actually, in the 5GS, 
-        Up link classifier (UL CL) is capable to provide forwarding to multiple anchor for a PDU session 
-        with a single source IPv6 prefix, but it is distinguished from IPv6 multihoming.
-      </t>
-   
-      <t>
-        On UL side, multihoming of a single PDU session is achieved by a
-        point-to-point (P2P) tunnel per anchor UPF. It means that multiple P2P
-        paths are established from one source gNB or UPF to the multiple
-        destination anchor UPFs for the PDU session.
+        Multihoming is provided with Branching Point (BP). BP provides
+        forwarding of UL traffic towards the different PDU Session Anchors
+        based on the source IPv6 prefixes and merge of DL traffic to the
+        UE. IPv6 multihoming only means multiple source IPv6 prefixes are
+        used for a PDU session. It is identical to one classified as
+        scenario 1 in <xref target="RFC7157"/>.
       </t>
       
       <t>
-        On DL side, one single multipoint-to-point (MP2P) path exists from the
-        anchor UPFs to the destination gNB or UPF for the PDU session in this
-        multihoming case. It means that the paths from the anchor UPFs are
-        merged into just one tunnel state at the source gNB or UPF for the PDU
-        session.
+        Up link classifier (UL CL) is to forward uplink packets to multiple
+        anchor UPFs based on the destination IP of the T-PDU regardless of
+        the source IP address. Noted that single source IP address/prefix
+        PDU session is not defined as multihoming PDU session in 5GCS even
+        though a PDU session has multiple anchor UPFs.
+      </t>
+   
+      <t>
+        On UL side, P2P tunnels are established per destination anchor UPFs
+        basis from one UL CL UPF to the anchor UPFs for the PDU session.
+      </t>
+      
+      <t>
+        On DL side, one single multipoint-to-point (MP2P) tunnel exists from the
+        source anchor UPFs to the destination BP UPF for the PDU session. 
+        It means that the paths from the anchor UPFs are merged into just one 
+        tunnel state at the destination BP UPF.
       </t>
         
       <t>
@@ -1957,6 +1959,7 @@ User Plane           /     |           |         \
     &RFC6437;
     &RFC6438;
     &RFC6935;
+    &RFC7157;
     &RFC8200;
     &RFC8402;
 <!--    &I-D.bogineni-dmm-optimized-mobile-user-plane;
