@@ -1089,6 +1089,12 @@ Payload
       </t>
       
       <t>
+        The 3GPP 5G architecture <xref target="TS.23.501-3GPP"/> defines
+        slice types which are eMBB, URLLC and MIoT from Rel-15. In addition
+        to that, V2X slice type is defined from Rel-16.
+      </t>
+      
+      <t>
         The architecture overview is shown in <xref
         target="fig_3GPP-5GS-ARCH"/>. The details of functions are described in
         <xref target="TS.23.501-3GPP"/>.  A UPF handles UP paths on N3, N9 and N6 interface, 
@@ -1172,6 +1178,11 @@ User Plane           /     |           |         \
                NG-RAN node.</t>
             <t>ARP proxying and / or IPv6 Neighbour Solicitation Proxying for the 
                Ethernet PDUs.</t>
+            <t>Packet duplication in downlink direction and elimination in
+               uplink direction in UP protocol layer.</t>
+            <t>TSN Translator functionality to hold and forward user plane packets for
+               de-jittering when 5G System is integrated as a bridge with the TSN
+               network.</t>
           </list>
         </t>
       </section>
@@ -2013,15 +2024,15 @@ User Plane           /     |           |         \
       </reference>
 -->
          
-      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.501/23501-f40.zip">
+      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.501/23501-g10.zip">
         <front>
-        <title>3GPP TS 23.501 (V15.4.0): System Architecture for 5G System; Stage 2</title>
+        <title>3GPP TS 23.501 (V16.1.0): System Architecture for 5G System; Stage 2</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2018"/>
+        <date month="June" year="2019"/>
         </front>
       </reference>
 
