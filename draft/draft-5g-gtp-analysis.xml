@@ -1646,8 +1646,8 @@ User Plane           /     |           |         \
     *Legends
      M-RAN: Master RAN
      S-RAN: Secondary RAN
-       ]]></artwork>
-      </figure>
+]]></artwork>
+</figure>
       
 <t>
 Otherwise, in case that RAN nodes and UPFs have enough reliability and they are not 
@@ -1668,15 +1668,16 @@ are shown in <xref target="fig_redundant-UP-2"/>.
                 Namf|       Nsmf|       Npcf|
                  +--+--+     +--+--+     +--+--+
                  | AMF |     | SMF |     | PCF |
-                 +-+---+     +-—+——+     +-----+
+                 +-+---+     +--+--+     +-----+
                   /             |
                N2/            N4|
                 /  N3 Tunnel1   |
   +----+    +--+--+__________+--+--+  N6 +----+
   | UE +----+ RAN |__________| UPF |-----+ DN |
   +----+    +-----+          +-----+     +----+ 
-       ]]></artwork>
-      </figure>
+                   N3 Tunnel2
+]]></artwork>
+</figure>
 
 <t>
 In addition, there is a case that two intermediate UPFs (I-UPFs) between PSA UPF and 
@@ -1698,15 +1699,15 @@ N9 tunnels.  The overview is shown in <xref target="fig_redundant-UP-3"/>.
                    /            | | |
                N2 /           N4| | +----------------+
                  /              | |                  |
-                /  N3 Tunnel1 +-+—----+  N9 Tunnel1  |
+                /  N3 Tunnel1 +-+-+---+  N9 Tunnel1  |
                /        +-----+I-UPF1 +----+         |
   +----+   +--+--+______|     +-------+    |______+--+--+ N6  +----+
   | UE +---+ RAN |______          |         ______| UPF +-----+ DN |
   +----+   +-----+  N3  |     +---+---+    |  N9  +-----+     +----+
                         +-----+I-UPF2 +----+
                    N3 Tunnel2 +-------+  N9 Tunnel2
-       ]]></artwork>
-      </figure>
+]]></artwork>
+</figure>
 
 <!-- Any more requirements? -->
                                                                         
