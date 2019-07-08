@@ -1289,7 +1289,7 @@ User Plane           /     |           |         \
           A PFCP session consists of the rules of packet detection,
           forwarding action, QoS enforcement, usage reporting and buffering
           action. <xref target="fig_PFCP_model"/> depicts overview of the
-          PFCP rules structure.
+          PFCP session state structure.
         </t>
           
         <t>
