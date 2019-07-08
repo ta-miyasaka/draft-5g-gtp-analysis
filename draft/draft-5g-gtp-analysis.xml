@@ -1275,6 +1275,88 @@ User Plane           /     |           |         \
         </t>
 
       </section>
+      
+      <section anchor="PFCP" title="User Plane Configuration">
+      
+        <t>
+          User Plane configuration on a UPF is managed by an SMF through PFCP
+          <xref target="TS.29.244-3GPP"/>. The SMF establishes PFCP sessions 
+          on the UPF per PDU session basis. The UPF maintains each configured
+          PFCP session states during the sessions exist.
+        </t>
+        
+        <t>
+          A PFCP session consists of the rules of packet detection,
+          forwarding action, QoS enforcement, usage reporting and buffering
+          action. <xref target="fig_PFCP_model"/> depicts overview of the
+          PFCP rules structure.
+        </t>
+          
+        <t>
+          The listed information in <xref target="traffic-detection"/>
+          indicates packet detection information of packet detection rule
+          that the rest of related rules within the PFCP session to be
+          derived. All rules are per session unique and no rules are shared
+          with other sessions.
+        </t>
+      
+        <figure anchor="fig_PFCP_model" title="User Plane Configuration Model">
+          <artwork align="center"><![CDATA[
+
+PFCP-Session* [F-SEID]
+  +- F-SEID(Full Qualified Session Endpoint ID)    uint64
+  +- PDU-Session-Type               [IPv4|IPv6|IPv4v6|Ether|Unstrct]
+  +- DNN(Data Network Name)
+  +- PDR(Packet Detection Rule)* [PDR-ID]
+  |  +- PDR-ID    uint16
+  |  +- PDI (Packet Detection Information)
+  |  |  +- Traffic-Endpoint-ID?   -> Traffic-Endpoint-ID reference
+  |  |  +- ....
+  |  +- FAR/URR/QER-ID            -> FAR/URR/QER-ID references
+  +- FAR(Forwarding Action Rule)* [FAR-ID]
+  |  +- FAR-ID                    uint32
+  |  +- Forwarding-Parameters
+  |  |  +- Network-Instance?        Octet String
+  |  |  +- Outer-Header-Creation
+  |  |  |  +- Outer-Hdr-Creation-Desc   [GTPoUDP/IPv4|IPv6, etc.,]
+  |  |  |  +- TEID, outer IP-Address for N3/N9
+  |  |  |  +- C/S-TAG, UDP Port-number for N6
+  |  |  +- Forwarding-Policy-ID?    Octet String
+  |  |  +- ....
+  |  +- Duplicating-Parameters
+  |  |  +- ....
+  |  +- BAR-ID?                   -> BAR-ID reference
+  +- QER(QoS Enforcement Rule)* [QER-ID]
+  |  +- QER-ID                    uint32
+  |  +- MBR(Maximum Bit Rate)
+  |  |  +- UL/DL-MBR?   bitrate_in_kbps (0..10000000)
+  |  +- GBR(Guaranteed Bit Rate)
+  |  |  +- UL/DL-GBR?   bitrate_in_kbps (0..10000000)
+  |  +- QoS-flow-identifier?       QFI value(6-bits)
+  |  +- Reflective-QoS?            boolean
+  |  +- Paging-Policy-Indicator?   PPI value(3-bits)
+  |  +- ....
+  +- URR(Usage Reporting Rule)* [URR-ID]
+  |  +- URR-ID                    uint32
+  |  +- Measurement-Method, Period, Reporting-Triggers?
+  |  +- Volume/Event/Time Threshold, Quota?
+  |  +- Quota-Holding-Time?
+  |  +- FAR-ID for Quota action?        -> FAR-ID reference
+  |  +- ....
+  +- BAR(Buffering Action Rule)* [BAR-ID]
+  |  +- BAR-ID                    uint8
+  |  +- Suggested-Buffering-Packets-Count
+  +- Traffic-Endpoint* [Traffic-Endpoint-ID]
+     +- Traffic-Endpoint-ID                   uint8
+     +- TEID, Tunnle IP Address, UE Address...?
+
+         ]]></artwork>
+        </figure>
+      
+      
+      
+      </section>
+      
     </section>
 
     <section anchor="archi-req" title="Architectural Requirements for User Plane
