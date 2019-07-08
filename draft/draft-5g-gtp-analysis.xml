@@ -2090,9 +2090,9 @@ PFCP-Session* [F-SEID]
 
         <section anchor="eval-urllc" title="Reliable Communication support">
         <t>
-          As <xref target="archi-req"/> described, more than two user plane
+          As <xref target="archi-req"/> described, more than two UP
           paths are required for a QoS flow of a PDU session between the
-          anchor UPF and gNB. Those user plane paths are to convey redundant
+          anchor UPF and gNB. Those UP paths are to convey redundant
           duplicated packets.
         </t>
 
