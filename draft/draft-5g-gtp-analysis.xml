@@ -1295,7 +1295,7 @@ User Plane           /     |           |         \
         <t>
           The listed information in <xref target="traffic-detection"/>
           indicates packet detection information of packet detection rule
-          that the rest of related rules within the PFCP session to be
+          for that the rest of related rules within the PFCP session to be
           derived. All rules are per session unique and no rules are shared
           with other sessions.
         </t>
