@@ -1682,6 +1682,115 @@ PFCP-Session* [F-SEID]
         UPFs.
       </t>
 
+      <t>
+        <list style="format ARCHI-Req-%d:" counter="arch-req">
+          <t>
+          Supporting URLLC
+          </t>
+        </list>
+      </t>
+
+      <t>
+      The 5G is expected to support services which are latency sensitive and require high 
+      reliability. Communication to realize such services is called Ultra-Reliable and 
+      Low-Latency Communication or URLLC. In URLLC, redundancy of QoS flows is required 
+      for providing highly reliable communication. For instance, a set of UP NFs (e.g., UPF or 
+      gNB) and interfaces between UE and DN are redundant, and packets are replicated 
+      and forwarded via each route. UEs and DN support dual connectivity and drop 
+      duplicated received packets. The scheme of packet dropping at UE is out of 
+      responsibility of 3GPP. The overview is shown in <xref target="fig_redundant-UP-1"/>.
+      </t> 
+
+      <figure anchor="fig_redundant-UP-1" title="Redundant UP paths using dual connectivity">
+        <artwork align="center"><![CDATA[
+                 ---+-----------+----------+---
+                Namf|       Nsmf|      Nsmf|
+                 +--+--+     +--+--+    +--+--+
+                 | AMF |     | SMF1|    | SMF3|
+                 +-+---+     +--+--+    +-+---+
+                  /            /         /
+               N2/          N4/       N4/
+                /            /         /
+          +----++   N3   +--+---+     / N6     +----+
+          |M-RAN+--------+ UPF1 +--------------+    |
+          ++-+--+        +-+--+-+   /          |    |
+          /  |             |  |    /           |    |
+  +----+ /   |             +--+   /            |    |
+  | UE +<    |Xn            N9   /             | DN |
+  +----+ \   |                  /              |    |
+          \  |                 /               |    |
+          ++-+--+   N3   +----+-+       N6     |    |
+          |S-RAN+--------+ UPF2 +--------------+    |
+          +-----+        +-+--+-+              +----+
+                           |  |
+                           +--+
+                            N9
+    *Legends
+     M-RAN: Master RAN
+     S-RAN: Secondary RAN
+]]></artwork>
+</figure>
+      
+<t>
+Otherwise, in case that RAN nodes and UPFs have enough reliability and they are not 
+redundant by dual devices, reliable connectivity of QoS flows is provided by dual N3 
+tunnels between RAN and UPFs. Such tunnels are treated as individual ones, but they 
+have the same sequence number. UP NFs identifies the duplication of PDU packets 
+based on sequence number content in the UP tunnel headers. For uplink packets, a 
+RAN node replicates each packet from a UE. A PSA (PDU Session Anchor) UPF receives 
+the duplicated packets, and drops ones which reach later in each duplicated packet 
+pare. On the other hand, for downlink packets, a UPF replicates packets received from 
+DN, and a RAN node drops the duplicated packets as well. The overviews of the ways 
+are shown in <xref target="fig_redundant-UP-2"/>.
+</t>
+
+<figure anchor="fig_redundant-UP-2" title="Redundant UP transmission with two N3 tunnels">
+        <artwork align="center"><![CDATA[
+                ----+-----------+-----------+---
+                Namf|       Nsmf|       Npcf|
+                 +--+--+     +--+--+     +--+--+
+                 | AMF |     | SMF |     | PCF |
+                 +-+---+     +--+--+     +-----+
+                  /             |
+               N2/            N4|
+                /  N3 Tunnel1   |
+  +----+    +--+--+__________+--+--+  N6 +----+
+  | UE +----+ RAN |__________| UPF |-----+ DN |
+  +----+    +-----+          +-----+     +----+ 
+                   N3 Tunnel2
+]]></artwork>
+</figure>
+
+<t>
+In addition, there is a case that two intermediate UPFs (I-UPFs) between PSA UPF and 
+RAN are used to support the redundant transmission based on two N3 and N9 tunnels 
+between single PSA UPF and RAN node. The RAN node and PSA UPF support the packet 
+replication and dropping of duplicated packets as described above. As described above, 
+PSA UPF and RAN node detect packet duplication with sequence number of UP tunnels, 
+and thus I-UPFs would forward the packets with the same sequence number on N3 and 
+N9 tunnels.  The overview is shown in <xref target="fig_redundant-UP-3"/>.
+</t>
+
+      <figure anchor="fig_redundant-UP-3" title="Redundant UP transmission with two I-UPF and N3/N9 tunnels">
+        <artwork align="center"><![CDATA[
+                ----+-------------+--------------+---
+                Namf|         Nsmf|          Npcf|
+                 +--+--+      +---+---+       +--+--+
+                 | AMF |      |  SMF  +       | PCF |
+                 +--+--+      +-+-+-+-+       +-----+
+                   /            | | |
+               N2 /           N4| | +----------------+
+                 /              | |                  |
+                /  N3 Tunnel1 +-+-+---+  N9 Tunnel1  |
+               /        +-----+I-UPF1 +----+         |
+  +----+   +--+--+______|     +-------+    |______+--+--+ N6  +----+
+  | UE +---+ RAN |______          |         ______| UPF +-----+ DN |
+  +----+   +-----+  N3  |     +---+---+    |  N9  +-----+     +----+
+                        +-----+I-UPF2 +----+
+                   N3 Tunnel2 +-------+  N9 Tunnel2
+]]></artwork>
+</figure>
+
 <!-- Any more requirements? -->
                                                                         
       </section>
@@ -1970,6 +2079,30 @@ PFCP-Session* [F-SEID]
           </t>
 
         </section>
+
+        <section anchor="eval-urllc" title="Reliable Communication support">
+        <t>
+        For URLLC support, redundancy of QoS flows between RAN and DN would be required 
+        as described in Arch-req 8, and it means that a QoS flow uses twice number of UP 
+        tunnels compared with  usages excluding URLLC.
+        </t>
+
+        <t>
+        Moreover, in some cases, UP NFs support packet replication and dropping of 
+        duplicated packets. Such UP NFs detect packet duplication based on sequence 
+        number of UP tunnel headers. Thus UP protocol must support capability to detect 
+        duplicated packets such as sequence number conveyance. 
+        </t>
+
+        <t>
+        While, it should be supported redundancy of QoS flows from end to end, including 
+        radio periods and beyond DN, for providing assured reliability, and thus the necessity 
+        of dual UP path termination at RAN node or UPF and sequence number conveyance 
+        may be not so high.
+        </t>
+      </section>
+
+
     </section>
 
 
