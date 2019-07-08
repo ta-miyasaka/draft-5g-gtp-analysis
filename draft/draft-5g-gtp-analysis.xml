@@ -1741,8 +1741,8 @@ PFCP-Session* [F-SEID]
         Such tunnels are treated as individual ones, but they have the same
         sequence number. UP NFs identifies the duplication of PDU packets
         based on sequence number content in the UP tunnel headers. For
-        uplink packets, a RAN node replicates each packet from a UE. A PSA
-        (PDU Session Anchor) UPF receives the duplicated packets, and drops
+        uplink packets, a RAN node replicates each packet from a UE. An
+        anchor UPF receives the duplicated packets, and drops
         ones which reach later in each duplicated packet pare. On the other
         hand, for downlink packets, a UPF replicates packets received from
         DN, and a RAN node drops the duplicated packets as well. The
@@ -1769,11 +1769,11 @@ PFCP-Session* [F-SEID]
 
       <t>
         In addition, there is a case that two intermediate UPFs (I-UPFs)
-        between PSA UPF and RAN are used to support the redundant
-        transmission based on two N3 and N9 tunnels between single PSA UPF
-        and RAN node. The RAN node and PSA UPF support the packet
+        between anchor UPF and RAN are used to support the redundant
+        transmission based on two N3 and N9 tunnels between single anchor UPF
+        and RAN node. The RAN node and anchor UPF support the packet
         replication and dropping of duplicated packets as described above.
-        As described above, PSA UPF and RAN node detect packet duplication
+        As described above, anchor UPF and RAN node detect packet duplication
         with sequence number of UP tunnels, and thus I-UPFs would forward
         the packets with the same sequence number on N3 and N9 tunnels. 
         The overview is shown in <xref target="fig_redundant-UP-3"/>.
