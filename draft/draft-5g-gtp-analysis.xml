@@ -2090,24 +2090,30 @@ PFCP-Session* [F-SEID]
 
         <section anchor="eval-urllc" title="Reliable Communication support">
         <t>
-        For URLLC support, redundancy of QoS flows between RAN and DN would be required 
-        as described in Arch-req 8, and it means that a QoS flow uses twice number of UP 
-        tunnels compared with  usages excluding URLLC.
+          As <xref target="archi-req"/> described, more than two user plane
+          paths are required for a QoS flow of a PDU session between the
+          anchor UPF and gNB. Those user plane paths are to convey redundant
+          duplicated packets.
         </t>
 
         <t>
-        Moreover, in some cases, UP NFs support packet replication and dropping of 
-        duplicated packets. Such UP NFs detect packet duplication based on sequence 
-        number of UP tunnel headers. Thus UP protocol must support capability to detect 
-        duplicated packets such as sequence number conveyance. 
+          To support reliable communication with above requirements, UPF
+          and gNB must replicate the sending UP packets and eliminate
+          the received duplicated UP packets. Not to mention that UP protocol
+          should be able to make sure that the paths are not in fate
+          sharing, the UP packet must have sequence number to indicate
+          duplicate packets per QoS flow basis.
+        </t>
+        
+        <t>
+          The expected evaluation points from this aspect should be whether
+          the candidate protocols can indicate packet sequence and diversed
+          paths in the context of QoS flow, not in UP tunnel context. The
+          packet sequence information should be transparent through
+          I-UPF(s) exist in the middle of the path even in case that the UP
+          tunnels are terminated at the I-UPF(s).
         </t>
 
-        <t>
-        While, it should be supported redundancy of QoS flows from end to end, including 
-        radio periods and beyond DN, for providing assured reliability, and thus the necessity 
-        of dual UP path termination at RAN node or UPF and sequence number conveyance 
-        may be not so high.
-        </t>
       </section>
 
 
