@@ -1685,7 +1685,7 @@ PFCP-Session* [F-SEID]
       <t>
         <list style="format ARCHI-Req-%d:" counter="arch-req">
           <t>
-          Supporting URLLC
+          Supporting Redundant UP transmission for URLLC
           </t>
         </list>
       </t>
@@ -1799,11 +1799,39 @@ PFCP-Session* [F-SEID]
       ]]></artwork>
       </figure>
 
+      <t>
+        <list style="format ARCHI-Req-%d:" counter="arch-req">
+          <t>
+          Supporting QoS Monitoring for URLLC
+          </t>
+        </list>
+      </t>
+
+      <t>
+      QoS monitoring is also required for URLLC. It means that the user plane should be able to 
+      measure packet delay between anchor UPF and UE. The measurement would be in various granularities, 
+      in the basis of per QoS Flow per UE, or per UP path for example.
+      </t>
+
+      <t>
+      To help the measurement at anchor UPF and RAN, UP protocol requires to have capability to convey 
+      necessary information to do that; such as time information at sending or reception of a measurement packet. 
+      That information should exist in per F-TEID and QFI basis which indicates QoS Flow of the packet.  
+      UP protocol should also be able to indicate which packets include the corresponding information for 
+      each measurement.
+      </t>
+
+      <t>
+        This specification is described in 5.3.33 of <xref
+        target="TS.23.501-3GPP"/>.
+      </t>
+
 <!-- Any more requirements? -->
                                                                         
       </section>
     </section>
-                                          
+
+          
     <section anchor="eval_aspects" title="Evaluation Aspects">
       <t>
         This section provides UP protocol evaluation aspects that are mainly we
@@ -2256,15 +2284,15 @@ PFCP-Session* [F-SEID]
       </reference>
 -->
          
-      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.501/23501-g10.zip">
+      <reference anchor='TS.23.501-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/23_series/23.501/23501-g20.zip">
         <front>
-        <title>3GPP TS 23.501 (V16.1.0): System Architecture for 5G System; Stage 2</title>
+        <title>3GPP TS 23.501 (V16.2.0): System Architecture for 5G System; Stage 2</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="June" year="2019"/>
+        <date month="September" year="2019"/>
         </front>
       </reference>
 
