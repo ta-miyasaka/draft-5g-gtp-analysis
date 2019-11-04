@@ -1822,8 +1822,8 @@ PFCP-Session* [F-SEID]
       </t>
 
       <t>
-        This specification is described in 5.3.33 of <xref
-        target="TS.23.501-3GPP"/>.
+        The QoS monitoring requirement has been appeared in section 5.33.3 of <xref
+        target="TS.23.501-3GPP"/> from Rel-16, version 16.2.0.
       </t>
 
 <!-- Any more requirements? -->
