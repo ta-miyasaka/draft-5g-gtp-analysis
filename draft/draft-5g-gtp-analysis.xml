@@ -1881,10 +1881,11 @@ PFCP-Session* [F-SEID]
                               |M                                    |M
                               |                   +---+-----+       VS
  +----+                       VS    ,--------.    |   |NW-TT|    ,-----.
- |End |   +-----+  +--+  Uu +---+  / PTP         |   +-----+   / TSN   
+ |End |   +-----+  +--+  Uu +---+  / PTP      \   |   +-----+   / TSN   \
  |Sta.|<==|DS-TT|<-|UE|<----|gNB|--|Compatible|-->|UPF      |<==|Working|
- +----+S M+-----+  +--+S   M+---+M  5G TN    /  S+---------+S M Domain/
+ +----+S M+-----+  +--+S   M+---+M \ 5G TN    /  S+---------+S M\ Domain/
                                     `--------'                   `-----'
+
 
 
  Legend
