@@ -550,34 +550,29 @@ Pkt |        |  UDP   |         |   UDP  |         +--------+
         <t>
           IPv6 flow label <xref target="RFC6437"/> is also candidate method for 
           load balancing especially for IP-in-IPv6 tunnel <xref target="RFC6438"/> like GTP-U.
-          However, how to use IPv6 flow label of GTP-U is not described in <xref
-          target="TS.29.281-3GPP" />. Though this method is limited to a case of IPv6 
-          encapsulated GTP-U tunnel, it is worth to study usage of IPv6 flow label in 3GPP.
+          GTP-U also supports dynamic allocation of IPv6 flow label for load balancing objective.
+          The specification of this dynamic allocation is described in section 4.4.2.0 of 
+          <xref target="TS.29.281-3GPP" />, however specific procedure, e.g., 5-tuple hashing, 
+          is not described in the document and depends on the implementation of GTP-U tunnel endpoint node.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              GTP-U does not support IPv6 flow label for load balancing in case of 
-              IPv6 transport.
+              GTP-U supports load balancing by using dynamic IPv6 flow label allocation.
             </t>
           </list>
         </t>
         
         <t>
-          GTP-U supports both IPv4 and IPv6 as underlying transport layer
-          protocol. As for IPv6, GTP-U specification refers <xref
-          target="RFC2460"/>, which is described in section 4.2.3 of <xref
-          target="TS.29.281-3GPP" />. As <xref target="RFC2460"/> does not allow
-          the tunnel protocols on top of UDP to set the checksum value to zero,
-          the GTP-U specification inherits it while the IPv4 transport for GTP-U
-          case allows UDP zero checksum. It is noted that the IPv6 specification
-          in IETF has been updated to <xref target="RFC8200"/> which allows UDP
-          zero checksum for the tunnel. <xref target="RFC6935"/> describes
-          benefits of zero checksum for tunnel protocol over UDP. If GTP-U
-          support UFP zero checksum in future version, possible interoperability
-          issue between previous generations which does not support zero
-          checksum may raise.
+          GTP-U supports both IPv4 and IPv6 as the underlying network layer 
+          protocol. From Release 16, GTP-U updates their reference to IPv6 
+          specification from <xref target="RFC2460"/> to <xref target="RFC8200"/> 
+          which allows UDP zero checksum for the protocols that use UDP as 
+          a tunnel encapsulation, such as GTP-U. As a result of the update, 
+          GTP-U over IPv6 also supports the UDP zero checksum if the sender 
+          and receiver tunnel endpoint node support the UDP zero checksum, 
+          which is described in section 4.4.2.0 of <xref target="TS.29.281-3GPP" />.
           <list style="format [GTP-U-%d]:" counter="gtp-u-2">
             <t>
-              UDP zero checksum is not available in case of IPv6 transport.
+              GTP-U supports UDP zero checksum.
             </t>
           </list>
         </t>
@@ -2246,15 +2241,15 @@ PFCP-Session* [F-SEID]
         </front>
       </reference>
 
-      <reference anchor='TS.29.281-3GPP' target="http://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-f50.zip">
+      <reference anchor='TS.29.281-3GPP' target="https://www.3gpp.org/ftp//Specs/archive/29_series/29.281/29281-g10.zip">
         <front>
-        <title>3GPP TS 29.281 (V15.5.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
+        <title>3GPP TS 29.281 (V16.1.0): GPRS Tunneling Protocol User Plane (GTPv1-U)</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2018"/>
+        <date month="September" year="2020"/>
         </front>
       </reference>
 
@@ -2344,15 +2339,15 @@ PFCP-Session* [F-SEID]
         </front>
       </reference>
 
-      <reference anchor='TS.38.415-3GPP'  target="http://www.3gpp.org/ftp//Specs/archive/38_series/38.415/38415-f20.zip">
+      <reference anchor='TS.38.415-3GPP'  target="https://www.3gpp.org/ftp//Specs/archive/38_series/38.415/38415-g20.zip">
         <front>
-        <title>3GPP TS 38.415 (v15.2.0): NG-RAN; PDU Session User Plane protocol</title>
+        <title>3GPP TS 38.415 (v16.2.0): NG-RAN; PDU Session User Plane protocol</title>
         <author>
         <organization>
         3rd Generation Partnership Project (3GPP)
         </organization>
         </author>
-        <date month="December" year="2018"/>
+        <date month="October" year="2020"/>
         </front>
       </reference>
 
