@@ -60,14 +60,14 @@
 <!-- end of list of popular I-D processing instructions --> 
 
 
-<rfc category="info" docName="draft-ietf-dmm-5g-uplane-analysis-03">
+<rfc category="info" docName="draft-ietf-dmm-5g-uplane-analysis-04">
   <!-- ***** FRONT MATTER ***** --> 
 
 
 
 
   <front>
-    <title abbrev="draft-ietf-dmm-5g-uplane-analysis-02">
+    <title abbrev="draft-ietf-dmm-5g-uplane-analysis-04">
     User Plane Protocol and Architectural Analysis on 3GPP 5G System
     </title>
 
@@ -913,7 +913,7 @@ GTP-U header
 
 GTP-U Extension Header (PDU Session Container)
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-|  ExtHdrLen=2  |Type=0 | Spare |0|0|   QFI     | PPI |  Spare  |
+|  ExtHdrLen=2  |Type=0 |0|0|   |0|0|   QFI     | PPI |  Spare  |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 |                    Padding                    |NextExtHdr=0x0 |
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
