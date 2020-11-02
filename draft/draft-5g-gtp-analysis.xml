@@ -1378,9 +1378,10 @@ PFCP-Session* [F-SEID]
         Also, it should be a stateful tunnel in the UPFs along with the PDU
         session.
       </t>
-    
+      
+      <section title="Fundamental Functionalities">
       <t>
-        The requirements for UP protocols are described below:
+        The fundamental requirements for UP protocols are described below:
       </t>
         
       <t>
@@ -1681,11 +1682,34 @@ PFCP-Session* [F-SEID]
         it can prevent reordering of arriving packets due to switch of anchor
         UPFs.
       </t>
+    </section>
 
+    <section title="Supporting 5G Services">
+
+
+      <t>
+      In the release 16 <xref target="TS.23.501-3GPP"/>, some specifications have been added to 
+      support 5G specific services and communications. This section describes overviews of the 
+      specifications relevant to use plane functionalities.
+      </t>
+    
       <t>
         <list style="format ARCHI-Req-%d:" counter="arch-req">
           <t>
-          Supporting Redundant UP transmission for URLLC
+          URLLC Support
+          </t>
+        </list>
+      </t> 
+      
+      <t>
+      The 5GS supports Ultra-Reliable Low Latency Communication (URLLC) for mission critical applications. 
+      The User Plane features are described below.
+      </t>
+
+      <t>
+        <list style="symbols">
+          <t>
+          Redundant UP transmission for URLLC
           </t>
         </list>
       </t>
@@ -1800,7 +1824,7 @@ PFCP-Session* [F-SEID]
       </figure>
 
       <t>
-        <list style="format ARCHI-Req-%d:" counter="arch-req">
+        <list style="symbols">
           <t>
           Supporting QoS Monitoring for URLLC
           </t>
@@ -1825,6 +1849,188 @@ PFCP-Session* [F-SEID]
         The QoS monitoring requirement has been appeared in section 5.33.3 of <xref
         target="TS.23.501-3GPP"/> from Rel-16, version 16.2.0.
       </t>
+    
+      <t>
+        <list style="format ARCHI-Req-%d:" counter="arch-req">
+          <t>
+          Time Sensitive Communication Support
+          </t>
+        </list>
+      </t> 
+
+      <t>
+        The 5GS supports Time Sensitive Communications (TSC) for realtime applications, 
+        and it can be integrated transparently as a bridge in an IEEE 802.1 TSN network. 
+        For TSN time synchronization, the E2E 5GS can be considered as a "time-aware system 
+        (ref <xref target="IEEE-Std-802.1AS"/>)". The TSN Translators (TTs) at the edges of the 5GS need to 
+        support the <xref target="IEEE-Std-802.1AS"/> operations. For instance, UE, gNB, NW-TT 
+        (Network-side TSN Translator) and DS-TTs (Device-side TSN Translators) are synchronized with the 
+        Grandmaster (GM) located in the 5GS. In addition, the TTs fulfill some functions related to 
+        <xref target="IEEE-Std-802.1AS"/> (e.g., gPTP support, timestamping, rateRatio, etc.). An overview 
+        of the 5G and TSN GM clock distribution model via the 5GS is shown in <xref target="fig_5g-tsn"/>.
+      </t>
+
+
+<figure anchor="fig_5g-tsn" title="An overview of the 5G and TSN GM clock distribution model">
+        <artwork align="center"><![CDATA[
+<-TSN-D->    <----          5G Time Domain              ---->  <-TSN-D->
+
+                           +-----+                              +------+
+                           |5G GM|                              |TSN GM|
+                           +-----+                              +------+
+                              |M                                    |M
+                              |                   +---+-----+       VS
+ +----+                       VS    ,--------.    |   |NW-TT|    ,-----.
+ |End |   +-----+  +--+  Uu +---+  / PTP         |   +-----+   / TSN   
+ |Sta.|<==|DS-TT|<-|UE|<----|gNB|--|Compatible|-->|UPF      |<==|Working|
+ +----+S M+-----+  +--+S   M+---+M  5G TN    /  S+---------+S M Domain/
+                                    `--------'                   `-----'
+
+
+ Legend
+  TSN-D   : Non-3GPP TSN Domain
+  TN      : Transport Network
+  End Sta.: End Station
+  <--     : 5GS timing direction
+  <==     : TSN timing direction
+  M       : Master
+  S       : Slave
+]]></artwork>
+</figure>
+
+    <t>
+     In this model, two independent synchronizations are processing, and gNB only needs to be 
+     synchronized to the 5G GM clock. To enable TSN domain synchronization, the 5GS calculates 
+     and adds the measured residence time between the DS-TT and NW-TT into the Correction Field (CF) 
+     of the synchronization packet of the TSN working domain. The details are described in section 5.27 
+     in <xref target="TS.23.501-3GPP"/>.
+     </t>
+
+      <t>
+      From this feature, UP functions and protocol are needed to support TSN specified in 
+      <xref target="IEEE-Std-802.1AS"/> .
+      </t>
+
+
+      <t>
+        <list style="format ARCHI-Req-%d:" counter="arch-req">
+          <t>
+          Cellular IoT Support
+          </t>
+        </list>
+      </t> 
+
+      <t>
+      For supporting Cellular IoT (CIoT) (ref. <xref target="TS.22.261-3GPP"/>), optimizations of functionalities 
+      of the 5GS is needed. CIoT is in earlier 3GPP release also referred to as Machine Type Communication (MTC). 
+      Some of CIoT functionalities relevant to user plane are described in this section. The details of CIoT support 
+      is described in section 5.31 in <xref target="TS.23.501-3GPP"/>. 
+      </t>
+
+      <t>
+        <list style="symbols">
+        <t>Non-IP Data Delivery (NIDD)</t>
+        </list>
+      </t>
+
+      <t>
+      The 5GS may support Non-IP Data Delivery (NIDD) to handle Mobile Originated (MO) and Mobile 
+      Terminated (MT) communication for unstructured data. Thus, User Plane Protocol should be conveyable 
+      such unstructured data units.
+      </t>
+
+      <t>
+        <list style="symbols">
+        <t>Reliable Data Service (RDS)</t>
+        </list>
+      </t>
+
+      <t>
+      Reliable Data Service (RDS) may be used for a PDU session of unstructured type. The service provides 
+      a mechanism for the NEF or UPF to determine if the data was successfully delivered to the UE and for 
+      the UE to determine if the data was successfully delivered to the NEF or UPF. 
+      </t>
+
+      <t>
+      When the service is enabled, a protocol that uses a packet header to identify the requested 
+      acknowledgement from peered end-point may be used between end-points of the PDU session. 
+      In addition, port numbers in the header are used to identify the applications on the originator and 
+      receiver. The UE, NEF and the UPF may support reservation of the source and destination port 
+      numbers for their use and subsequent release of the reserved port numbers.
+      </t>
+
+      <t>
+      Therefore, UP protocol is required to have fields for containing information to determine 
+      normality of unstructured PDU sessions and used applications.
+      </t>
+
+       <t>
+        <list style="symbols">
+        <t>High Latency Communication</t>
+        </list>
+      </t>
+      
+       <t>
+       Functions for High Latency Communication may be used to handle mobile terminated (MT) 
+       communication with UEs being unreachable while using power saving functions. "High latency" 
+       refers to the initial response time before normal exchange of packets is established. High latency 
+       communication is supported by extended buffering of downlink data in the UPF, SMF or NEF 
+       when a UE is using power saving functions in CM-IDL state and the UE is not reachable.
+       </t>
+
+       <t>
+         <list style="symbols">
+         <t>Small Data Rate Control</t>
+         </list>
+       </t>
+
+       <t>
+       The SMF may apply Small Data Rate Control for PDU sessions based on, for example, operator policy, 
+       DNN, S-NSSAI, RAT type etc. The rate control may indicate following parameters in each of uplink 
+       and downlink.
+       </t>
+
+      <t>
+      <list style="hanging">
+          <t hangText="- an integer number of packets per time unit"/>
+          <t hangText="- an integer number of additional allowed exception report packets per time unit once the rate control limit has been reached"/>
+      </list>
+      </t>
+
+      <t>
+      The UE shall comply with this uplink rate control instruction. If the UE exceeds the uplink number of 
+      packet per time, the UE may still send uplink exception report if allowed and the number exception 
+      reports per time unit has not been exceeded. 
+      </t>
+
+      <t>
+      For the UPF and NEF,  Small Data Rate Control is based on a maximum allowed rate per direction. 
+      The UPF or NEF may enforce the uplink rate by discarding or delaying packets that exceed the 
+      maximum allowed rate. The UPF or NEF shall enforce the downlink rate by discarding or delaying 
+      packets that exceed the downlink part of the maximum allowed rate. 
+      </t>
+
+        <t>
+         <list style="symbols">
+         <t>User Plane CIoT 5GS Optimisation</t>
+         </list>
+       </t>
+
+       <t>
+       User Plane CIoT 5GS Optimization enables transfer of user plane data from CM-IDLE without the need 
+       for using the Service Request procedure by negotiation between UE and AMF in advance. In case that 
+       there are many devices being CM-IDLE state for long time, it would be better that User Plane Protocol i
+       s session less.
+       </t>
+    </section>
+ 
+
+
+     
+    
+
+
+
 
 <!-- Any more requirements? -->
                                                                         
@@ -2512,6 +2718,19 @@ PFCP-Session* [F-SEID]
         <date month="November" year="2016"/>
         </front>
       </reference>
+
+      <reference anchor='IEEE-Std-802.1AS' target="https://www.ieee802.org/1/pages/802.1as.html">
+        <front>
+        <title>Timing and Synchronization for Time-Sensitive Applications in Bridged Local Area Networks</title>
+        <author>
+        <organization>
+        Institute of Electrical and Electronics Engineers (IEEE)
+        </organization>
+        </author>
+        <date month="March" year="2011"/>
+        </front>
+      </reference>
+
 
     </references>
 
